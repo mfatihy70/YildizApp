@@ -1,0 +1,39 @@
+{
+   "version": "2.0.0",
+   "tasks": [
+      {
+         "label": "Flutter Run Windows",
+         "type": "shell",
+         "command": "flutter",
+         "args": [
+            "run",
+            "-d",
+            "windows"
+         ],
+         "group": {
+            "kind": "build",
+            "isDefault": true
+         },
+         "problemMatcher": [],
+         "detail": "Run Flutter app on Windows"
+      },
+      {
+         "label": "Flutter Run Web",
+         "type": "shell",
+         "command": "flutter",
+         "args": [
+           "run",
+           "-d",
+           "Edge"
+         ],
+         "group": {
+           "kind": "build",
+           "isDefault": false
+         },
+         "problemMatcher": [],
+         "detail": "Build Flutter APK"
+       }
+
+   ]
+}
+
