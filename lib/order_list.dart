@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: getAppTheme(),
+      theme: ThemeData.dark(),//getAppTheme(),
       home: OrderListScreen(),
     );
   }
@@ -72,7 +72,7 @@ class OrderListScreen extends StatelessWidget {
                             DataCell(Text(order.id.toString())),
                             DataCell(Text(order.name)),
                             DataCell(Text(order.address)),
-                            DataCell(Text(order.phoneNumber)),
+                            DataCell(Text(order.phone)),
                             DataCell(Text('${order.milk} liters')),
                             DataCell(Text('${order.egg} plates')),
                             DataCell(Text(order.other)),

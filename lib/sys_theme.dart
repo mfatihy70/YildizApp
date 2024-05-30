@@ -10,7 +10,7 @@ ThemeData getAppTheme() {
   if (Platform.isAndroid || Platform.isIOS || kIsWeb) {
     brightness = SchedulerBinding.instance.platformDispatcher.platformBrightness;
   } else {
-    brightness = window.platformBrightness;
+    brightness = PlatformDispatcher.instance.platformBrightness;
   }
 
   bool isDarkMode = brightness == Brightness.dark;
@@ -26,6 +26,12 @@ ThemeData getAppTheme() {
         textTheme: const TextTheme(
           bodyMedium: TextStyle(color: Colors.white),
           bodyLarge: TextStyle(color: Colors.white),
+        ),
+        filledButtonTheme: FilledButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.red),
+            foregroundColor:  MaterialStateProperty.all(Colors.white),
+          ),
         ),
       )
   : ThemeData.light();

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/sys_theme.dart';
+import 'order_class.dart';
+import 'db_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Order Form',
-      darkTheme: ThemeData(brightness: Brightness.dark,),
+      darkTheme: ThemeData.dark(), //getAppTheme(),
       home: OrderForm(),
     );
   }
@@ -21,6 +24,8 @@ class OrderForm extends StatefulWidget {
 }
 
 class OrderFormState extends State<OrderForm> {
+  var dbService = DatabaseService();
+
   var nameController = TextEditingController();
   var addressController = TextEditingController();
   var phoneController = TextEditingController();
@@ -71,18 +76,23 @@ class OrderFormState extends State<OrderForm> {
             Padding(
               padding: EdgeInsets.all(8.0),
               child: FilledButton(
+                //style: FilledButton.styleFrom(backgroundColor: Colors.blue,),
                 onPressed: () {
-                  // Access the text field data
-                  print('Name: ${nameController.text}');
-                  print('Address: ${addressController.text}');
-                  print('Phone Number: ${phoneController.text}');
-                  print('Milk Quantity: ${milkController.text}');
-                  print('Egg Quantity: ${eggController.text}');
-                  print('Others: ${otherController.text}');
+                  Order order = Order(
+                    id: 0, // This will be ignored if your DB auto-generates the ID
+                    name: nameController.text,
+                    address: addressController.text,
+                    phone: phoneController.text,
+                    milk: int.parse(milkController.text),
+                    egg: int.parse(eggController.text),
+                    other: otherController.text,
+                  );
+                  dbService.sendOrder(order);
+                  print("sent order");
                 },
                 child: Text('Submit'),
               ),
-            ),
+            )
           ],
         ),
       ),
