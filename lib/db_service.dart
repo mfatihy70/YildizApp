@@ -44,6 +44,26 @@ class DatabaseService {
     print('Order sent successfully');
   }
 
+  Future<void> deleteOrder(Order order) async {
+    await conn.execute(
+      "DELETE FROM orders WHERE name = '${order.name}' AND address = '${order.address}' AND phone = '${order.phone}' AND milk = ${order.milk} AND egg = ${order.egg} AND other = '${order.other}'",
+    );
+    await conn.execute(
+      "SELECT setval('orders_id_seq', COALESCE((SELECT MAX(id) FROM orders)+1, 1), false)",
+    );
+    print("order deleted successfully");
+  }
+
+  Future<void> deleteLastOrder() async {
+    await conn.execute(
+      'DELETE FROM orders WHERE id = (SELECT MAX(id) FROM orders)',
+    );
+    await conn.execute(
+      "SELECT setval('orders_id_seq', COALESCE((SELECT MAX(id) FROM orders)+1, 1), false)",
+    );
+    print("Last order deleted successfully");
+  }
+
   Future<void> close() async {
     await conn.close();
     print('Connection closed');

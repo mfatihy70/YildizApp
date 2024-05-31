@@ -3,9 +3,6 @@ import 'order_form.dart';
 import 'order_list.dart';
 import 'db_service.dart';
 
-/// Flutter code sample for [NavigationBar].
-
-void main() => runApp(const NavigationBarApp());
 
 class NavigationBarApp extends StatelessWidget {
   const NavigationBarApp({super.key});

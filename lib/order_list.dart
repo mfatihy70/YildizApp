@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'order_class.dart';
 import 'db_service.dart';
 
-void main() async {
-  final dbService = DatabaseService();
-  await dbService.connect(); // Wait for the connection to be established
-  runApp(MyApp(dbService: dbService));
-}
 
 class MyApp extends StatelessWidget {
   final DatabaseService dbService;
