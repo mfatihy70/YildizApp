@@ -29,8 +29,8 @@ ThemeData getAppTheme() {
         ),
         filledButtonTheme: FilledButtonThemeData(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.red),
-            foregroundColor:  MaterialStateProperty.all(Colors.white),
+            backgroundColor: WidgetStateProperty.all(Colors.red),
+            foregroundColor:  WidgetStateProperty.all(Colors.white),
           ),
         ),
       )

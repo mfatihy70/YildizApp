@@ -7,6 +7,9 @@ class DatabaseService {
   late Connection conn;
   final String host = Platform.isAndroid ? '10.0.2.2' : 'localhost';
 
+  DatabaseService() {
+    connect();
+  }
 
   Future<void> connect() async {
     conn = await Connection.open(
@@ -22,7 +25,7 @@ class DatabaseService {
   }
 
   Future<Order> getOrderById(int id) async {
-    final result = await conn.execute('SELECT * FROM orders WHERE id = ${id}');
+    final result = await conn.execute('SELECT * FROM orders WHERE id = $id');
     if (result.isNotEmpty) {
       return Order.fromMap(result.first.toColumnMap());
     }
