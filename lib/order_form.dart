@@ -37,7 +37,7 @@ class OrderFormState extends State<OrderForm> {
       body: SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
         child: Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(8.0),
           child: Column(
             children: [
               CustomTextField(
@@ -81,8 +81,21 @@ class OrderFormState extends State<OrderForm> {
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                
                 children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: OutlinedButton(
+                      onPressed: () {
+                        dbService.deleteLastOrder();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Last order has been deleted successfully!'),
+                          ),
+                        );
+                      },
+                      child: Text("Delete last order"),
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: FilledButton(
@@ -109,20 +122,6 @@ class OrderFormState extends State<OrderForm> {
                         );
                       },
                       child: Text('Send order'),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: OutlinedButton(
-                      onPressed: () {
-                        dbService.deleteLastOrder();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Last order has been deleted successfully!'),
-                          ),
-                        );
-                      },
-                      child: Text("Delete last order"),
                     ),
                   ),
                 ],

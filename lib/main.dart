@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'navbar.dart';
+import 'package:window_size/window_size.dart';
+import 'dart:io' show Platform;
 
-
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (Platform.isWindows) {
+    setWindowTitle('My Flutter App');
+    setWindowMinSize(const Size(420, 700));
+  }
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
