@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/sys_theme.dart';
 import 'order_class.dart';
 import 'db_service.dart';
 
@@ -7,7 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Order Form',
-      darkTheme: ThemeData.dark(), //getAppTheme(),
+      darkTheme: getAppTheme(), 
       home: OrderForm(),
     );
   }

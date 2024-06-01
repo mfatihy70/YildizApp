@@ -16,23 +16,6 @@ ThemeData getAppTheme() {
   bool isDarkMode = brightness == Brightness.dark;
 
   return isDarkMode
-    ? ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.black,
-        colorScheme: ColorScheme.dark(
-          primary: Colors.black,
-          secondary: Colors.white,
-        ),
-        textTheme: const TextTheme(
-          bodyMedium: TextStyle(color: Colors.white),
-          bodyLarge: TextStyle(color: Colors.white),
-        ),
-        filledButtonTheme: FilledButtonThemeData(
-          style: ButtonStyle(
-            backgroundColor: WidgetStateProperty.all(Colors.red),
-            foregroundColor:  WidgetStateProperty.all(Colors.white),
-          ),
-        ),
-      )
+    ? ThemeData.dark()
   : ThemeData.light();
 }

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/sys_theme.dart';
 import 'order_class.dart';
 import 'db_service.dart';
 
 
 class MyApp extends StatelessWidget {
   final DatabaseService dbService;
-
   MyApp({required this.dbService});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Order List',
-      darkTheme: ThemeData.dark(),
+      darkTheme: getAppTheme(),
       home: OrderList(dbService: dbService),
     );
   }
@@ -28,6 +28,11 @@ class OrderList extends StatefulWidget {
 }
 
 class OrderListState extends State<OrderList> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

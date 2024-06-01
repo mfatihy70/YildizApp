@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/sys_theme.dart';
 import 'order_form.dart';
 import 'order_list.dart';
 import 'db_service.dart';
@@ -10,7 +11,7 @@ class NavigationBarApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark(),
+      theme: getAppTheme(),
       home: const NavigationExample(),
     );
   }
