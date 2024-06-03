@@ -29,7 +29,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   int screenHeight = GetSystemMetrics(SM_CYSCREEN);
   Win32Window::Point origin(static_cast<int>(screenWidth / 3), static_cast<int>(screenHeight / 6));
   Win32Window::Size size(450, 800);
-  if (!window.Create(L"flutter_project", origin, size)) {
+  if (!window.Create(L"Yildiz App", origin, size)) {
     return EXIT_FAILURE;
   }
   window.SetQuitOnClose(true);

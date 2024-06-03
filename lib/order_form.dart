@@ -1,18 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/sys_theme.dart';
 import 'order_class.dart';
 import 'db_service.dart';
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Order Form',
-      darkTheme: getAppTheme(), 
-      home: OrderForm(),
-    );
-  }
-}
 
 class OrderForm extends StatefulWidget {
   @override
@@ -20,14 +8,14 @@ class OrderForm extends StatefulWidget {
 }
 
 class OrderFormState extends State<OrderForm> {
-  var dbService = DatabaseService();
+  final dbService = DatabaseService();
 
-  var nameController = TextEditingController();
-  var addressController = TextEditingController();
-  var phoneController = TextEditingController();
-  var milkController = TextEditingController();
-  var eggController = TextEditingController();
-  var otherController = TextEditingController();
+  final nameController = TextEditingController();
+  final addressController = TextEditingController();
+  final phoneController = TextEditingController();
+  final milkController = TextEditingController();
+  final eggController = TextEditingController();
+  final otherController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -76,31 +64,28 @@ class OrderFormState extends State<OrderForm> {
               ),
               CustomTextField(
                 controller: otherController,
-                labelText: 'Others',
+                labelText: 'Other',
                 keyboardType: TextInputType.text,
               ),
-
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: OutlinedButton(
-                      onPressed: () {
-                        dbService.deleteLastOrder();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Last order has been deleted successfully!'),
-                          ),
-                        );
+                      onPressed: () async {
+                        bool success = await dbService.deleteLastOrder();
+                        if (context.mounted) {
+                          showSnackBar(context, success, 'Last order has been deleted successfully!', 'Failed to delete last order.');
+                        }
                       },
-                      child: Text("Delete last order"),
+                      child: const Text("Delete last order"),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: FilledButton(
-                      onPressed: () {
+                      onPressed: () async {
                         Order order = Order(
                           name: nameController.text,
                           address: addressController.text,
@@ -109,20 +94,18 @@ class OrderFormState extends State<OrderForm> {
                           egg: int.tryParse(eggController.text) ?? 0,
                           other: otherController.text,
                         );
-                        dbService.sendOrder(order);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Order has been sent successfully!'),
-                            action: SnackBarAction(
-                              label: 'Undo',
-                              onPressed: () {
-                                dbService.deleteOrder(order);
-                              },
-                            ),
-                          ),
-                        );
+
+                        bool success = await dbService.sendOrder(order);
+                        if (context.mounted) {
+                        showSnackBarWithUndo(context, success, 'Order has been sent successfully!', 'Failed to send order.', () async {
+                          bool undoSuccess = await dbService.deleteOrder(order);
+                          if (context.mounted) {
+                            showSnackBar(context, undoSuccess, 'Order has been deleted successfully!', 'Failed to delete order.');
+                          }
+                          });
+                        }
                       },
-                      child: Text('Send order'),
+                      child: const Text('Send Order'),
                     ),
                   ),
                 ],
@@ -161,4 +144,26 @@ class CustomTextField extends StatelessWidget {
       ),
     );
   }
+}
+
+void showSnackBar(BuildContext context, bool success, String successMessage, String failureMessage) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(success ? successMessage : failureMessage),
+    ),
+  );
+}
+
+void showSnackBarWithUndo(BuildContext context, bool success, String successMessage, String failureMessage, VoidCallback undoCallback) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(success ? successMessage : failureMessage),
+      action: success
+          ? SnackBarAction(
+              label: 'Undo',
+              onPressed: undoCallback,
+            )
+          : null,
+    ),
+  );
 }

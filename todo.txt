@@ -1,0 +1,9 @@
+TODOs! sorted by priority
+
+- validate inputs, mark inputs as red if not valid
+- check if order is sent/deleted correctly to/from database
+
+- review the code & classes, optimize if needed
+- edit and or mark elements in list
+
+- at least one of the fields milk, egg or other should be filled

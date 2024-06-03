@@ -7,11 +7,7 @@ class DatabaseService {
   final String host = Platform.isAndroid ? '10.0.0.178' : 'localhost';
   bool _isConnected = false;
 
-  DatabaseService() {
-    connect();
-  }
-
-  Future<void> connect() async {
+   Future<void> connect() async {
     conn = await Connection.open(
       Endpoint(
         host: host,
@@ -46,34 +42,51 @@ class DatabaseService {
     return result.map((row) => Order.fromMap(row.toColumnMap())).toList();
   }
 
-  Future<void> sendOrder(Order order) async {
+  Future<bool> sendOrder(Order order) async {
     await ensureConnected();
-    await conn.execute(
-      "INSERT INTO orders (name, address, phone, milk, egg, other) VALUES ('${order.name}', '${order.address}', '${order.phone}', ${order.milk}, ${order.egg}, '${order.other}')"
-    );
-    print('Order sent successfully');
+    try {
+      await conn.execute(
+          "INSERT INTO orders (name, address, phone, milk, egg, other) VALUES ('${order.name}', '${order.address}', '${order.phone}', ${order.milk}, ${order.egg}, '${order.other}')");
+      print('Order sent successfully');
+      return true;
+    } catch (e) {
+      print('Failed to send order: $e');
+      return false;
+    }
   }
 
-  Future<void> deleteOrder(Order order) async {
+  Future<bool> deleteOrder(Order order) async {
     await ensureConnected();
-    await conn.execute(
-      "DELETE FROM orders WHERE name = '${order.name}' AND address = '${order.address}' AND phone = '${order.phone}' AND milk = ${order.milk} AND egg = ${order.egg} AND other = '${order.other}'",
-    );
-    await conn.execute(
-      "SELECT setval('orders_id_seq', COALESCE((SELECT MAX(id) FROM orders)+1, 1), false)",
-    );
-    print("Order deleted successfully");
+    try {
+      await conn.execute(
+        "DELETE FROM orders WHERE name = '${order.name}' AND address = '${order.address}' AND phone = '${order.phone}' AND milk = ${order.milk} AND egg = ${order.egg} AND other = '${order.other}'",
+      );
+      await conn.execute(
+        "SELECT setval('orders_id_seq', COALESCE((SELECT MAX(id) FROM orders)+1, 1), false)",
+      );
+      print("Order deleted successfully");
+      return true;
+    } catch (e) {
+      print('Failed to delete order: $e');
+      return false;
+    }
   }
 
-  Future<void> deleteLastOrder() async {
+  Future<bool> deleteLastOrder() async {
     await ensureConnected();
-    await conn.execute(
-      'DELETE FROM orders WHERE id = (SELECT MAX(id) FROM orders)',
-    );
-    await conn.execute(
-      "SELECT setval('orders_id_seq', COALESCE((SELECT MAX(id) FROM orders)+1, 1), false)",
-    );
-    print("Last order deleted successfully");
+    try {
+      await conn.execute(
+        'DELETE FROM orders WHERE id = (SELECT MAX(id) FROM orders)',
+      );
+      await conn.execute(
+        "SELECT setval('orders_id_seq', COALESCE((SELECT MAX(id) FROM orders)+1, 1), false)",
+      );
+      print("Last order deleted successfully");
+      return true;
+    } catch (e) {
+      print('Failed to delete last order: $e');
+      return false;
+    }
   }
 
   Future<void> close() async {
