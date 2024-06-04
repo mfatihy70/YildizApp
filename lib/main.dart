@@ -9,6 +9,7 @@ void main() {
   if (Platform.isWindows) {
     setWindowTitle('Yildiz App');
     setWindowMinSize(const Size(420, 700));
+    
   }
   runApp(MyApp());
 }
