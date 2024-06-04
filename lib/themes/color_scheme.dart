@@ -10,12 +10,10 @@ final ThemeData appTheme = ThemeData(
     secondary: AppColors.secondaryColor,
     secondaryContainer: AppColors.secondaryVariantColor,
     surface: AppColors.surfaceColor,
-    background: AppColors.backgroundColor,
     error: AppColors.errorColor,
     onPrimary: AppColors.onPrimaryColor,
     onSecondary: AppColors.onSecondaryColor,
     onSurface: AppColors.onSurfaceColor,
-    onBackground: AppColors.onBackgroundColor,
     onError: AppColors.onErrorColor,
     brightness: Brightness.light, // Change to Brightness.dark for dark theme
   ),

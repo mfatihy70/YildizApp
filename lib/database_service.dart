@@ -7,7 +7,7 @@ class DatabaseService {
   final String host = Platform.isAndroid ? '10.0.2.2' : 'localhost';
   bool _isConnected = false;
 
-   Future<void> connect() async {
+  Future<void> connect() async {
     conn = await Connection.open(
       Endpoint(
         host: host,
