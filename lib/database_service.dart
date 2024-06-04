@@ -4,7 +4,7 @@ import 'dart:io' show Platform;
 
 class DatabaseService {
   late Connection conn;
-  final String host = Platform.isAndroid ? '10.0.2.2' : 'localhost';
+  final String host = Platform.isAndroid ? '10.0.0.178' : 'localhost';
   bool _isConnected = false;
 
   Future<void> connect() async {

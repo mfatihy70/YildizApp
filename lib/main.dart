@@ -5,10 +5,11 @@ import 'dart:io' show Platform;
 
 void main() {
   if (Platform.isWindows) {
+    WidgetsFlutterBinding.ensureInitialized();
     setWindowTitle('Yildiz App');
     setWindowMinSize(const Size(420, 700));
   }
-
+  
   runApp(MyApp());
 }
 
