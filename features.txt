@@ -3,9 +3,13 @@ TODOs! sorted by priority
 - check the type of phone, milk and egg inputs
 - edit and or mark elements in list
 - at least one of the fields milk, egg or other should be filled
-- color scheme
-- localization
 - change order_class to take an array as parameter
 - server ip input
 - save locally when no db connection
+- localization
+- docker container
 - center the icon to right
+
+v0.0.2:
+- set custom color scheme
+- show snackbar when none of the fields milk, egg and other are filled

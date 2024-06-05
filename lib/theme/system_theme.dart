@@ -3,19 +3,19 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/scheduler.dart';
 import 'dart:io' show Platform;
 import 'dart:ui';
+import 'color_scheme.dart';
 
-ThemeData getAppTheme() {  
+ThemeData getAppTheme() {
   Brightness brightness;
 
   if (Platform.isAndroid || Platform.isIOS || kIsWeb) {
-    brightness = SchedulerBinding.instance.platformDispatcher.platformBrightness;
+    brightness =
+        SchedulerBinding.instance.platformDispatcher.platformBrightness;
   } else {
     brightness = PlatformDispatcher.instance.platformBrightness;
   }
 
   bool isDarkMode = brightness == Brightness.dark;
 
-  return isDarkMode
-    ? ThemeData.dark()
-  : ThemeData.light();
+  return isDarkMode ? customDark : customLight;
 }

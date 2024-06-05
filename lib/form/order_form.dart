@@ -17,97 +17,129 @@ class OrderFormState extends State<OrderForm> {
   final otherController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  String? validateMilkEggOther() {
+    if (milkController.text.isEmpty &&
+        eggController.text.isEmpty &&
+        otherController.text.isEmpty) {
+      return 'Please fill at least one of the fields: Milk, Egg, or Other';
+    }
+    return null;
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState?.validate() ?? false) {
+      String? additionalValidation = validateMilkEggOther();
+      if (additionalValidation != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(additionalValidation)),
+        );
+        return;
+      }
+      Order order = createOrder(
+        nameController,
+        addressController,
+        phoneController,
+        milkController,
+        eggController,
+        otherController,
+      );
+      handleSendOrder(context, order, (order) => handleUndoOrder(order));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Order Form'),
       ),
-      body: buildScrollableForm(
-        _formKey,
-        [
-          customTextField(
-            controller: nameController,
-            labelText: 'Name',
-            keyboardType: TextInputType.text,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter a name';
-              }
-              return null;
-            },
-          ),
-          customTextField(
-            controller: addressController,
-            labelText: 'Address',
-            keyboardType: TextInputType.text,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter an address';
-              }
-              return null;
-            },
-          ),
-          customTextField(
-            controller: phoneController,
-            labelText: 'Phone Number',
-            keyboardType: TextInputType.phone,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter a phone number';
-              }
-              if (!RegExp(r'^\d+$').hasMatch(value)) {
-                return 'Please enter a valid phone number';
-              }
-              return null;
-            },
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
-                child: customTextField(
-                  controller: milkController,
-                  labelText: 'Milk',
-                  keyboardType: TextInputType.number,
-                  validator: null,
-                ),
+              customTextField(
+                controller: nameController,
+                labelText: 'Name',
+                keyboardType: TextInputType.text,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a name';
+                  }
+                  return null;
+                },
               ),
-              Expanded(
-                child: customTextField(
-                  controller: eggController,
-                  labelText: 'Egg',
-                  keyboardType: TextInputType.number,
-                  validator: null,
-                ),
+              customTextField(
+                controller: addressController,
+                labelText: 'Address',
+                keyboardType: TextInputType.text,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter an address';
+                  }
+                  return null;
+                },
+              ),
+              customTextField(
+                controller: phoneController,
+                labelText: 'Phone Number',
+                keyboardType: TextInputType.phone,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a phone number';
+                  }
+                  if (!RegExp(r'^\d+$').hasMatch(value)) {
+                    return 'Please enter a valid phone number';
+                  }
+                  return null;
+                },
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: customTextField(
+                      controller: milkController,
+                      labelText: 'Milk',
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        return null; // No specific validation for this field
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: customTextField(
+                      controller: eggController,
+                      labelText: 'Egg',
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        return null; // No specific validation for this field
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              customTextField(
+                controller: otherController,
+                labelText: 'Other',
+                keyboardType: TextInputType.text,
+                validator: (value) {
+                  return null; // No specific validation for this field
+                },
+              ),
+              SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  customButton(1, () => handleDeleteLastOrder(context)),
+                  customButton(0, _submitForm),
+                ],
               ),
             ],
           ),
-          customTextField(
-            controller: otherController,
-            labelText: 'Other',
-            keyboardType: TextInputType.text,
-            validator: null,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              customButton(1, () => handleDeleteLastOrder(context)),
-              customButton(0, () async {
-                if (_formKey.currentState?.validate() ?? false) {
-                  Order order = createOrder(
-                      nameController,
-                      addressController,
-                      phoneController,
-                      milkController,
-                      eggController,
-                      otherController);
-                  await handleSendOrder(context, order, (order) => handleUndoOrder(order));
-                }
-              }),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }
