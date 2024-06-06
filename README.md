@@ -1,6 +1,6 @@
-# Flutter Project
+# Yildiz App
 
-A program which sends, shows and deletes orders from a PostgreSQL database using Flutter
+A Flutter app which can send, show and delete orders from a PostgreSQL database
 
 
 ![image](https://github.com/mfatihy70/FlutterProject/assets/60326832/168f2732-0d7b-4964-8cbe-ad5c8cb474e0)
