@@ -10,6 +10,7 @@ class OrderList extends StatefulWidget {
 class OrderListState extends State<OrderList> {
   final DatabaseService dbService = DatabaseService();
   late Future<List<Order>> orders;
+  int selectedIndex = -1; // Add this line
 
   @override
   void initState() {
@@ -79,8 +80,16 @@ class OrderListState extends State<OrderList> {
           DataColumn(label: Text('Egg')),
           DataColumn(label: Text('Others')),
         ],
-        rows: orders.map((order) {
+        rows: orders.asMap().entries.map((entry) {
+          int index = entry.key;
+          Order order = entry.value;
           return DataRow(
+            selected: index == selectedIndex,
+            onSelectChanged: (val) {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
             cells: [
               DataCell(Text(order.id.toString())),
               DataCell(Text(order.name)),
