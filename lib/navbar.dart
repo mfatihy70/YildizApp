@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import "theme/system_theme.dart";
+import 'package:yildiz_app/settings/settings.dart';
+import 'package:yildiz_app/home_page.dart';
+import 'theme/system_theme.dart';
 import 'form/order_form.dart';
 import 'order_list.dart';
 
@@ -12,8 +14,10 @@ class NavigationBarAppState extends State<NavigationBarApp> {
   int currentPageIndex = 0;
 
   final pages = <Widget>[
+    HomePage(),
     OrderForm(),
     OrderList(),
+    SettingsPage(),
   ];
 
   @override
@@ -30,6 +34,10 @@ class NavigationBarAppState extends State<NavigationBarApp> {
           selectedIndex: currentPageIndex,
           destinations: const <NavigationDestination>[
             NavigationDestination(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            NavigationDestination(
               icon: Icon(Icons.add_box),
               label: 'Order Form',
             ),
@@ -37,7 +45,11 @@ class NavigationBarAppState extends State<NavigationBarApp> {
               icon: Icon(Icons.list),
               label: 'Order List',
             ),
-            // Add other destinations here
+            NavigationDestination(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+            ),
+            
           ],
         ),
         body: pages[currentPageIndex],

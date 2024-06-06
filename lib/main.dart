@@ -7,9 +7,9 @@ void main() {
   if (Platform.isWindows) {
     WidgetsFlutterBinding.ensureInitialized();
     setWindowTitle('Yildiz App');
-    setWindowMinSize(const Size(420, 700));
+    setWindowMinSize(const Size(500, 750));
   }
-  
+
   runApp(MyApp());
 }
 

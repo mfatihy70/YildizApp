@@ -1,14 +1,20 @@
 TODOs! sorted by priority
 
-- check the type of phone, milk and egg inputs
-- edit and or mark elements in list
-- at least one of the fields milk, egg or other should be filled
-- change order_class to take an array as parameter
 - server ip input
 - save locally when no db connection
+- combobox for other products
 - localization
 - docker container
 - center the icon to right
+
+v0.1.1:
+- placeholder text for other settings pages
+- placeholder toggles on notification settings
+- app theme and language settings in general (working on functionality)
+- added home and settings pages
+- check the type of phone, milk and egg inputs
+- check if one of the fields milk, egg or other is filled
+- selectable rows, working on functionality 
 
 v0.0.2:
 - set custom color scheme

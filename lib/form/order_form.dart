@@ -17,33 +17,50 @@ class OrderFormState extends State<OrderForm> {
   final otherController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  String? validateMilkEggOther() {
+  String? milkError;
+  String? eggError;
+  String? otherError;
+
+  void _validateMilkEggOther() {
+    setState(() {
+      milkError = null;
+      eggError = null;
+      otherError = null;
+    });
+
+    bool isMilkNumeric = int.tryParse(milkController.text) != null;
+    bool isEggNumeric = int.tryParse(eggController.text) != null;
+
+    if (!isMilkNumeric) {
+      milkError = 'Please enter a number';
+    }
+
+    if (!isEggNumeric) {
+      eggError = 'Please enter a number';
+    }
+
     if (milkController.text.isEmpty &&
         eggController.text.isEmpty &&
         otherController.text.isEmpty) {
-      return 'Please fill at least one of the fields: Milk, Egg, or Other';
+      milkError = eggError = otherError = 'Please give an order';
     }
-    return null;
   }
 
   void _submitForm() {
+    _validateMilkEggOther();
+
     if (_formKey.currentState?.validate() ?? false) {
-      String? additionalValidation = validateMilkEggOther();
-      if (additionalValidation != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(additionalValidation)),
+      if (milkError == null && eggError == null && otherError == null) {
+        Order order = createOrder(
+          nameController,
+          addressController,
+          phoneController,
+          milkController,
+          eggController,
+          otherController,
         );
-        return;
+        handleSendOrder(context, order, (order) => handleUndoOrder(order));
       }
-      Order order = createOrder(
-        nameController,
-        addressController,
-        phoneController,
-        milkController,
-        eggController,
-        otherController,
-      );
-      handleSendOrder(context, order, (order) => handleUndoOrder(order));
     }
   }
 
@@ -105,7 +122,7 @@ class OrderFormState extends State<OrderForm> {
                       labelText: 'Milk',
                       keyboardType: TextInputType.number,
                       validator: (value) {
-                        return null; // No specific validation for this field
+                        return milkError;
                       },
                     ),
                   ),
@@ -115,7 +132,7 @@ class OrderFormState extends State<OrderForm> {
                       labelText: 'Egg',
                       keyboardType: TextInputType.number,
                       validator: (value) {
-                        return null; // No specific validation for this field
+                        return eggError;
                       },
                     ),
                   ),
@@ -126,7 +143,7 @@ class OrderFormState extends State<OrderForm> {
                 labelText: 'Other',
                 keyboardType: TextInputType.text,
                 validator: (value) {
-                  return null; // No specific validation for this field
+                  return otherError;
                 },
               ),
               SizedBox(height: 20.0),

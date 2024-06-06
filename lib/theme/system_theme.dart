@@ -19,3 +19,7 @@ ThemeData getAppTheme() {
 
   return isDarkMode ? customDark : customLight;
 }
+
+void setDarkMode() {
+  
+}
