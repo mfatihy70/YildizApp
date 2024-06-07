@@ -147,13 +147,15 @@ class OrderFormState extends State<OrderForm> {
                 },
               ),
               SizedBox(height: 20.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  customButton(1, () => handleDeleteLastOrder(context)),
-                  customButton(0, _submitForm),
-                ],
-              ),
+              Container(
+                // width: 70, // Set the width
+                // height: 30, // Set the height
+                alignment: Alignment.center,
+                child: FilledButton(
+                  onPressed: _submitForm,
+                  child: const Text("Send order"),
+                ),
+              )
             ],
           ),
         ),

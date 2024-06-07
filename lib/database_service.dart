@@ -27,15 +27,6 @@ class DatabaseService {
     }
   }
 
-  Future<Order> getOrderById(int id) async {
-    await ensureConnected();
-    final result = await conn.execute('SELECT * FROM orders WHERE id = $id');
-    if (result.isNotEmpty) {
-      return Order.fromMap(result.first.toColumnMap());
-    }
-    throw Exception('Order with ID $id not found');
-  }
-
   Future<List<Order>> getOrders() async {
     await ensureConnected();
     final result = await conn.execute('SELECT * FROM orders');
@@ -55,11 +46,11 @@ class DatabaseService {
     }
   }
 
-  Future<bool> deleteOrder(Order order) async {
+  Future<bool> deleteOrder(int? orderId) async {
     await ensureConnected();
     try {
       await conn.execute(
-        "DELETE FROM orders WHERE name = '${order.name}' AND address = '${order.address}' AND phone = '${order.phone}' AND milk = ${order.milk} AND egg = ${order.egg} AND other = '${order.other}'",
+        "DELETE FROM orders WHERE id = $orderId",
       );
       await conn.execute(
         "SELECT setval('orders_id_seq', COALESCE((SELECT MAX(id) FROM orders)+1, 1), false)",
@@ -68,23 +59,6 @@ class DatabaseService {
       return true;
     } catch (e) {
       print('Failed to delete order: $e');
-      return false;
-    }
-  }
-
-  Future<bool> deleteLastOrder() async {
-    await ensureConnected();
-    try {
-      await conn.execute(
-        'DELETE FROM orders WHERE id = (SELECT MAX(id) FROM orders)',
-      );
-      await conn.execute(
-        "SELECT setval('orders_id_seq', COALESCE((SELECT MAX(id) FROM orders)+1, 1), false)",
-      );
-      print("Last order deleted successfully");
-      return true;
-    } catch (e) {
-      print('Failed to delete last order: $e');
       return false;
     }
   }

@@ -1,11 +1,19 @@
 TODOs! sorted by priority
 
+- add content to home page
+- icons to language selection
 - server ip input
 - save locally when no db connection
 - combobox for other products
 - localization
 - docker container
 - center the icon to right
+
+v0.1.2
+- fixed icon name under src/main/AndroidManifest.xml
+- row selection now fully works
+- added delete selected order, ids will refresh on delete
+- removed delete last order button from order form
 
 v0.1.1:
 - placeholder text for other settings pages

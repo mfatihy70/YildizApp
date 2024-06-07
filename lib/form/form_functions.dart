@@ -37,17 +37,5 @@ Future<void> handleSendOrder(
 }
 
 Future<void> handleUndoOrder(Order order) async {
-  await dbService.deleteOrder(order);
-}
-
-Future<void> handleDeleteLastOrder(BuildContext context) async {
-  bool success = await dbService.deleteLastOrder();
-  if (context.mounted) {
-    showSnackBar(
-      context,
-      success,
-      'Last order has been deleted successfully!',
-      'Failed to delete last order.',
-    );
-  }
+  await dbService.deleteOrder(order.id);
 }

@@ -43,21 +43,6 @@ Widget customTextField({
   );
 }
 
-Widget customButton(int type, VoidCallback onPressed) {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: type == 0
-        ? FilledButton(
-            onPressed: onPressed,
-            child: const Text("Send order"),
-          )
-        : OutlinedButton(
-            onPressed: onPressed,
-            child: const Text("Delete last order"),
-          ),
-  );
-}
-
 void showSnackBar(BuildContext context, bool success, String successMessage,
     String failureMessage) {
   ScaffoldMessenger.of(context).showSnackBar(

@@ -14,8 +14,6 @@ ThemeData customDark = ThemeData.dark().copyWith(
         indicatorColor: dturquoise,
       ),
   navigationRailTheme: ThemeData.dark().navigationRailTheme.copyWith(
-        //backgroundColor: bturquoise,
-        //selectedIconTheme: IconThemeData(color: mturquoise),
         indicatorColor: mturquoise,
         labelType: NavigationRailLabelType.selected,
       ),
