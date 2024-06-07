@@ -39,3 +39,14 @@ Future<void> handleSendOrder(
 Future<void> handleUndoOrder(Order order) async {
   await dbService.deleteOrder(order.id);
 }
+
+void deleteSelectedSnackbar(BuildContext context, bool success, String successMessage, String errorMessage, VoidCallback onUndo) {
+  final snackBar = SnackBar(
+    content: Text(success ? successMessage : errorMessage),
+    action: SnackBarAction(
+      label: 'Undo',
+      onPressed: onUndo,
+    ),
+  );
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+}

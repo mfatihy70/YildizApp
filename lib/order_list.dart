@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'order_class.dart';
 import 'database_service.dart';
+import 'form/form_functions.dart' show deleteSelectedSnackbar;
 
 class OrderList extends StatefulWidget {
   @override
@@ -28,7 +29,8 @@ class OrderListState extends State<OrderList> {
 
   void deleteSelectedOrders() async {
     List<Order> currentOrders = await orders;
-    recentlyDeletedOrders = selectedIndices.map((index) => currentOrders[index]).toList();
+    recentlyDeletedOrders =
+        selectedIndices.map((index) => currentOrders[index]).toList();
 
     for (Order order in recentlyDeletedOrders) {
       await dbService.deleteOrder(order.id);
@@ -36,8 +38,8 @@ class OrderListState extends State<OrderList> {
 
     refreshOrders();
 
-    if (context.mounted) {
-      showSnackBarWithUndo(
+    if (mounted) {
+      deleteSelectedSnackbar(
         context,
         true,
         'Selected orders have been deleted.',
@@ -109,7 +111,8 @@ class OrderListState extends State<OrderList> {
                   child: const Icon(Icons.refresh),
                 ),
                 ElevatedButton(
-                  onPressed: selectedIndices.isEmpty ? null : deleteSelectedOrders,
+                  onPressed:
+                      selectedIndices.isEmpty ? null : deleteSelectedOrders,
                   child: const Text('Delete Selected'),
                 ),
               ],
@@ -207,15 +210,4 @@ Widget connectionCheck(
   } else {
     return Container();
   }
-}
-
-void showSnackBarWithUndo(BuildContext context, bool success, String successMessage, String errorMessage, VoidCallback onUndo) {
-  final snackBar = SnackBar(
-    content: Text(success ? successMessage : errorMessage),
-    action: SnackBarAction(
-      label: 'Undo',
-      onPressed: onUndo,
-    ),
-  );
-  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }

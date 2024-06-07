@@ -1,19 +1,28 @@
-TODOs! sorted by priority
+TODOs! sorted by priority:
 
-- add content to home page
 - icons to language selection
 - server ip input
 - save locally when no db connection
 - combobox for other products
 - localization
 - docker container
+- extract functions from order list 
 - center the icon to right
+
+
+Version feature track:
+
+v0.1.3
+- dark light mode switch works
+- filled homepage with products including hero views
+- volume slider to notifications settings
+- got rid of default purplish accent by overriding accent colors
 
 v0.1.2
 - fixed icon name under src/main/AndroidManifest.xml
 - row selection now fully works
 - added delete selected order, ids will refresh on delete
-- removed delete last order button from order form
+- removed delete last order button from order form and the functions of it
 
 v0.1.1:
 - placeholder text for other settings pages

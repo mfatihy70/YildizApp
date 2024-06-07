@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:yildiz_app/settings/settings.dart';
-import 'package:yildiz_app/home_page.dart';
-import 'theme/system_theme.dart';
+import 'home_page.dart';
 import 'form/order_form.dart';
 import 'order_list.dart';
+import 'settings/settings.dart';
+import 'package:provider/provider.dart';
+import 'theme_notifier.dart';
 
 class NavigationBarApp extends StatefulWidget {
   @override
@@ -22,38 +23,34 @@ class NavigationBarAppState extends State<NavigationBarApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: getAppTheme(),
-      home: Scaffold(
-        bottomNavigationBar: NavigationBar(
-          onDestinationSelected: (int index) {
-            setState(() {
-              currentPageIndex = index;
-            });
-          },
-          selectedIndex: currentPageIndex,
-          destinations: const <NavigationDestination>[
-            NavigationDestination(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.add_box),
-              label: 'Order Form',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.list),
-              label: 'Order List',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-            
-          ],
-        ),
-        body: pages[currentPageIndex],
+    return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        selectedIndex: currentPageIndex,
+        destinations: const <NavigationDestination>[
+          NavigationDestination(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.add_box),
+            label: 'Order Form',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.list),
+            label: 'Order List',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
       ),
+      body: pages[currentPageIndex],
     );
   }
 }

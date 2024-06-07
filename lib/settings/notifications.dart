@@ -8,6 +8,7 @@ class NotificationMenu extends StatefulWidget {
 class NotificationMenuState extends State<NotificationMenu> {
   bool allowNotifications = false;
   bool playSound = false;
+  double soundValue = 50;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,29 @@ class NotificationMenuState extends State<NotificationMenu> {
                 playSound = value;
               });
             },
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text('Sound Volume', style: TextStyle(fontSize: 16)),
+              Slider(
+                value: soundValue,
+                onChanged: allowNotifications && playSound
+                    ? (value) {
+                        setState(() {
+                          soundValue = value;
+                        });
+                      }
+                    : null,
+                min: 0,
+                max: 100,
+                divisions: 10,
+                label: soundValue.round().toString(),
+              ),
+            ],
           ),
         ),
       ],

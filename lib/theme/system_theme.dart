@@ -20,6 +20,25 @@ ThemeData getAppTheme() {
   return isDarkMode ? customDark : customLight;
 }
 
-void setDarkMode() {
-  
+class ThemeProvider extends ChangeNotifier {
+  ThemeMode _themeMode = ThemeMode.system;
+
+  ThemeMode get themeMode => _themeMode;
+
+  set themeMode(ThemeMode themeMode) {
+    _themeMode = themeMode;
+    notifyListeners();
+  }
 }
+
+// class ThemeNotifier extends ChangeNotifier {
+//   ThemeNotifier(this._isDarkMode);
+
+//   bool _isDarkMode;
+//   bool get isDarkMode => _isDarkMode;
+
+//   void setDarkMode(bool value) {
+//     _isDarkMode = value;
+//     notifyListeners();
+//   }
+// }

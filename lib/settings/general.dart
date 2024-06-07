@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../theme_notifier.dart';
 
-class GeneralMenu extends StatelessWidget {
+class GeneralMenu extends StatefulWidget {
+  @override
+  GeneralMenuState createState() => GeneralMenuState();
+}
+
+class GeneralMenuState extends State<GeneralMenu> {
+  String _selectedLanguage = 'English';
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -17,18 +26,26 @@ class GeneralMenu extends StatelessWidget {
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      ListTile(
-                        trailing: Icon(Icons.light_mode),
-                        title: Text('Light Theme'),
-                        onTap: () {
-                          Navigator.pop(context);
+                      RadioListTile<int>(
+                        value: 1,
+                        groupValue: Provider.of<ThemeNotifier>(context).isDarkMode ? 1 : 0,
+                        title: Text('Dark Theme'),
+                        onChanged: (int? value) {
+                          if (value != null) {
+                            Provider.of<ThemeNotifier>(context, listen: false).setDarkMode(true);
+                            Navigator.pop(context);
+                          }
                         },
                       ),
-                      ListTile(
-                        trailing: Icon(Icons.dark_mode),
-                        title: Text('Dark Theme'),
-                        onTap: () {
-                          Navigator.pop(context);
+                      RadioListTile<int>(
+                        value: 0,
+                        groupValue: Provider.of<ThemeNotifier>(context).isDarkMode ? 1 : 0,
+                        title: Text('Light Theme'),
+                        onChanged: (int? value) {
+                          if (value != null) {
+                            Provider.of<ThemeNotifier>(context, listen: false).setDarkMode(false);
+                            Navigator.pop(context);
+                          }
                         },
                       ),
                     ],
@@ -50,25 +67,43 @@ class GeneralMenu extends StatelessWidget {
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      ListTile(
-                        trailing: Icon(Icons.language),
-                        title: Text('Deutsch'),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      ListTile(
-                        trailing: Icon(Icons.language),
-                        title: Text('Türkçe'),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      ListTile(
-                        trailing: Icon(Icons.language),
+                      RadioListTile<String>(
+                        value: 'English',
+                        groupValue: _selectedLanguage,
                         title: Text('English'),
-                        onTap: () {
-                          Navigator.pop(context);
+                        onChanged: (String? value) {
+                          if (value != null) {
+                            setState(() {
+                              _selectedLanguage = value;
+                            });
+                            Navigator.pop(context);
+                          }
+                        },
+                      ),
+                      RadioListTile<String>(
+                        value: 'Deutsch',
+                        groupValue: _selectedLanguage,
+                        title: Text('Deutsch'),
+                        onChanged: (String? value) {
+                          if (value != null) {
+                            setState(() {
+                              _selectedLanguage = value;
+                            });
+                            Navigator.pop(context);
+                          }
+                        },
+                      ),
+                      RadioListTile<String>(
+                        value: 'Türkçe',
+                        groupValue: _selectedLanguage,
+                        title: Text('Türkçe'),
+                        onChanged: (String? value) {
+                          if (value != null) {
+                            setState(() {
+                              _selectedLanguage = value;
+                            });
+                            Navigator.pop(context);
+                          }
                         },
                       ),
                     ],
