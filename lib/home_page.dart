@@ -59,6 +59,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
+// Custom ProductCard widget
 class ProductCard extends StatelessWidget {
   final String id;
   final String title;
@@ -124,6 +125,7 @@ class ProductCard extends StatelessWidget {
   }
 }
 
+// Custom ProductDetailPage widget
 class ProductDetailPage extends StatelessWidget {
   final String id;
   final String title;

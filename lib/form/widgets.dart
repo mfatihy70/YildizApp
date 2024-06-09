@@ -1,21 +1,7 @@
 import 'package:flutter/material.dart';
 
-Widget buildScrollableForm(
-    GlobalKey<FormState> formKey, List<Widget> children) {
-  return SingleChildScrollView(
-    physics: ClampingScrollPhysics(),
-    child: Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Form(
-        key: formKey,
-        child: Column(
-          children: children,
-        ),
-      ),
-    ),
-  );
-}
 
+// Custom text field widget
 Widget customTextField({
   required TextEditingController controller,
   required String labelText,
@@ -43,6 +29,7 @@ Widget customTextField({
   );
 }
 
+// Show a snackbar with a message
 void showSnackBar(BuildContext context, bool success, String successMessage,
     String failureMessage) {
   ScaffoldMessenger.of(context).showSnackBar(
@@ -52,6 +39,7 @@ void showSnackBar(BuildContext context, bool success, String successMessage,
   );
 }
 
+// Show a snackbar with a message and an undo action
 void showSnackBarWithUndo(BuildContext context, bool success,
     String successMessage, String failureMessage, VoidCallback undoCallback) {
   ScaffoldMessenger.of(context).showSnackBar(

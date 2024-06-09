@@ -1,8 +1,8 @@
 TODOs! sorted by priority:
 
-- icons to language selection
 - save locally when no db connection
 - combobox for other products
+- user account
 - localization
 - docker container
 - check maximum input length
@@ -11,6 +11,13 @@ TODOs! sorted by priority:
 
 
 Version feature track:
+
+v0.1.5
+-- TODO final form validation in a seperate file
+- maximum input length check and other specific form validations
+- commented the components
+- updated database name which fixes connection crash
+- language icons show up
 
 v0.1.4
 - db ip address input from settings

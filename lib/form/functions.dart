@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../order_class.dart';
-import 'form_widgets.dart';
+import 'widgets.dart';
 import '../database_service.dart';
 
 DatabaseService dbService = DatabaseService();
 
+// Create an order object from the text field controllers
 Order createOrder(
     TextEditingController nameController,
     TextEditingController addressController,
@@ -16,12 +17,13 @@ Order createOrder(
     name: nameController.text,
     address: addressController.text,
     phone: phoneController.text,
-    milk: int.tryParse(milkController.text) ?? 0,
-    egg: int.tryParse(eggController.text) ?? 0,
+    milk: int.parse(milkController.text),
+    egg: int.parse(eggController.text),
     other: otherController.text,
   );
 }
 
+// Handle sending an order to the database while showing a snackbar
 Future<void> handleSendOrder(
     BuildContext context, Order order, Function(Order) handleUndoOrder) async {
   bool success = await dbService.sendOrder(context, order);
@@ -36,8 +38,9 @@ Future<void> handleSendOrder(
   }
 }
 
-
-void deleteSelectedSnackbar(BuildContext context, bool success, String successMessage, String errorMessage, VoidCallback onUndo) {
+// Show snackbar after deleting an order
+void deleteSelectedSnackbar(BuildContext context, bool success,
+    String successMessage, String errorMessage, VoidCallback onUndo) {
   final snackBar = SnackBar(
     content: Text(success ? successMessage : errorMessage),
     action: SnackBarAction(

@@ -103,7 +103,7 @@ ThemeData customLight = ThemeData.light().copyWith(
       brightness: Brightness.light,
     ),
     appBarTheme: AppBarTheme(
-      backgroundColor: w,//lturquoise,
+      backgroundColor: w,
       foregroundColor: b,
     ),
     navigationBarTheme: NavigationBarThemeData(

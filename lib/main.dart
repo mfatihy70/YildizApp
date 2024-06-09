@@ -8,19 +8,21 @@ import 'navbar.dart';
 import 'dart:io' show Platform;
 
 void main() {
+  // Set window size and title also ensuring widget initialization for Windows
   if (Platform.isWindows) {
     WidgetsFlutterBinding.ensureInitialized();
     setWindowTitle('Yildiz App');
     setWindowMinSize(const Size(500, 750));
   }
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ThemeNotifier()),
-        ChangeNotifierProvider(create: (_) => IpAddressNotifier()),
-      ],
-      child: MyApp(),
-    ),
+    //Changenotfiers for changes in the theme and ip address inside the app
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => ThemeNotifier()),
+          ChangeNotifierProvider(create: (_) => IpAddressNotifier()),
+        ],
+        child: MyApp(),
+      ),
   );
 }
 
@@ -30,6 +32,7 @@ class MyApp extends StatelessWidget {
     return Consumer<ThemeNotifier>(
       builder: (context, theme, _) {
         return MaterialApp(
+          // Get the system theme mode and set the app theme accordingly
           theme: theme.isDarkMode ? customDark : customLight,
           home: NavigationBarApp(),
         );

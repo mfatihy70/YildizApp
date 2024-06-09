@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 import 'form/order_form.dart';
-import 'order_list.dart';
+import 'list/order_list.dart';
 import 'settings/settings.dart';
 
 class NavigationBarApp extends StatefulWidget {
@@ -12,6 +12,7 @@ class NavigationBarApp extends StatefulWidget {
 class NavigationBarAppState extends State<NavigationBarApp> {
   int currentPageIndex = 0;
 
+  //App pages to navigate
   final pages = <Widget>[
     HomePage(),
     OrderForm(),

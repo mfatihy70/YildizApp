@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'order_class.dart';
-import 'database_service.dart';
-import 'form/form_functions.dart' show deleteSelectedSnackbar;
+import '../order_class.dart';
+import '../database_service.dart';
+import '../form/functions.dart' show deleteSelectedSnackbar;
 
 class OrderList extends StatefulWidget {
   @override
@@ -14,12 +14,14 @@ class OrderListState extends State<OrderList> {
   List<int> selectedIndices = [];
   List<Order> recentlyDeletedOrders = [];
 
+  //Initialize the orders list at the start
   @override
   void initState() {
     super.initState();
     orders = dbService.getOrders(context);
   }
 
+  //Refresh the orders list
   void refreshOrders() {
     setState(() {
       orders = dbService.getOrders(context);
@@ -27,6 +29,7 @@ class OrderListState extends State<OrderList> {
     });
   }
 
+  //Delete selected orders
   void deleteSelectedOrders() async {
     List<Order> currentOrders = await orders;
     recentlyDeletedOrders =
@@ -51,6 +54,7 @@ class OrderListState extends State<OrderList> {
     }
   }
 
+  //Undo the delete operation
   void undoDelete() async {
     for (Order order in recentlyDeletedOrders) {
       await dbService.sendOrder(context, order);
@@ -60,6 +64,7 @@ class OrderListState extends State<OrderList> {
     recentlyDeletedOrders.clear();
   }
 
+  //Build the components of the order list
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,6 +131,7 @@ class OrderListState extends State<OrderList> {
   }
 }
 
+//Widget to build the data table of orders
 Widget buildOrderDataTable(
   List<Order> orders,
   List<int> selectedIndices,
@@ -168,6 +174,7 @@ Widget buildOrderDataTable(
   );
 }
 
+//Widget to check the connection status
 Widget connectionCheck(
   List<int> selectedIndices,
   BuildContext context,
@@ -189,7 +196,7 @@ Widget connectionCheck(
       String errorMessage;
       if (snapshot.error.toString().contains('Failed host lookup')) {
         errorMessage =
-            'Unable to connect to server. Please check your internet connection or IP address in the settings.';
+            'Can\'t connect to database. Please check your internet connection or database settings.';
       } else {
         errorMessage = 'Error: ${snapshot.error}';
       }

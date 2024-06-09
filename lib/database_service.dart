@@ -20,7 +20,7 @@ class DatabaseService {
       settings: ConnectionSettings(sslMode: SslMode.disable),
     );
     _isConnected = true;
-    print('Connected to NewDB!');
+    print('Connected to database!');
   }
 
   Future<void> ensureConnected(BuildContext context) async {
