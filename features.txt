@@ -1,16 +1,21 @@
 TODOs! sorted by priority:
 
 - icons to language selection
-- server ip input
 - save locally when no db connection
 - combobox for other products
 - localization
 - docker container
-- extract functions from order list 
+- check maximum input length
+- extract functions from order list
 - center the icon to right
 
 
 Version feature track:
+
+v0.1.4
+- db ip address input from settings
+- finally removed every single trace of that default purplish accent
+- default theme set as system theme while maintaining theme switch functionality
 
 v0.1.3
 - dark light mode switch works

@@ -17,12 +17,12 @@ class OrderListState extends State<OrderList> {
   @override
   void initState() {
     super.initState();
-    orders = dbService.getOrders();
+    orders = dbService.getOrders(context);
   }
 
   void refreshOrders() {
     setState(() {
-      orders = dbService.getOrders();
+      orders = dbService.getOrders(context);
       selectedIndices.clear();
     });
   }
@@ -33,7 +33,9 @@ class OrderListState extends State<OrderList> {
         selectedIndices.map((index) => currentOrders[index]).toList();
 
     for (Order order in recentlyDeletedOrders) {
-      await dbService.deleteOrder(order.id);
+      if (mounted) {
+        await dbService.deleteOrder(context, order.id);
+      }
     }
 
     refreshOrders();
@@ -51,7 +53,7 @@ class OrderListState extends State<OrderList> {
 
   void undoDelete() async {
     for (Order order in recentlyDeletedOrders) {
-      await dbService.sendOrder(order);
+      await dbService.sendOrder(context, order);
     }
 
     refreshOrders();

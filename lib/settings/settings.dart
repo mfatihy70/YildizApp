@@ -49,7 +49,7 @@ class SettingsPageState extends State<SettingsPage> {
               });
             },
           ),
-          VerticalDivider(thickness: 1, width: 1),
+          VerticalDivider(thickness: 1, width: 1, color: Colors.grey),
           Expanded(
             child: _getSelectedPage(_selectedIndex, context),
           ),

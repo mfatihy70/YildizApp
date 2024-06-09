@@ -1,17 +1,19 @@
+import 'package:flutter/material.dart';
 import 'package:postgres/postgres.dart';
 import 'order_class.dart';
-import 'dart:io' show Platform;
+import 'package:provider/provider.dart';
+import 'settings/ip_address_notifier.dart';
 
 class DatabaseService {
   late Connection conn;
-  final String host = Platform.isAndroid ? '10.0.0.178' : 'localhost';
   bool _isConnected = false;
 
-  Future<void> connect() async {
+  Future<void> connect(BuildContext context) async {
+    final String host = Provider.of<IpAddressNotifier>(context, listen: false).ipAddress;
     conn = await Connection.open(
       Endpoint(
         host: host,
-        database: 'NewDB',
+        database: 'YildizDB',
         username: 'postgres',
         password: 'admin',
       ),
@@ -21,20 +23,20 @@ class DatabaseService {
     print('Connected to NewDB!');
   }
 
-  Future<void> ensureConnected() async {
+  Future<void> ensureConnected(BuildContext context) async {
     if (!_isConnected) {
-      await connect();
+      await connect(context);
     }
   }
 
-  Future<List<Order>> getOrders() async {
-    await ensureConnected();
+  Future<List<Order>> getOrders(BuildContext context) async {
+    await ensureConnected(context);
     final result = await conn.execute('SELECT * FROM orders');
     return result.map((row) => Order.fromMap(row.toColumnMap())).toList();
   }
 
-  Future<bool> sendOrder(Order order) async {
-    await ensureConnected();
+  Future<bool> sendOrder(BuildContext context, Order order) async {
+    await ensureConnected(context);
     try {
       await conn.execute(
           "INSERT INTO orders (name, address, phone, milk, egg, other) VALUES ('${order.name}', '${order.address}', '${order.phone}', ${order.milk}, ${order.egg}, '${order.other}')");
@@ -46,8 +48,8 @@ class DatabaseService {
     }
   }
 
-  Future<bool> deleteOrder(int? orderId) async {
-    await ensureConnected();
+  Future<bool> deleteOrder(BuildContext context, int? orderId) async {
+    await ensureConnected(context);
     try {
       await conn.execute(
         "DELETE FROM orders WHERE id = $orderId",

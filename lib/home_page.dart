@@ -26,7 +26,8 @@ class HomePage extends StatelessWidget {
           ProductCard(
             id: '3',
             title: 'Nuts',
-            description: 'Delicious and nutritious nuts just as fresh as they can be.',
+            description:
+                'Delicious and nutritious nuts just as fresh as they can be.',
             price: '19€',
             imagePath: 'assets/images/nuts.jpeg',
           ),
@@ -40,7 +41,8 @@ class HomePage extends StatelessWidget {
           ProductCard(
             id: '5',
             title: 'Yogurt',
-            description: 'Creamy and delicious yogurt homemade from fresh milk.',
+            description:
+                'Creamy and delicious yogurt homemade from fresh milk.',
             price: '10€',
             imagePath: 'assets/images/yogurt.jpeg',
           ),
@@ -92,7 +94,6 @@ class ProductCard extends StatelessWidget {
                     description: description,
                     price: price,
                     imagePath: imagePath,
-                    
                   ),
                 ),
               );

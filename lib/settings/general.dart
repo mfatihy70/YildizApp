@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../theme_notifier.dart';
+import '../theme/theme_notifier.dart';
+import 'ip_address_notifier.dart';
 
 class GeneralMenu extends StatefulWidget {
   @override
@@ -9,6 +10,13 @@ class GeneralMenu extends StatefulWidget {
 
 class GeneralMenuState extends State<GeneralMenu> {
   String _selectedLanguage = 'English';
+  final TextEditingController _ipController = TextEditingController();
+
+  @override
+  void dispose() {
+    _ipController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +92,10 @@ class GeneralMenuState extends State<GeneralMenu> {
                         value: 'Deutsch',
                         groupValue: _selectedLanguage,
                         title: Text('Deutsch'),
+                        secondary: ImageIcon(
+                          AssetImage('assets/flags/de.png'),
+                          color: Color(0xFF3A5A98),
+                        ),
                         onChanged: (String? value) {
                           if (value != null) {
                             setState(() {
@@ -108,6 +120,41 @@ class GeneralMenuState extends State<GeneralMenu> {
                       ),
                     ],
                   ),
+                );
+              },
+            );
+          },
+        ),
+        ListTile(
+          title: Text('Database Server'),
+          trailing: Icon(Icons.storage),
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('Enter IP Address'),
+                  content: TextField(
+                    controller: _ipController,
+                    decoration: InputDecoration(
+                      labelText: 'IP Address',
+                    ),
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      child: Text('Cancel'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    TextButton(
+                      child: Text('Save'),
+                      onPressed: () {
+                        Provider.of<IpAddressNotifier>(context, listen: false).updateIpAddress(_ipController.text);
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
                 );
               },
             );

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'theme/color_scheme.dart';
-import 'theme_notifier.dart';
-import 'navbar.dart';
 import 'package:window_size/window_size.dart';
+import 'theme/color_scheme.dart';
+import 'theme/theme_notifier.dart';
+import 'settings/ip_address_notifier.dart';
+import 'navbar.dart';
 import 'dart:io' show Platform;
 
 void main() {
@@ -13,8 +14,11 @@ void main() {
     setWindowMinSize(const Size(500, 750));
   }
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => ThemeNotifier(false), // Default to light theme
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeNotifier()),
+        ChangeNotifierProvider(create: (_) => IpAddressNotifier()),
+      ],
       child: MyApp(),
     ),
   );

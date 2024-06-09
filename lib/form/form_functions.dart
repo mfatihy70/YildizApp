@@ -24,7 +24,7 @@ Order createOrder(
 
 Future<void> handleSendOrder(
     BuildContext context, Order order, Function(Order) handleUndoOrder) async {
-  bool success = await dbService.sendOrder(order);
+  bool success = await dbService.sendOrder(context, order);
   if (context.mounted) {
     showSnackBarWithUndo(
       context,
@@ -36,9 +36,6 @@ Future<void> handleSendOrder(
   }
 }
 
-Future<void> handleUndoOrder(Order order) async {
-  await dbService.deleteOrder(order.id);
-}
 
 void deleteSelectedSnackbar(BuildContext context, bool success, String successMessage, String errorMessage, VoidCallback onUndo) {
   final snackBar = SnackBar(

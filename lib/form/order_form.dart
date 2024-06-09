@@ -46,9 +46,9 @@ class OrderFormState extends State<OrderForm> {
     }
   }
 
-  void _submitForm() {
+  Future<void> _submitForm() async {
     _validateMilkEggOther();
-
+  
     if (_formKey.currentState?.validate() ?? false) {
       if (milkError == null && eggError == null && otherError == null) {
         Order order = createOrder(
@@ -59,7 +59,7 @@ class OrderFormState extends State<OrderForm> {
           eggController,
           otherController,
         );
-        handleSendOrder(context, order, (order) => handleUndoOrder(order));
+        handleSendOrder(context, order, (order) async => await dbService.deleteOrder(context, order.id));
       }
     }
   }
@@ -148,8 +148,6 @@ class OrderFormState extends State<OrderForm> {
               ),
               SizedBox(height: 20.0),
               Container(
-                // width: 70, // Set the width
-                // height: 30, // Set the height
                 alignment: Alignment.center,
                 child: FilledButton(
                   onPressed: _submitForm,

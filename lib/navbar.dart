@@ -3,8 +3,6 @@ import 'home_page.dart';
 import 'form/order_form.dart';
 import 'order_list.dart';
 import 'settings/settings.dart';
-import 'package:provider/provider.dart';
-import 'theme_notifier.dart';
 
 class NavigationBarApp extends StatefulWidget {
   @override
