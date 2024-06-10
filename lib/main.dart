@@ -16,13 +16,13 @@ void main() {
   }
   runApp(
     //Changenotfiers for changes in the theme and ip address inside the app
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => ThemeNotifier()),
-          ChangeNotifierProvider(create: (_) => IpAddressNotifier()),
-        ],
-        child: MyApp(),
-      ),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeNotifier()),
+        ChangeNotifierProvider(create: (_) => IpAddressNotifier()),
+      ],
+      child: MyApp(),
+    ),
   );
 }
 

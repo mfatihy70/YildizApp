@@ -5,15 +5,19 @@ TODOs! sorted by priority:
 - user account
 - localization
 - docker container
-- check maximum input length
 - extract functions from order list
+- Build context lint highlights
+- code cleanup
 - center the icon to right
 
 
 Version feature track:
 
 v0.1.5
--- TODO final form validation in a seperate file
+- fixed undo send order error which was caused because of index being 0
+- final form validation in a seperate file, i hope
+- handled database client errors in order_list and order_form files
+- removed dialog windows shadow
 - maximum input length check and other specific form validations
 - commented the components
 - updated database name which fixes connection crash

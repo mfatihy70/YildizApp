@@ -14,22 +14,27 @@ class OrderListState extends State<OrderList> {
   List<int> selectedIndices = [];
   List<Order> recentlyDeletedOrders = [];
 
-  //Initialize the orders list at the start
   @override
   void initState() {
     super.initState();
-    orders = dbService.getOrders(context);
+    orders = getOrdersWithErrorHandling();
   }
 
-  //Refresh the orders list
   void refreshOrders() {
     setState(() {
-      orders = dbService.getOrders(context);
+      orders = getOrdersWithErrorHandling();
       selectedIndices.clear();
     });
   }
 
-  //Delete selected orders
+  Future<List<Order>> getOrdersWithErrorHandling() async {
+    try {
+      return await dbService.getOrders(context);
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
   void deleteSelectedOrders() async {
     List<Order> currentOrders = await orders;
     recentlyDeletedOrders =
@@ -54,7 +59,6 @@ class OrderListState extends State<OrderList> {
     }
   }
 
-  //Undo the delete operation
   void undoDelete() async {
     for (Order order in recentlyDeletedOrders) {
       await dbService.sendOrder(context, order);
@@ -64,13 +68,13 @@ class OrderListState extends State<OrderList> {
     recentlyDeletedOrders.clear();
   }
 
-  //Build the components of the order list
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Order List'),
       ),
+      // Display the orders in a data table
       body: Column(
         children: [
           Expanded(
@@ -106,6 +110,7 @@ class OrderListState extends State<OrderList> {
               },
             ),
           ),
+          // Add a row with buttons for refreshing and deleting selected orders
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
@@ -131,7 +136,7 @@ class OrderListState extends State<OrderList> {
   }
 }
 
-//Widget to build the data table of orders
+// Build the data table widget
 Widget buildOrderDataTable(
   List<Order> orders,
   List<int> selectedIndices,
@@ -164,8 +169,8 @@ Widget buildOrderDataTable(
             DataCell(Text(order.name)),
             DataCell(Text(order.address)),
             DataCell(Text(order.phone)),
-            DataCell(Text('${order.milk} liters')),
-            DataCell(Text('${order.egg} plates')),
+            DataCell(Text(order.milk == 0 ? '' : '${order.milk} liters')),
+            DataCell(Text(order.egg == 0 ? '' : '${order.egg} plates')),
             DataCell(Text(order.other)),
           ],
         );
@@ -174,7 +179,7 @@ Widget buildOrderDataTable(
   );
 }
 
-//Widget to check the connection status
+// Check the connection state and return the appropriate widget
 Widget connectionCheck(
   List<int> selectedIndices,
   BuildContext context,
@@ -197,6 +202,11 @@ Widget connectionCheck(
       if (snapshot.error.toString().contains('Failed host lookup')) {
         errorMessage =
             'Can\'t connect to database. Please check your internet connection or database settings.';
+      } else if (snapshot.error
+          .toString()
+          .contains('The underlying socket to Postgres')) {
+        errorMessage =
+            'Invalid client settings. Please check the database client settings.';
       } else {
         errorMessage = 'Error: ${snapshot.error}';
       }

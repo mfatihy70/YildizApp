@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'widgets.dart';
 import 'functions.dart';
 import '../order_class.dart';
+import '../database_service.dart'; // Ensure to import DatabaseService
+import 'validations.dart'; // Import the validations
 
 class OrderForm extends StatefulWidget {
   @override
@@ -9,7 +11,6 @@ class OrderForm extends StatefulWidget {
 }
 
 class OrderFormState extends State<OrderForm> {
-  //Controllers for the text fields
   final nameController = TextEditingController();
   final addressController = TextEditingController();
   final phoneController = TextEditingController();
@@ -18,40 +19,62 @@ class OrderFormState extends State<OrderForm> {
   final otherController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  //Error messages for the text fields
+  final DatabaseService dbService = DatabaseService();
+
   String? milkError;
   String? eggError;
   String? otherError;
 
-  //Validation for the order fields
-  void _validateMilkEggOther() {
-    setState(() {
-      milkError = null;
-      eggError = null;
-      otherError = null;
-    });
-
-    bool isMilkNumeric = int.tryParse(milkController.text) != null;
-    bool isEggNumeric = int.tryParse(eggController.text) != null;
-
-    if (!isMilkNumeric) {
-      milkError = 'Please enter a number';
-    }
-
-    if (!isEggNumeric) {
-      eggError = 'Please enter a number';
-    }
-
-    if (milkController.text.isEmpty &&
-        eggController.text.isEmpty &&
-        otherController.text.isEmpty) {
-      milkError = eggError = otherError = 'Please give an order';
+  Future<bool> _checkDatabaseConnection(BuildContext context) async {
+    try {
+      await dbService.ensureConnected(context);
+      return true;
+    } catch (e) {
+      // ignore: use_build_context_synchronously
+      _showConnectionErrorDialog(context, e.toString());
+      return false;
     }
   }
 
-  //Submit the form to db after validation
+  void _showConnectionErrorDialog(BuildContext context, String message) {
+    if (ModalRoute.of(context)?.isCurrent ?? false) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Connection Error'),
+            content: Text('Failed to connect to the database: $message'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Close'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   Future<void> _submitForm() async {
-    _validateMilkEggOther();
+    bool isConnected = await _checkDatabaseConnection(context);
+
+    if (!isConnected) {
+      return;
+    }
+
+    setState(() {
+      validateMilkEggOther(
+        milkController,
+        eggController,
+        otherController,
+        (message) => milkError = message,
+        (message) => eggError = message,
+        (message) => otherError = message,
+      );
+    });
 
     if (_formKey.currentState?.validate() ?? false) {
       if (milkError == null && eggError == null && otherError == null) {
@@ -63,13 +86,14 @@ class OrderFormState extends State<OrderForm> {
           eggController,
           otherController,
         );
+        
+        // ignore: use_build_context_synchronously
         handleSendOrder(context, order,
-            (order) async => await dbService.deleteOrder(context, order.id));
+            (order) async => await dbService.deleteOrder(context, order.id));//deleteLastOrder(context));
       }
     }
   }
 
-  //UI Components for the order form
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,56 +111,19 @@ class OrderFormState extends State<OrderForm> {
                 controller: nameController,
                 labelText: 'Name',
                 keyboardType: TextInputType.text,
-                validator: (value) {
-                  // if (value == null || value.isEmpty) {
-                  //   return 'Please enter a name';
-                  // }
-                  // if (value.length < 3) {
-                  //   return 'Name must be at least 3 characters';
-                  // }
-                  // if (value.length > 30) {
-                  //   return 'Name must be at most 30 characters';
-                  // }
-                  // return null;
-                },
+                validator: validateName,
               ),
               customTextField(
                 controller: addressController,
                 labelText: 'Address',
                 keyboardType: TextInputType.text,
-                validator: (value) {
-                  // if (value == null || value.isEmpty) {
-                  //   return 'Please enter an address';
-                  // }
-                  // if (value.length < 6) {
-                  //   return 'Address must be at least 6 characters';
-                  // }
-
-                  // if (value.length > 50) {
-                  //   return 'Address must be at most 50 characters';
-                  // }
-                  // return null;
-                },
+                validator: validateAddress,
               ),
               customTextField(
                 controller: phoneController,
                 labelText: 'Phone Number',
                 keyboardType: TextInputType.phone,
-                validator: (value) {
-                  // if (value == null || value.isEmpty) {
-                  //   return 'Please enter a phone number';
-                  // }
-                  // if (!RegExp(r'^\+?\d+$').hasMatch(value)) {
-                  //   return 'Please enter a valid phone number';
-                  // }
-                  // if (value.length < 11) {
-                  //   return 'Phone number must be at least 11 digits';
-                  // }
-                  // if (value.length > 15) {
-                  //   return 'Phone number must be at most 15 digits';
-                  // }
-                  // return null;
-                },
+                validator: validatePhoneNumber,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -147,20 +134,7 @@ class OrderFormState extends State<OrderForm> {
                       labelText: 'Milk in liters',
                       keyboardType: TextInputType.number,
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter a number';
-                        }
-                        int? parsedValue = int.tryParse(value!);
-                        if (parsedValue == null) {
-                          return 'Please enter a valid number';
-                        } else if (parsedValue > 50) {
-                          return 'Milk orders must be at most 50 liters';
-                        } else if (parsedValue < 5) {
-                          return 'Please enter a number that is not less than 5';
-                        } else if (parsedValue % 5 != 0) {
-                          return 'Please enter a number that is divisible by 5';
-                        }
-                         return milkError;
+                        return milkError;
                       },
                     ),
                   ),
@@ -170,16 +144,7 @@ class OrderFormState extends State<OrderForm> {
                       labelText: 'Egg in plates',
                       keyboardType: TextInputType.number,
                       validator: (value) {
-                        // if (value == null || value.isEmpty) {
-                        //   return 'Please enter a number';
-                        // }
-                        // int? parsedValue = int.tryParse(value!);
-                        // if (parsedValue == null) {
-                        //   return 'Please enter a valid number';
-                        // } else if (parsedValue > 50) {
-                        //   return 'Egg orders must be at most 50 plates';
-                        // }
-                         return eggError;
+                        return eggError;
                       },
                     ),
                   ),
@@ -190,9 +155,6 @@ class OrderFormState extends State<OrderForm> {
                 labelText: 'Other',
                 keyboardType: TextInputType.text,
                 validator: (value) {
-                  if (value!.length > 50) {
-                    return 'Other must be at most 50 characters';
-                  }
                   return otherError;
                 },
               ),
@@ -203,7 +165,7 @@ class OrderFormState extends State<OrderForm> {
                   onPressed: _submitForm,
                   child: const Text("Send order"),
                 ),
-              )
+              ),
             ],
           ),
         ),

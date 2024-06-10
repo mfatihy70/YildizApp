@@ -17,8 +17,8 @@ Order createOrder(
     name: nameController.text,
     address: addressController.text,
     phone: phoneController.text,
-    milk: int.parse(milkController.text),
-    egg: int.parse(eggController.text),
+    milk: int.tryParse(milkController.text) ?? 0,
+    egg: int.tryParse(eggController.text) ?? 0,
     other: otherController.text,
   );
 }

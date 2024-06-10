@@ -9,18 +9,24 @@ class DatabaseService {
   bool _isConnected = false;
 
   Future<void> connect(BuildContext context) async {
-    final String host = Provider.of<IpAddressNotifier>(context, listen: false).ipAddress;
-    conn = await Connection.open(
-      Endpoint(
-        host: host,
-        database: 'YildizDB',
-        username: 'postgres',
-        password: 'admin',
-      ),
-      settings: ConnectionSettings(sslMode: SslMode.disable),
-    );
-    _isConnected = true;
-    print('Connected to database!');
+    final String host =
+        Provider.of<IpAddressNotifier>(context, listen: false).ipAddress;
+    try {
+      conn = await Connection.open(
+        Endpoint(
+          host: host,
+          database: 'YildizDB',
+          username: 'postgres',
+          password: 'admin',
+        ),
+        settings: ConnectionSettings(sslMode: SslMode.disable),
+      );
+      _isConnected = true;
+      print('Connected to database!');
+    } catch (e) {
+      _isConnected = false;
+      throw Exception('Failed to connect to the database: $e');
+    }
   }
 
   Future<void> ensureConnected(BuildContext context) async {
@@ -31,15 +37,21 @@ class DatabaseService {
 
   Future<List<Order>> getOrders(BuildContext context) async {
     await ensureConnected(context);
-    final result = await conn.execute('SELECT * FROM orders');
-    return result.map((row) => Order.fromMap(row.toColumnMap())).toList();
+    try {
+      final result = await conn.execute('SELECT * FROM orders');
+      return result.map((row) => Order.fromMap(row.toColumnMap())).toList();
+    } catch (e) {
+      throw Exception('Failed to fetch orders: $e');
+    }
   }
 
   Future<bool> sendOrder(BuildContext context, Order order) async {
     await ensureConnected(context);
     try {
-      await conn.execute(
-          "INSERT INTO orders (name, address, phone, milk, egg, other) VALUES ('${order.name}', '${order.address}', '${order.phone}', ${order.milk}, ${order.egg}, '${order.other}')");
+      await conn.execute('''
+        INSERT INTO orders (name, address, phone, milk, egg, other) 
+        VALUES ('${order.name}', '${order.address}', '${order.phone}', 
+        ${order.milk}, ${order.egg}, '${order.other}')''');
       print('Order sent successfully');
       return true;
     } catch (e) {
@@ -54,6 +66,10 @@ class DatabaseService {
       await conn.execute(
         "DELETE FROM orders WHERE id = $orderId",
       );
+      if (orderId == null) {
+        await conn.execute(
+            "DELETE FROM orders WHERE id = (SELECT MAX(id) FROM orders)");
+      }
       await conn.execute(
         "SELECT setval('orders_id_seq', COALESCE((SELECT MAX(id) FROM orders)+1, 1), false)",
       );
@@ -61,6 +77,23 @@ class DatabaseService {
       return true;
     } catch (e) {
       print('Failed to delete order: $e');
+      return false;
+    }
+  }
+
+  Future<bool> deleteLastOrder(BuildContext context) async {
+    await ensureConnected(context);
+    try {
+      await conn.execute(
+        "DELETE FROM orders WHERE id = (SELECT MAX(id) FROM orders)",
+      );
+      await conn.execute(
+        "SELECT setval('orders_id_seq', COALESCE((SELECT MAX(id) FROM orders)+1, 1), false)",
+      );
+      print("Last order deleted successfully");
+      return true;
+    } catch (e) {
+      print('Failed to delete last order: $e');
       return false;
     }
   }
