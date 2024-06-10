@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../theme/theme_notifier.dart';
-import '../settings/ip_address_notifier.dart';
+import '../../theme/theme_notifier.dart';
+import 'ip_address_notifier.dart';
 
 class GeneralMenu extends StatefulWidget {
   @override

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'widgets.dart';
 import 'functions.dart';
 import '../order_class.dart';
-import '../database_service.dart'; // Ensure to import DatabaseService
-import 'validations.dart'; // Import the validations
+import '../database_service.dart';
+import 'validations.dart';
 
 class OrderForm extends StatefulWidget {
   @override
@@ -86,10 +86,10 @@ class OrderFormState extends State<OrderForm> {
           eggController,
           otherController,
         );
-        
+
         // ignore: use_build_context_synchronously
         handleSendOrder(context, order,
-            (order) async => await dbService.deleteOrder(context, order.id));//deleteLastOrder(context));
+            (order) async => await dbService.deleteOrder(context, order.id));
       }
     }
   }

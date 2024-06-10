@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
-import 'form/order_form.dart';
-import 'list/order_list.dart';
+import '../form/order_form.dart';
+import '../list/order_list.dart';
 import 'settings/settings.dart';
 
 class NavigationBarApp extends StatefulWidget {

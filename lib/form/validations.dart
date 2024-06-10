@@ -7,8 +7,8 @@ String? validateName(String? value) {
   if (value.length < 3) {
     return 'Name must be at least 3 characters';
   }
-  if (value.length > 30) {
-    return 'Name must be at most 30 characters';
+  if (value.length > 50) {
+    return 'Name must be at most 50 characters';
   }
   return null;
 }

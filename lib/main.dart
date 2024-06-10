@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:window_size/window_size.dart';
 import 'theme/color_scheme.dart';
 import 'theme/theme_notifier.dart';
-import 'settings/ip_address_notifier.dart';
-import 'navbar.dart';
+import 'navigation/settings/ip_address_notifier.dart';
+import 'navigation/navbar.dart';
 import 'dart:io' show Platform;
 
 void main() {

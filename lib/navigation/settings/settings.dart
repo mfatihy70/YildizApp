@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yildiz_app/settings/general.dart';
-import 'package:yildiz_app/settings/notifications.dart';
+import 'package:yildiz_app/navigation/settings/general.dart';
+import 'package:yildiz_app/navigation/settings/notifications.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
