@@ -27,7 +27,7 @@ To get started with the Yildiz App, clone the repository and ensure you have Flu
 
 ## Contributing
 
-Contributions are welcome! Please read our [contributing guidelines](CONTRIBUTING.md) to get started.
+Contributions are welcome! Just create a PR or write to me.
 
 
 ![home](https://github.com/mfatihy70/YildizApp/assets/60326832/0581f5bc-915b-479a-bb44-14a8e2f24b2e)
