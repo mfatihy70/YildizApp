@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../order_class.dart';
 import '../database_service.dart';
-import '../form/functions.dart' show deleteSelectedSnackbar;
+import '../form/form_functions.dart' show deleteSelectedSnackbar;
+import 'list_functions.dart';
 
 class OrderList extends StatefulWidget {
   @override
@@ -72,7 +73,7 @@ class OrderListState extends State<OrderList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Order List'),
+        title: Center(child: Text('Order List')),
       ),
       // Display the orders in a data table
       body: Column(
@@ -168,7 +169,7 @@ Widget buildOrderDataTable(
             DataCell(Text(index.toString())), // Display the updated index
             DataCell(Text(order.name)),
             DataCell(Text(order.address)),
-            DataCell(Text(order.phone)),
+            DataCell(Text(formatPhoneNumber(order.phone))),
             DataCell(Text(order.milk == 0 ? '' : '${order.milk} liters')),
             DataCell(Text(order.egg == 0 ? '' : '${order.egg} plates')),
             DataCell(Text(order.other)),

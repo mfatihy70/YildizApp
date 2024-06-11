@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:window_size/window_size.dart';
+import 'package:yildiz_app/settings/notifiers.dart';
 import 'theme/color_scheme.dart';
-import 'theme/theme_notifier.dart';
-import 'navigation/settings/ip_address_notifier.dart';
 import 'navigation/navbar.dart';
 import 'dart:io' show Platform;
 
@@ -15,11 +14,9 @@ void main() {
     setWindowMinSize(const Size(500, 750));
   }
   runApp(
-    //Changenotfiers for changes in the theme and ip address inside the app
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ThemeNotifier()),
-        ChangeNotifierProvider(create: (_) => IpAddressNotifier()),
+        ChangeNotifierProvider(create: (_) => SettingsNotifier()),
       ],
       child: MyApp(),
     ),
@@ -29,11 +26,11 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeNotifier>(
-      builder: (context, theme, _) {
+    return Consumer<SettingsNotifier>(
+      builder: (context, settingsNotifier, _) {
         return MaterialApp(
           // Get the system theme mode and set the app theme accordingly
-          theme: theme.isDarkMode ? customDark : customLight,
+          theme: settingsNotifier.darkTheme ? customDark : customLight,
           home: NavigationBarApp(),
         );
       },

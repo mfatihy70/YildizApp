@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
-class NotificationMenu extends StatefulWidget {
+class NotificationSettings extends StatefulWidget {
   @override
-  NotificationMenuState createState() => NotificationMenuState();
+  NotificationSettingsState createState() => NotificationSettingsState();
+  String name() => 'Notifications';
 }
 
-class NotificationMenuState extends State<NotificationMenu> {
+class NotificationSettingsState extends State<NotificationSettings> {
   bool allowNotifications = false;
   bool playSound = false;
   double soundValue = 50;
+
 
   @override
   Widget build(BuildContext context) {

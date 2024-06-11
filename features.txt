@@ -1,21 +1,29 @@
 TODOs! sorted by priority:
 
-- save locally when no db connection
-- combobox for other products
-- user account
-- localization/language settings
-- docker container
+Must do / Should do / Could do:
+# localization/language settings
+- user account v2.0
+- center the icon to right
+# docker container
 - extract functions from order list
 - Build context lint highlights
 - homepage search field
-- code cleanup
-- center the icon to right
+# combobox for other products
+- save locally when no db connection
 
 
-Version feature track:
+v0.1.7
+- about page
+- dynamic settings title for each nav destination
+- vertical divider in nav rail is more transparent
+- Settings title change according to navigated setting
+- added db connection settings
+- merged widgets to form_functions
+- formatted phone number on order_list
+- darkened dialog barrier color
 
 v0.1.6
-- automatic table creation with requiered contstrains
+- automatic table creation with required contstrains
 - small file structure change, settings, homepage and navbar under navigation
 - error and bug fixes for release
 

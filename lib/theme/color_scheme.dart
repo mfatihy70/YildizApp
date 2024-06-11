@@ -68,7 +68,7 @@ ThemeData customDark = ThemeData.dark().copyWith(
     ),
     dialogTheme: DialogTheme(
         backgroundColor: b,
-        barrierColor: Color.fromARGB(171, 67, 67, 67)),
+        barrierColor: Color.fromARGB(67, 67, 67, 67)),
     textTheme: TextTheme(
       bodyLarge: TextStyle(color: w),
       bodyMedium: TextStyle(color: w),

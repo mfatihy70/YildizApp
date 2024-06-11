@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'widgets.dart';
-import 'functions.dart';
+import 'form_functions.dart';
 import '../order_class.dart';
 import '../database_service.dart';
-import 'validations.dart';
+import 'validation.dart';
 
 class OrderForm extends StatefulWidget {
   @override
@@ -17,88 +16,20 @@ class OrderFormState extends State<OrderForm> {
   final milkController = TextEditingController();
   final eggController = TextEditingController();
   final otherController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
 
-  final DatabaseService dbService = DatabaseService();
+  final dbService = DatabaseService();
 
   String? milkError;
   String? eggError;
   String? otherError;
 
-  Future<bool> _checkDatabaseConnection(BuildContext context) async {
-    try {
-      await dbService.ensureConnected(context);
-      return true;
-    } catch (e) {
-      // ignore: use_build_context_synchronously
-      _showConnectionErrorDialog(context, e.toString());
-      return false;
-    }
-  }
-
-  void _showConnectionErrorDialog(BuildContext context, String message) {
-    if (ModalRoute.of(context)?.isCurrent ?? false) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Connection Error'),
-            content: Text('Failed to connect to the database: $message'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Close'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
-
-  Future<void> _submitForm() async {
-    bool isConnected = await _checkDatabaseConnection(context);
-
-    if (!isConnected) {
-      return;
-    }
-
-    setState(() {
-      validateMilkEggOther(
-        milkController,
-        eggController,
-        otherController,
-        (message) => milkError = message,
-        (message) => eggError = message,
-        (message) => otherError = message,
-      );
-    });
-
-    if (_formKey.currentState?.validate() ?? false) {
-      if (milkError == null && eggError == null && otherError == null) {
-        Order order = createOrder(
-          nameController,
-          addressController,
-          phoneController,
-          milkController,
-          eggController,
-          otherController,
-        );
-
-        // ignore: use_build_context_synchronously
-        handleSendOrder(context, order,
-            (order) async => await dbService.deleteOrder(context, order.id));
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order Form'),
+        title: Center(child: Text('Order Form')),
       ),
       body: Form(
         key: _formKey,
@@ -171,5 +102,41 @@ class OrderFormState extends State<OrderForm> {
         ),
       ),
     );
+  }
+
+  Future<void> _submitForm() async {
+    bool isConnected = await checkDatabaseConnection(context);
+
+    if (!isConnected) {
+      return;
+    }
+
+    setState(() {
+      validateMilkEggOther(
+        milkController,
+        eggController,
+        otherController,
+        (message) => milkError = message,
+        (message) => eggError = message,
+        (message) => otherError = message,
+      );
+    });
+
+    if (_formKey.currentState?.validate() ?? false) {
+      if (milkError == null && eggError == null && otherError == null) {
+        Order order = createOrder(
+          nameController,
+          addressController,
+          phoneController,
+          milkController,
+          eggController,
+          otherController,
+        );
+
+        // ignore: use_build_context_synchronously
+        handleSendOrder(context, order,
+            (order) async => await dbService.deleteOrder(context, order.id));
+      }
+    }
   }
 }

@@ -30,13 +30,15 @@ String? validatePhoneNumber(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter a phone number';
   }
-  if (!RegExp(r'^\+?\d+$').hasMatch(value)) {
+  if (!RegExp(r'^\+?[\d\s]+$').hasMatch(value)) {
     return 'Please enter a valid phone number';
   }
-  if (value.length < 11) {
-    return 'Phone number must be at least 11 digits';
+  int numDigits = value.replaceAll(' ', '').length;
+
+  if (numDigits < 10) {
+    return 'Phone number must be at least 10 digits';
   }
-  if (value.length > 15) {
+  if (numDigits > 15) {
     return 'Phone number must be at most 15 digits';
   }
   return null;

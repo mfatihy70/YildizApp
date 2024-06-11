@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:postgres/postgres.dart';
+import 'package:yildiz_app/settings/notifiers.dart';
 import 'order_class.dart';
 import 'package:provider/provider.dart';
-import 'navigation/settings/ip_address_notifier.dart';
 
 class DatabaseService {
   late Connection conn;
   bool _isConnected = false;
 
   Future<void> connect(BuildContext context) async {
-    final String host =
-        Provider.of<IpAddressNotifier>(context, listen: false).ipAddress;
+    final host =
+        Provider.of<SettingsNotifier>(context, listen: false).ipAddress;
+    final database =
+        Provider.of<SettingsNotifier>(context, listen: false).dbName;
+    final username =
+        Provider.of<SettingsNotifier>(context, listen: false).username;
+    final password =
+        Provider.of<SettingsNotifier>(context, listen: false).password;
+
     try {
       conn = await Connection.open(
         Endpoint(
           host: host,
-          database: 'YildizDB',
-          username: 'postgres',
-          password: 'admin',
+          database: database,
+          username: username,
+          password: password,
         ),
         settings: ConnectionSettings(sslMode: SslMode.disable),
       );
@@ -50,19 +57,18 @@ class DatabaseService {
     try {
       await conn.execute('CREATE SEQUENCE IF NOT EXISTS orders_id_seq;');
       await conn.execute('''
-      CREATE TABLE IF NOT EXISTS orders
-      (
+      CREATE TABLE IF NOT EXISTS public.orders(
           name character varying(30) COLLATE pg_catalog."default" NOT NULL,
           address character varying(50) COLLATE pg_catalog."default" NOT NULL,
-          phone character varying(15) COLLATE pg_catalog."default" NOT NULL,
+          phone character varying(20) COLLATE pg_catalog."default" NOT NULL,
           milk integer,
           egg integer,
           other character varying(50) COLLATE pg_catalog."default",
           id integer NOT NULL DEFAULT nextval('orders_id_seq'::regclass),
           CONSTRAINT orders_pkey PRIMARY KEY (id)
-      ) TABLESPACE pg_default;
-    ''');
-      await conn.execute('ALTER TABLE IF EXISTS orders OWNER to postgres;');
+      ) TABLESPACE pg_default;''');
+      await conn
+          .execute('ALTER TABLE IF EXISTS public.orders OWNER to postgres;');
       print('Table created successfully');
       return true;
     } catch (e) {
