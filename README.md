@@ -10,7 +10,7 @@ By default, the application is configured to connect to a PostgreSQL database wi
 - Username: `postgres`
 - Password: `admin`
 
-After sending the first order, the app automatically creates a table named `orders` with the required constraints.
+When sending the first order, the app automatically creates a table named `orders` with the required constraints.
 
 ## Features
 
