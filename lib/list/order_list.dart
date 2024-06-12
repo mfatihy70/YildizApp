@@ -3,6 +3,7 @@ import '../order_class.dart';
 import '../database_service.dart';
 import '../form/form_functions.dart' show deleteSelectedSnackbar;
 import 'list_functions.dart';
+import 'package:yildiz_app/localization.dart';
 
 class OrderList extends StatefulWidget {
   @override
@@ -18,17 +19,17 @@ class OrderListState extends State<OrderList> {
   @override
   void initState() {
     super.initState();
-    orders = getOrdersWithErrorHandling();
+    orders = getOrders();
   }
 
   void refreshOrders() {
     setState(() {
-      orders = getOrdersWithErrorHandling();
+      orders = getOrders();
       selectedIndices.clear();
     });
   }
 
-  Future<List<Order>> getOrdersWithErrorHandling() async {
+  Future<List<Order>> getOrders() async {
     try {
       return await dbService.getOrders(context);
     } catch (e) {
@@ -53,8 +54,8 @@ class OrderListState extends State<OrderList> {
       deleteSelectedSnackbar(
         context,
         true,
-        'Selected orders have been deleted.',
-        'Failed to delete selected orders.',
+        l('selected_orders_deleted', context),
+        l('failed_to_delete_orders', context),
         undoDelete,
       );
     }
@@ -73,7 +74,7 @@ class OrderListState extends State<OrderList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Order List')),
+        title: Center(child: Text(l('order_list', context))),
       ),
       // Display the orders in a data table
       body: Column(
@@ -82,6 +83,7 @@ class OrderListState extends State<OrderList> {
             child: FutureBuilder<List<Order>>(
               future: orders,
               builder: (context, snapshot) {
+                // This return gets the orders and builds a table
                 return connectionCheck(
                   selectedIndices,
                   context,
@@ -126,7 +128,7 @@ class OrderListState extends State<OrderList> {
                 ElevatedButton(
                   onPressed:
                       selectedIndices.isEmpty ? null : deleteSelectedOrders,
-                  child: const Text('Delete Selected'),
+                  child: Text(l('delete_selected', context)),
                 ),
               ],
             ),
@@ -134,100 +136,5 @@ class OrderListState extends State<OrderList> {
         ],
       ),
     );
-  }
-}
-
-// Build the data table widget
-Widget buildOrderDataTable(
-  List<Order> orders,
-  List<int> selectedIndices,
-  ValueChanged<int> onSelectedIndexChange,
-  ValueChanged<bool> onToggleSelectAll,
-) {
-  return InteractiveViewer(
-    constrained: false,
-    scaleEnabled: false,
-    child: DataTable(
-      columns: [
-        const DataColumn(label: Text('#')),
-        const DataColumn(label: Text('Name')),
-        const DataColumn(label: Text('Address')),
-        const DataColumn(label: Text('Phone')),
-        const DataColumn(label: Text('Milk')),
-        const DataColumn(label: Text('Egg')),
-        const DataColumn(label: Text('Others')),
-      ],
-      rows: orders.asMap().entries.map((entry) {
-        int index = entry.key + 1; // Update index dynamically
-        Order order = entry.value;
-        return DataRow(
-          selected: selectedIndices.contains(index - 1),
-          onSelectChanged: (val) {
-            onSelectedIndexChange(index - 1);
-          },
-          cells: [
-            DataCell(Text(index.toString())), // Display the updated index
-            DataCell(Text(order.name)),
-            DataCell(Text(order.address)),
-            DataCell(Text(formatPhoneNumber(order.phone))),
-            DataCell(Text(order.milk == 0 ? '' : '${order.milk} liters')),
-            DataCell(Text(order.egg == 0 ? '' : '${order.egg} plates')),
-            DataCell(Text(order.other)),
-          ],
-        );
-      }).toList(),
-    ),
-  );
-}
-
-// Check the connection state and return the appropriate widget
-Widget connectionCheck(
-  List<int> selectedIndices,
-  BuildContext context,
-  AsyncSnapshot<List<Order>> snapshot,
-  ValueChanged<int> onSelectedIndexChange,
-  ValueChanged<bool> onToggleSelectAll,
-) {
-  if (snapshot.connectionState == ConnectionState.waiting) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Center(child: CircularProgressIndicator()),
-        SizedBox(height: 16.0),
-        Center(child: Text('Loading orders...')),
-      ],
-    );
-  } else if (snapshot.connectionState == ConnectionState.done) {
-    if (snapshot.hasError) {
-      String errorMessage;
-      if (snapshot.error.toString().contains('Failed host lookup')) {
-        errorMessage =
-            'Can\'t connect to database. Please check your internet connection or database settings.';
-      } else if (snapshot.error
-          .toString()
-          .contains('The underlying socket to Postgres')) {
-        errorMessage =
-            'Invalid client settings. Please check the database client settings.';
-      } else {
-        errorMessage = 'Error: ${snapshot.error}';
-      }
-      return Center(
-        child: Text(
-          errorMessage,
-          textAlign: TextAlign.center,
-        ),
-      );
-    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-      return Center(child: Text('No orders found'));
-    } else {
-      return buildOrderDataTable(
-        snapshot.data!,
-        selectedIndices,
-        onSelectedIndexChange,
-        onToggleSelectAll,
-      );
-    }
-  } else {
-    return Container();
   }
 }

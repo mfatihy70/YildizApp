@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yildiz_app/localization.dart';
 
 class NotificationSettings extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class NotificationSettingsState extends State<NotificationSettings> {
     return ListView(
       children: <Widget>[
         ListTile(
-          title: Text('Allow Notifications'),
+          title: Text(l('allow_notifications', context)),
           trailing: Switch(
             value: allowNotifications,
             onChanged: (value) {
@@ -28,7 +29,7 @@ class NotificationSettingsState extends State<NotificationSettings> {
           ),
         ),
         ListTile(
-          title: Text('Play sound on notification'),
+          title: Text(l('play_sound_notifications', context)),
           trailing: Switch(
             value: playSound,
             onChanged: (value) {
@@ -43,7 +44,7 @@ class NotificationSettingsState extends State<NotificationSettings> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text('Sound Volume', style: TextStyle(fontSize: 16)),
+              Text(l('sound_volume', context), style: TextStyle(fontSize: 16)),
               Slider(
                 value: soundValue,
                 onChanged: allowNotifications && playSound

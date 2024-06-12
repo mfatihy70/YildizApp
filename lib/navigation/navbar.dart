@@ -3,6 +3,7 @@ import 'home_page.dart';
 import '../form/order_form.dart';
 import '../list/order_list.dart';
 import '../settings/settings.dart';
+import 'package:yildiz_app/localization.dart';
 
 class NavigationBarApp extends StatefulWidget {
   @override
@@ -10,6 +11,7 @@ class NavigationBarApp extends StatefulWidget {
 }
 
 class NavigationBarAppState extends State<NavigationBarApp> {
+  l(key) => AppLocalizations.of(context).translate(key);
   int currentPageIndex = 0;
 
   //App pages to navigate
@@ -30,22 +32,22 @@ class NavigationBarAppState extends State<NavigationBarApp> {
           });
         },
         selectedIndex: currentPageIndex,
-        destinations: const <NavigationDestination>[
+        destinations: <NavigationDestination>[
           NavigationDestination(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: l('home'),
           ),
           NavigationDestination(
             icon: Icon(Icons.add_box),
-            label: 'Order Form',
+            label: l('order_form'),
           ),
           NavigationDestination(
             icon: Icon(Icons.list),
-            label: 'Order List',
+            label: l('order_list'),
           ),
           NavigationDestination(
             icon: Icon(Icons.settings),
-            label: 'Settings',
+            label: l('settings'),
           ),
         ],
       ),

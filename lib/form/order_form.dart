@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yildiz_app/localization.dart';
 import 'form_functions.dart';
 import '../order_class.dart';
 import '../database_service.dart';
@@ -29,7 +30,7 @@ class OrderFormState extends State<OrderForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Order Form')),
+        title: Center(child: Text(l('order_form', context))),
       ),
       body: Form(
         key: _formKey,
@@ -40,21 +41,27 @@ class OrderFormState extends State<OrderForm> {
             children: [
               customTextField(
                 controller: nameController,
-                labelText: 'Name',
+                labelText: l('name', context),
                 keyboardType: TextInputType.text,
-                validator: validateName,
+                validator: (value) {
+                  return validateName(context, value);
+                },
               ),
               customTextField(
                 controller: addressController,
-                labelText: 'Address',
+                labelText: l('address', context),
                 keyboardType: TextInputType.text,
-                validator: validateAddress,
+                validator: (value) {
+                  return validateAddress(context, value);
+                },
               ),
               customTextField(
                 controller: phoneController,
-                labelText: 'Phone Number',
+                labelText: l('phone_number', context),
                 keyboardType: TextInputType.phone,
-                validator: validatePhoneNumber,
+                validator: (value) {
+                  return validatePhoneNumber(context, value);
+                }
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -62,9 +69,9 @@ class OrderFormState extends State<OrderForm> {
                   Expanded(
                     child: customTextField(
                       controller: milkController,
-                      labelText: 'Milk in liters',
+                      labelText: l('milk_in_liters', context),
                       keyboardType: TextInputType.number,
-                      validator: (value) {
+                      validator: (String? value) {
                         return milkError;
                       },
                     ),
@@ -72,7 +79,7 @@ class OrderFormState extends State<OrderForm> {
                   Expanded(
                     child: customTextField(
                       controller: eggController,
-                      labelText: 'Egg in plates',
+                      labelText: l('egg_in_plates', context),
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         return eggError;
@@ -83,7 +90,7 @@ class OrderFormState extends State<OrderForm> {
               ),
               customTextField(
                 controller: otherController,
-                labelText: 'Other',
+                labelText: l('other', context),
                 keyboardType: TextInputType.text,
                 validator: (value) {
                   return otherError;
@@ -94,7 +101,7 @@ class OrderFormState extends State<OrderForm> {
                 alignment: Alignment.center,
                 child: FilledButton(
                   onPressed: _submitForm,
-                  child: const Text("Send order"),
+                  child: Text(l("send_order", context)),
                 ),
               ),
             ],
@@ -119,6 +126,7 @@ class OrderFormState extends State<OrderForm> {
         (message) => milkError = message,
         (message) => eggError = message,
         (message) => otherError = message,
+        context,
       );
     });
 

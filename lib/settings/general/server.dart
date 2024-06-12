@@ -1,5 +1,5 @@
-// Filename: database_server_tile.dart
 import 'package:flutter/material.dart';
+import 'package:yildiz_app/localization.dart';
 
 Widget databaseServerTile(context, settingsNotifier) {
   final ipController = TextEditingController();
@@ -8,7 +8,7 @@ Widget databaseServerTile(context, settingsNotifier) {
   final passwordController = TextEditingController();
 
   return ListTile(
-    title: Text('Database Server'),
+    title: Text(l('database_connection', context)),
     trailing: Icon(Icons.storage),
     onTap: () {
       ipController.text = settingsNotifier.ipAddress;
@@ -20,7 +20,7 @@ Widget databaseServerTile(context, settingsNotifier) {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Edit Database Connection'),
+            title: Text(l('edit_database_connection', context)),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
@@ -29,7 +29,7 @@ Widget databaseServerTile(context, settingsNotifier) {
                     child: TextField(
                       controller: ipController,
                       decoration: InputDecoration(
-                        labelText: 'IP Address',
+                        labelText: l('ip_address', context),
                       ),
                     ),
                   ),
@@ -38,7 +38,7 @@ Widget databaseServerTile(context, settingsNotifier) {
                     child: TextField(
                       controller: dbNameController,
                       decoration: InputDecoration(
-                        labelText: 'Database Name',
+                        labelText: l('database_name', context),
                       ),
                     ),
                   ),
@@ -47,7 +47,7 @@ Widget databaseServerTile(context, settingsNotifier) {
                     child: TextField(
                       controller: usernameController,
                       decoration: InputDecoration(
-                        labelText: 'Username',
+                        labelText: l('username', context),
                       ),
                     ),
                   ),
@@ -56,7 +56,7 @@ Widget databaseServerTile(context, settingsNotifier) {
                     child: TextField(
                       controller: passwordController,
                       decoration: InputDecoration(
-                        labelText: 'Password',
+                        labelText: l('password', context),
                       ),
                       obscureText: true,
                     ),
@@ -66,13 +66,13 @@ Widget databaseServerTile(context, settingsNotifier) {
             ),
             actions: <Widget>[
               TextButton(
-                child: Text('Cancel'),
+                child: Text(l('cancel', context)),
                 onPressed: () {
                   Navigator.pop(context);
                 },
               ),
               TextButton(
-                child: Text('Save'),
+                child: Text(l('save', context)),
                 onPressed: () {
                   settingsNotifier.setIpAddress(ipController.text);
                   settingsNotifier.setDbName(dbNameController.text);

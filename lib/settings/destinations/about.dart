@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yildiz_app/localization.dart';
 
 class AboutPage extends StatefulWidget {
   @override
@@ -15,19 +16,19 @@ class AboutSettingsState extends State<AboutPage> {
     return ListView(
       children: <Widget>[
         ListTile(
-          title: Text('Author'),
+          title: Text(l('about_author', context)),
           subtitle: Text('M. Fatih Yildiz'),
         ),
         ListTile(
-          title: Text('Version'),
-          subtitle: Text('0.1.7'),
+          title: Text(l('about_version', context)),
+          subtitle: Text('0.1.8'),
         ),
         ListTile(
-          title: Text('Website'),
+          title: Text(l('about_website', context)),
           subtitle: Text('www.github.com/mfatihy70/YildizApp'),
         ),
         ListTile(
-          title: Text('Contact'),
+          title: Text(l('about_contact', context)),
           subtitle: Text('yildiz.gida.servis@gmail.com'),
         ),
       ],

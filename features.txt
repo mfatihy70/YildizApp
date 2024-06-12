@@ -1,22 +1,31 @@
-TODOs! sorted by priority:
+TODOs! sorted by priority: (Dont forget to change version in about)
 
 Must do / Should do / Could do:
-# localization/language settings
-- user account v2.0
+
+# user account v2.0
 - center the icon to right
+- save settings locally
 # docker container
-- extract functions from order list
-- Build context lint highlights
 - homepage search field
 # combobox for other products
-- save locally when no db connection
+- optimize make imports use package
+- correct datatable headers not being centered
+- optimize general setting via a custom widget
+- selected row count in delete selected button
+- optimize main
 
+
+v0.1.8
+- LOCALIZATION support, some parts in settings missing due to context
+- reduced gaps between columns in order_list
+- extracted functions from order list, long press selection, bold headers
+- removed checkboxes from order_list
 
 v0.1.7
+- centered scaffold titles
 - about page
 - dynamic settings title for each nav destination
 - vertical divider in nav rail is more transparent
-- Settings title change according to navigated setting
 - added db connection settings
 - merged widgets to form_functions
 - formatted phone number on order_list

@@ -1,82 +1,83 @@
 import 'package:flutter/material.dart';
+import 'package:yildiz_app/localization.dart';
 
-String? validateName(String? value) {
+String? validateName(BuildContext context, String? value) {
   if (value == null || value.isEmpty) {
-    return 'Please enter a name';
+    return l('enter_name', context);
   }
   if (value.length < 3) {
-    return 'Name must be at least 3 characters';
+    return l('name_min_length', context);
   }
   if (value.length > 50) {
-    return 'Name must be at most 50 characters';
+    return l('name_max_length', context);
   }
   return null;
 }
 
-String? validateAddress(String? value) {
+String? validateAddress(BuildContext context, String? value) {
   if (value == null || value.isEmpty) {
-    return 'Please enter an address';
+    return l('enter_address', context);
   }
-  if (value.length < 6) {
-    return 'Address must be at least 6 characters';
+  if (value.length < 5) {
+    return l('address_min_length', context);
   }
   if (value.length > 50) {
-    return 'Address must be at most 50 characters';
+    return l('address_max_length', context);
   }
   return null;
 }
 
-String? validatePhoneNumber(String? value) {
+String? validatePhoneNumber(BuildContext context, String? value) {
   if (value == null || value.isEmpty) {
-    return 'Please enter a phone number';
+    return l('enter_phone_number', context);
   }
   if (!RegExp(r'^\+?[\d\s]+$').hasMatch(value)) {
-    return 'Please enter a valid phone number';
+    return l('valid_phone_number', context);
   }
   int numDigits = value.replaceAll(' ', '').length;
 
   if (numDigits < 10) {
-    return 'Phone number must be at least 10 digits';
+    return l('phone_min_length', context);
   }
   if (numDigits > 15) {
-    return 'Phone number must be at most 15 digits';
+    return l('phone_max_length', context);
   }
   return null;
 }
 
-String? validateMilk(String? value) {
+String? validateMilk(BuildContext context, String? value) {
   if (value == null || value.isEmpty) {
-    return 'Please enter a number';
+    return l('enter_number', context);
   }
   int? parsedValue = int.tryParse(value);
   if (parsedValue == null) {
-    return 'Please enter a valid number';
+    return l('valid_number', context);
   } else if (parsedValue > 50) {
-    return 'Milk orders must\nbe at most 50 liters';
+    return l('milk_max', context);
   } else if (parsedValue < 5) {
-    return 'Please enter a number\nthat is not less than 5';
+    return l('milk_min', context);
   } else if (parsedValue % 5 != 0) {
-    return 'Please enter a number\nthat is divisible by 5';
+    return l('milk_divisible', context);
   }
   return null;
 }
 
-String? validateEgg(String? value) {
+String? validateEgg(BuildContext context, String? value) {
   if (value == null || value.isEmpty) {
-    return 'Please enter a number';
+    return l('enter_number', context);
   }
   int? parsedValue = int.tryParse(value);
   if (parsedValue == null) {
-    return 'Please enter a valid number';
+    return l('valid_number', context);
   } else if (parsedValue > 50) {
-    return 'Egg orders must\nbe at most 50 plates';
+    return l('egg_max', context);
   }
   return null;
 }
 
-String? validateOther(String? value) {
+String? validateOther(BuildContext context, String? value) {
   if (value != null && value.length > 50) {
-    return 'Other must be at most 50 characters';
+    return l('other_max_length', context);
   }
   return null;
 }
@@ -88,15 +89,16 @@ void validateMilkEggOther(
   Function(String? message) setMilkError,
   Function(String? message) setEggError,
   Function(String? message) setOtherError,
+  BuildContext context,
 ) {
   bool allFieldsEmpty = milkController.text.isEmpty &&
       eggController.text.isEmpty &&
       otherController.text.isEmpty;
 
   if (allFieldsEmpty) {
-    setMilkError('Please give an order');
-    setEggError('Please give an order');
-    setOtherError('Please give an order');
+    setMilkError(l('give_order', context));
+    setEggError(l('give_order', context));
+    setOtherError(l('give_order', context));
   } else {
     setMilkError(null);
     setEggError(null);
@@ -105,13 +107,13 @@ void validateMilkEggOther(
 
   if (!allFieldsEmpty) {
     if (milkController.text.isNotEmpty) {
-      setMilkError(validateMilk(milkController.text));
+      setMilkError(validateMilk(context, milkController.text));
     }
     if (eggController.text.isNotEmpty) {
-      setEggError(validateEgg(eggController.text));
+      setEggError(validateEgg(context, eggController.text));
     }
     if (otherController.text.isNotEmpty) {
-      setOtherError(validateOther(otherController.text));
+      setOtherError(validateOther(context, otherController.text));
     }
   }
 }

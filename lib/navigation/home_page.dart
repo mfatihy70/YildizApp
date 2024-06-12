@@ -1,55 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:yildiz_app/localization.dart';
+
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+  String l(key) => AppLocalizations.of(context).translate(key);
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Home Page')),
+        title: Center(child: Text(l('home'))),
       ),
       body: ListView(
         children: [
           ProductCard(
             id: '1',
-            title: 'Milk',
-            description: 'Fresh and creamy milk from local farms.',
+            title: l('milk'),
+            description: l('milk_description'),
             price: '7€',
             imagePath: 'assets/images/milk.jpeg',
           ),
           ProductCard(
             id: '2',
-            title: 'Egg',
-            description: 'Healthy and nutritious eggs from farm chickens.',
+            title: l('egg'),
+            description: l('egg_description'),
             price: '7€',
             imagePath: 'assets/images/egg.jpeg',
           ),
           ProductCard(
             id: '3',
-            title: 'Nuts',
-            description:
-                'Delicious and nutritious nuts just as fresh as they can be.',
+            title: l('nuts_title'),
+            description: l('nuts_description'),
             price: '19€',
             imagePath: 'assets/images/nuts.jpeg',
           ),
           ProductCard(
             id: '4',
-            title: 'Honey',
-            description: 'Sweet and golden honey straight from the apiary.',
+            title: l('honey_title'),
+            description: l('honey_description'),
             price: '30€',
             imagePath: 'assets/images/honey.jpeg',
           ),
           ProductCard(
             id: '5',
-            title: 'Yogurt',
-            description:
-                'Creamy and delicious yogurt homemade from fresh milk.',
+            title: l('yogurt_title'),
+            description: l('yogurt_description'),
             price: '10€',
             imagePath: 'assets/images/yogurt.jpeg',
           ),
           ProductCard(
             id: '6',
-            title: 'Cheese',
-            description: 'Flavorful and delicious homemade cheese',
+            title: l('cheese_title'),
+            description: l('cheese_description'),
             price: '15€',
             imagePath: 'assets/images/cheese.jpeg',
           ),

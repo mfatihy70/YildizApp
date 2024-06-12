@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../order_class.dart';
 import '../database_service.dart';
+import '../localization.dart';
 
 DatabaseService dbService = DatabaseService();
 
@@ -30,8 +31,8 @@ Future<void> handleSendOrder(
     showSnackBarWithUndo(
       context,
       success,
-      'Order has been sent successfully!',
-      'Failed to send order.',
+      l('order_success', context),
+      l('order_fail', context),
       () => handleUndoOrder(order),
     );
   }
@@ -54,7 +55,7 @@ void deleteSelectedSnackbar(BuildContext context, bool success,
   final snackBar = SnackBar(
     content: Text(success ? successMessage : errorMessage),
     action: SnackBarAction(
-      label: 'Undo',
+      label: l('undo', context),
       onPressed: onUndo,
     ),
   );
@@ -67,11 +68,11 @@ void showConnectionErrorDialog(BuildContext context, String message) {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Connection Error'),
-          content: Text('Failed to connect to the database: $message'),
+          title: Text(l('connection_error', context)),
+          content: Text(message),
           actions: <Widget>[
             TextButton(
-              child: Text('Close'),
+              child: Text(l('close', context)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -101,7 +102,7 @@ void showSnackBarWithUndo(BuildContext context, bool success,
       content: Text(success ? successMessage : failureMessage),
       action: success
           ? SnackBarAction(
-              label: 'Undo',
+              label: l('undo', context),
               onPressed: undoCallback,
             )
           : null,
@@ -119,20 +120,14 @@ Widget customTextField({
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: TextFormField(
-      controller: controller,
-      keyboardType: keyboardType,
-      obscureText: false,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: labelText,
-      ),
-      validator: validator ??
-          (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter some text';
-            }
-            return null;
-          },
-    ),
+        controller: controller,
+        keyboardType: keyboardType,
+        obscureText: false,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: labelText,
+          errorMaxLines: 3,
+        ),
+        validator: validator),
   );
 }

@@ -1,16 +1,16 @@
-// Filename: language_tile.dart
 import 'package:flutter/material.dart';
+import 'package:yildiz_app/localization.dart';
 
 Widget languageTile(context, settingsNotifier) {
   return ListTile(
-    title: Text('Language'),
+    title: Text(l('language', context)),
     trailing: Icon(Icons.language),
     onTap: () {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Select Language'),
+            title: Text(l('select_language', context)),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -85,3 +85,4 @@ Widget languageTile(context, settingsNotifier) {
     },
   );  
 }
+
