@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yildiz_app/localization.dart';
+import 'package:yildiz_app/order_class.dart';
+import 'package:yildiz_app/database_service.dart';
 import 'form_functions.dart';
-import '../order_class.dart';
-import '../database_service.dart';
 import 'validation.dart';
 
 class OrderForm extends StatefulWidget {

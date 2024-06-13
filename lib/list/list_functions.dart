@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../order_class.dart';
-import '../localization.dart';
+import 'package:yildiz_app/order_class.dart';
+import 'package:yildiz_app/localization.dart';
 
 // Check the connection state and return the appropriate widget
 Widget connectionCheck(

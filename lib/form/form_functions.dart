@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../order_class.dart';
-import '../database_service.dart';
-import '../localization.dart';
+import 'package:yildiz_app/order_class.dart';
+import 'package:yildiz_app/database_service.dart';
+import 'package:yildiz_app/localization.dart';
 
 DatabaseService dbService = DatabaseService();
 

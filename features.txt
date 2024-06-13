@@ -8,12 +8,20 @@ Must do / Should do / Could do:
 # docker container
 - homepage search field
 # combobox for other products
-- optimize make imports use package
 - correct datatable headers not being centered
-- optimize general setting via a custom widget
-- selected row count in delete selected button
-- optimize main
+- send notifications
+- verify commits
+- more menus
+- more content to homepage
 
+
+v0.1.9
+- icons on theme settings
+- selected rows in order_list show up in delete selected button
+- optimized main by moving parts to localization.dart
+- optimized imports
+- final localization
+- custom setting page class in settings.dart
 
 v0.1.8
 - LOCALIZATION support, some parts in settings missing due to context

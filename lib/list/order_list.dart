@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../order_class.dart';
-import '../database_service.dart';
-import '../form/form_functions.dart' show deleteSelectedSnackbar;
-import 'list_functions.dart';
+import 'package:yildiz_app/order_class.dart';
+import 'package:yildiz_app/database_service.dart';
 import 'package:yildiz_app/localization.dart';
+import 'package:yildiz_app/form/form_functions.dart' show deleteSelectedSnackbar;
+import 'list_functions.dart';
 
 class OrderList extends StatefulWidget {
   @override
@@ -128,7 +128,11 @@ class OrderListState extends State<OrderList> {
                 ElevatedButton(
                   onPressed:
                       selectedIndices.isEmpty ? null : deleteSelectedOrders,
-                  child: Text(l('delete_selected', context)),
+                  child: Text(
+                    selectedIndices.isEmpty
+                        ? l('delete_selected', context)
+                        : '${l('delete_selected', context)} (${selectedIndices.length})',
+                  ),
                 ),
               ],
             ),

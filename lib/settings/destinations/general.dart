@@ -3,12 +3,14 @@ import 'package:provider/provider.dart';
 import 'package:yildiz_app/settings/general/language.dart';
 import 'package:yildiz_app/settings/general/server.dart';
 import 'package:yildiz_app/settings/general/theme.dart';
-import '../notifiers.dart';
+import 'package:yildiz_app/settings/notifiers.dart';
+import 'package:yildiz_app/localization.dart';
 
 class GeneralSettings extends StatefulWidget {
   @override
   GeneralSettingsState createState() => GeneralSettingsState();
-  String name() => 'General';
+  
+  String name(context) => l('general', context);
 }
 
 class GeneralSettingsState extends State<GeneralSettings> {
@@ -16,7 +18,6 @@ class GeneralSettingsState extends State<GeneralSettings> {
   final _dbNameController = TextEditingController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-
 
   @override
   void dispose() {

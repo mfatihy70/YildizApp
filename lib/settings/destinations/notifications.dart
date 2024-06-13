@@ -4,7 +4,7 @@ import 'package:yildiz_app/localization.dart';
 class NotificationSettings extends StatefulWidget {
   @override
   NotificationSettingsState createState() => NotificationSettingsState();
-  String name() => 'Notifications';
+  String name(context) => l('notifications', context);
 }
 
 class NotificationSettingsState extends State<NotificationSettings> {

@@ -24,6 +24,7 @@ Widget themeTile(BuildContext context, settingsNotifier) {
                       Navigator.pop(context);
                     }
                   },
+                  secondary: Icon(Icons.dark_mode),
                 ),
                 RadioListTile<int>(
                   value: 0,
@@ -35,6 +36,7 @@ Widget themeTile(BuildContext context, settingsNotifier) {
                       Navigator.pop(context);
                     }
                   },
+                  secondary: Icon(Icons.light_mode),
                 ),
               ],
             ),

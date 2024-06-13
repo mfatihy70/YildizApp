@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class AppLocalizations {
   final Locale locale;
@@ -55,4 +56,34 @@ class _AppLocalizationsDelegate
 
 l(key, context) {
   return AppLocalizations.of(context).translate(key);
+}
+
+Locale? getLocale(String selectedLanguage) {
+  switch (selectedLanguage) {
+    case 'English':
+      return const Locale('en');
+    case 'Deutsch':
+      return const Locale('de');
+    case 'Türkçe':
+      return const Locale('tr');
+    default:
+      return null;
+  }
+}
+
+List<Locale> getSupportedLocales() {
+  return const [
+    Locale('en'),
+    Locale('tr'),
+    Locale('de'),
+  ];
+}
+
+List<LocalizationsDelegate<dynamic>> getLocalizationsDelegates() {
+  return const [
+    AppLocalizations.delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+  ];
 }

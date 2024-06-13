@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:window_size/window_size.dart';
 import 'package:yildiz_app/settings/notifiers.dart';
-import 'theme/color_scheme.dart';
-import 'navigation/navbar.dart';
-import 'localization.dart';
+import 'package:yildiz_app/theme/color_scheme.dart';
+import 'package:yildiz_app/navigation/navbar.dart';
+import 'package:yildiz_app/localization.dart';
 import 'dart:io' show Platform;
 
 void main() {
@@ -30,31 +29,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<SettingsNotifier>(
       builder: (context, settingsNotifier, _) {
-        Locale? locale;
-        switch (settingsNotifier.selectedLanguage) {
-          case 'English':
-            locale = const Locale('en');
-          case 'Deutsch':
-            locale = const Locale('de');
-          case 'Türkçe':
-            locale = const Locale('tr');
-        }
+        Locale? locale = getLocale(settingsNotifier.selectedLanguage);
         return MaterialApp(
           theme: settingsNotifier.darkTheme ? customDark : customLight,
           home: NavigationBarApp(),
           title: 'Yildiz App',
           locale: locale,
-          supportedLocales: [
-            const Locale('en'),
-            const Locale('tr'),
-            const Locale('de'),
-          ],
-          localizationsDelegates: [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
+          supportedLocales: getSupportedLocales(),
+          localizationsDelegates: getLocalizationsDelegates(),
         );
       },
     );

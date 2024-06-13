@@ -4,10 +4,7 @@ import 'package:yildiz_app/localization.dart';
 class AboutPage extends StatefulWidget {
   @override
   AboutSettingsState createState() => AboutSettingsState();
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'About';
-  }
+  String name(context) => l('about', context);
 }
 
 class AboutSettingsState extends State<AboutPage> {
