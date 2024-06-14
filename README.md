@@ -22,12 +22,29 @@ The Yildiz App comes with a variety of features:
 - **Settings Page**: Provides standard settings options such as app theme, language, notifications, privacy, and account management.
 
 ## Getting Started
-
-To get started with the Yildiz App, clone the repository and ensure you have Flutter installed on your machine. Then, update the database configuration in the application to match your PostgreSQL database settings.
+1. Clone the repository:
+    ```
+    git clone https://github.com/mfatihy70/YildizApp.git
+    ```
+2. Navigate into the project directory:
+    ```
+    cd YildizApp
+    ```
+3. Install the dependencies:
+    ```
+    flutter pub get
+    ```
+4. Run the app:
+    ```
+    flutter run
 
 ## Contributing
 
 Contributions are welcome! Just create a PR or write to me.
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](LICENSE.md) file for details.
 
 
 ![home](https://github.com/mfatihy70/YildizApp/assets/60326832/0581f5bc-915b-479a-bb44-14a8e2f24b2e)
