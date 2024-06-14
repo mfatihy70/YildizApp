@@ -44,7 +44,7 @@ Contributions are welcome! Just create a PR or write to me.
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
 
 
 ![home](https://github.com/mfatihy70/YildizApp/assets/60326832/0581f5bc-915b-479a-bb44-14a8e2f24b2e)
