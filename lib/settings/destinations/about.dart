@@ -18,7 +18,7 @@ class AboutSettingsState extends State<AboutPage> {
         ),
         ListTile(
           title: Text(l('about_version', context)),
-          subtitle: Text('0.1.8'),
+          subtitle: Text('0.2.0'),
         ),
         ListTile(
           title: Text(l('about_website', context)),

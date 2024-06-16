@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 
-const Color turquoise = Color.fromARGB(250, 0, 200, 200);
-const Color mturquoise = Color.fromARGB(200, 0, 170, 170);
-const Color dturquoise = Color.fromARGB(150, 0, 200, 200);
-const Color bturquoise = Color.fromARGB(149, 0, 132, 132);
-const Color lturquoise = Color.fromARGB(205, 225, 255, 255);
-const Color bbturquoise = Color.fromARGB(255, 0, 72, 72);
-const Color bbbturquoise = Color.fromARGB(128, 0, 72, 72);
+const Color primaryColor = Color.fromARGB(255, 6, 168, 186);
+
+const Color blue = Color.fromARGB(248, 88, 165, 188);
+const Color blue2 = Color.fromARGB(197, 45, 181, 223);
+const Color blueLight = Color.fromARGB(205, 182, 227, 233);
+const Color blueDark = Color.fromARGB(147, 61, 122, 140);
+const Color blueDark2 = Color.fromARGB(148, 44, 88, 101);
+const Color blueBlack = Color.fromARGB(255, 29, 73, 85);
+const Color blueBlack2 = Color.fromARGB(128, 29, 73, 85);
 const Color w = Colors.white;
 const Color b = Colors.black;
 
 ThemeData customDark = ThemeData.dark().copyWith(
-    primaryColor: turquoise,
+    primaryColor: blue,
     scaffoldBackgroundColor: b,
     colorScheme: ColorScheme.dark(
-      primary: turquoise,
-      secondary: mturquoise,
+      primary: blue,
+      secondary: blue2,
       surface: b,
       error: Color.fromARGB(255, 255, 157, 150),
-      onPrimary: b,
+      onPrimary: w,
       onSecondary: w,
       onSurface: w,
       onError: w,
@@ -29,26 +31,26 @@ ThemeData customDark = ThemeData.dark().copyWith(
       foregroundColor: w,
     ),
     navigationBarTheme: NavigationBarThemeData(
-      indicatorColor: dturquoise,
+      indicatorColor: blue2,
       backgroundColor: Color.fromARGB(255, 0, 0, 0),
     ),
     navigationRailTheme: NavigationRailThemeData(
-      indicatorColor: mturquoise,
+      indicatorColor: blue2,
       backgroundColor: Color.fromARGB(255, 0, 0, 0),
       labelType: NavigationRailLabelType.selected,
       selectedIconTheme: IconThemeData(color: w),
       unselectedIconTheme: IconThemeData(color: w),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: mturquoise,
+      backgroundColor: blue2,
       foregroundColor: w,
     ),
     snackBarTheme: SnackBarThemeData(
-      actionTextColor: bturquoise,
+      actionTextColor: blueDark2,
     ),
     listTileTheme: ListTileThemeData(
       tileColor: b,
-      selectedTileColor: mturquoise,
+      selectedTileColor: blue2,
       iconColor: w,
       textColor: w,
     ),
@@ -56,7 +58,7 @@ ThemeData customDark = ThemeData.dark().copyWith(
       filled: true,
       fillColor: b,
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: turquoise),
+        borderSide: BorderSide(color: blue),
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: w),
@@ -88,11 +90,11 @@ ThemeData customDark = ThemeData.dark().copyWith(
     ));
 
 ThemeData customLight = ThemeData.light().copyWith(
-    primaryColor: mturquoise,
+    primaryColor: blue2,
     scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255),
     colorScheme: ColorScheme.light(
-      primary: mturquoise,
-      secondary: turquoise,
+      primary: blue2,
+      secondary: blue,
       surface: w,
       error: Colors.red,
       onPrimary: b,
@@ -106,26 +108,26 @@ ThemeData customLight = ThemeData.light().copyWith(
       foregroundColor: b,
     ),
     navigationBarTheme: NavigationBarThemeData(
-      indicatorColor: dturquoise,
+      indicatorColor: blue,
       backgroundColor: w,
     ),
     navigationRailTheme: NavigationRailThemeData(
-      indicatorColor: turquoise,
+      indicatorColor: blue,
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
       labelType: NavigationRailLabelType.selected,
       selectedIconTheme: IconThemeData(color: b),
       unselectedIconTheme: IconThemeData(color: b),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: mturquoise,
+      backgroundColor: blue2,
       foregroundColor: w,
     ),
     snackBarTheme: SnackBarThemeData(
-      actionTextColor: bturquoise,
+      actionTextColor: blueDark2,
     ),
     listTileTheme: ListTileThemeData(
       tileColor: w,
-      selectedTileColor: mturquoise,
+      selectedTileColor: blue2,
       iconColor: b,
       textColor: b,
     ),
@@ -133,7 +135,7 @@ ThemeData customLight = ThemeData.light().copyWith(
       filled: true,
       fillColor: w,
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: mturquoise),
+        borderSide: BorderSide(color: blue2),
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: b),

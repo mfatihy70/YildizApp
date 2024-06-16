@@ -23,13 +23,13 @@ Widget connectionCheck(
     if (snapshot.hasError) {
       String errorMessage;
       if (snapshot.error.toString().contains('Failed host lookup')) {
-        errorMessage = l('connectivity_error', context)!;
+        errorMessage = l('connectivity_error', context)! + snapshot.error;
       } else if (snapshot.error
           .toString()
           .contains('The underlying socket to Postgres')) {
-        errorMessage = l('db_connection_error', context)!;
+        errorMessage = l('db_connection_error', context)! + snapshot.error;
       } else {
-        errorMessage = '${l('generic_error', context)}${snapshot.error}';
+        errorMessage = l('generic_error', context)! + snapshot.error;
       }
       return Center(
         child: Text(
@@ -111,36 +111,50 @@ Widget buildOrderDataTable(
 }
 
 String formatPhoneNumber(String phone) {
-  String ogPhone = phone;
   phone = phone.replaceAll(' ', ''); // Remove any existing spaces
+  final originalPhone = phone;
 
-  if (phone.startsWith('+43') || phone.startsWith('0')) {
-    if (phone.length == 12 || (phone.startsWith('0') && phone.length == 11)) {
-      // 680 144 1344
-      return '${phone.substring(4, 7)} ${phone.substring(7)}';
-    } else if (phone.length == 13 ||
-        (phone.startsWith('0') && phone.length == 12)) {
-      // 680 144 134 56
-      return '${phone.substring(4, 7)} ${phone.substring(7, 10)} ${phone.substring(10)}';
+  // Handle phone numbers starting with +43 and having 9 or 10 digits after the prefix
+
+  // Handle phone numbers starting with 0 and having 10 or 11 digits after the prefix
+  if (phone.startsWith('0')) {
+    if (phone.length == 11) {
+      return '${phone.substring(1, 4)} ${phone.substring(4, 7)} ${phone.substring(7)}'; // 680 144 1344
     }
-  } else if (!phone.startsWith('+') || phone.startsWith('0')) {
-    if (phone.length == 10) {
-      // 555 123 1234
-      return '${phone.substring(0, 3)} ${phone.substring(3, 6)} ${phone.substring(6)}';
-    } else if (phone.length == 11) {
-      // 555 123 123 23
-      return '${phone.substring(0, 3)} ${phone.substring(3, 6)} ${phone.substring(6, 9)} ${phone.substring(9)}';
-    }
-  } else {
-    if (phone.length == 13) {
-      // +90 555 123 123 23
-      return '${phone.substring(0, 3)} ${phone.substring(3, 6)} ${phone.substring(6, 9)} ${phone.substring(9)}';
-    } else if (phone.length == 14) {
-      // +90 555 123 123 23
-      return '${phone.substring(0, 3)} ${phone.substring(3, 6)} ${phone.substring(6, 9)} ${phone.substring(9)}';
+    if (phone.length == 12) {
+      return '${phone.substring(1, 4)} ${phone.substring(4, 7)} ${phone.substring(7, 10)} ${phone.substring(10)}'; // 680 144 134 56
     }
   }
 
+  // +43 and other country codes
+  if (phone.startsWith('+')) {
+    if (phone.startsWith('+43')) {
+      if (phone.length == 12) {
+        return '${phone.substring(4, 7)} ${phone.substring(7)}'; // 680 144 1344
+      }
+      if (phone.length == 13) {
+        return '${phone.substring(4, 7)} ${phone.substring(7, 10)} ${phone.substring(10)}'; // 680 144 134 56
+      }
+    } else {
+      if (phone.length == 13) {
+        return '${phone.substring(0, 3)} ${phone.substring(3, 6)} ${phone.substring(6, 9)} ${phone.substring(9)}'; // +90 555 123 123 23
+      }
+      if (phone.length == 14) {
+        return '${phone.substring(0, 3)} ${phone.substring(3, 6)} ${phone.substring(6, 9)} ${phone.substring(9)}'; // +90 555 123 123 23
+      }
+    }
+  }
+
+  // 10 digits
+  if (phone.length == 10) {
+    return '${phone.substring(0, 3)} ${phone.substring(3, 6)} ${phone.substring(6)}'; // 555 123 1234
+  }
+
+  // 11 digits
+  if (phone.length == 11) {
+    return '${phone.substring(0, 3)} ${phone.substring(3, 6)} ${phone.substring(6, 9)} ${phone.substring(9)}'; // 555 123 123 23
+  }
+
   // If none of the conditions match, return the original phone number
-  return ogPhone;
+  return originalPhone;
 }

@@ -15,14 +15,19 @@ class AccountSettingsState extends State<AccountSettings> {
       children: [
         ListTile(
           title: Text('User Account'),
+          trailing: Icon(Icons.account_circle),
+          onTap: () {
+          },
         ),
         ListTile(
           title: Text('Delete Account'),
+          trailing: Icon(Icons.delete),
           onTap: () {
           },
         ),
         ListTile(
           title: Text('Change Password'),
+          trailing: Icon(Icons.lock),
           onTap: () {
           },
         ),

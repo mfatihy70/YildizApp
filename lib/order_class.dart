@@ -28,4 +28,16 @@ class Order {
       other: map['other'],
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'address': address,
+      'phone': phone,
+      'milk': milk,
+      'egg': egg,
+      'other': other,
+    };
+  }
 }

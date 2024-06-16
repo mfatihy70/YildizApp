@@ -1,49 +1,69 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'dart:io' show Platform;
-
 
 class SettingsNotifier extends ChangeNotifier {
-  bool _darkTheme = true;
-  String _selectedLanguage = 'English';
-  String _ipAddress = Platform.isAndroid ? '10.0.2.2' : 'localhost';
-  String _dbName = 'YildizDB';
-  String _username = 'postgres';
-  String _password = 'admin';
+  bool darkTheme;
+  String selectedLanguage;
+  String host = 'pg-70-yildiz-70.j.aivencloud.com';
+  String dbName = 'defaultdb';
+  String username = 'avnadmin';
+  String password = 'AVNS_Ugw_H3CJTWPK_GDzSck';
+  int port = 15044;
 
-  String get selectedLanguage => _selectedLanguage;
-  String get ipAddress => _ipAddress;
-  String get dbName => _dbName;
-  String get username => _username;
-  String get password => _password;
-  bool get darkTheme => _darkTheme;
+  SettingsNotifier({
+    required this.darkTheme,
+    required this.selectedLanguage,
+  });
+
+  factory SettingsNotifier.initialize() {
+    final Brightness systemBrightness =
+        PlatformDispatcher.instance.platformBrightness;
+    final bool isDarkTheme = systemBrightness == Brightness.dark;
+
+    final Locale systemLocale = PlatformDispatcher.instance.locale;
+    String defaultLanguage;
+    switch (systemLocale.languageCode) {
+      case 'de':
+        defaultLanguage = 'Deutsch';
+      case 'tr':
+        defaultLanguage = 'Türkçe';
+      default :
+        defaultLanguage = 'English';
+    }
+
+    return SettingsNotifier(
+      darkTheme: isDarkTheme,
+      selectedLanguage: defaultLanguage,
+    );
+  }
 
   void setDarkTheme(bool value) {
-    _darkTheme = value;
+    darkTheme = value;
     notifyListeners();
   }
 
   void setSelectedLanguage(String language) {
-    _selectedLanguage = language;
+    selectedLanguage = language;
     notifyListeners();
   }
 
-  void setIpAddress(String ip) {
-    _ipAddress = ip;
+  void setHost(String host) {
+    this.host = host;
     notifyListeners();
   }
 
   void setDbName(String dbName) {
-    _dbName = dbName;
+    this.dbName = dbName;
     notifyListeners();
   }
 
   void setUsername(String username) {
-    _username = username;
+    this.username = username;
     notifyListeners();
   }
 
   void setPassword(String password) {
-    _password = password;
+    this.password = password;
     notifyListeners();
   }
 }

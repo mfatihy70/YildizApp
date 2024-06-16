@@ -8,16 +8,17 @@ import 'package:yildiz_app/localization.dart';
 import 'dart:io' show Platform;
 
 void main() {
-  // Set window size and title also ensuring widget initialization for Windows
+  // Set window size and title, ensuring widget initialization for Windows
   if (Platform.isWindows) {
     WidgetsFlutterBinding.ensureInitialized();
     setWindowTitle('Yildiz App');
     setWindowMinSize(const Size(500, 750));
   }
+
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => SettingsNotifier()),
+        ChangeNotifierProvider(create: (_) => SettingsNotifier.initialize()),
       ],
       child: MyApp(),
     ),

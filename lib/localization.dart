@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+l(key, context) {
+  return AppLocalizations.of(context).translate(key);
+}
+
 class AppLocalizations {
   final Locale locale;
-
   AppLocalizations(this.locale);
 
   static AppLocalizations of(BuildContext context) {
@@ -19,7 +22,7 @@ class AppLocalizations {
 
   Future<bool> load() async {
     String jsonString = await rootBundle
-        .loadString('assets/languages/${locale.languageCode}.json');
+        .loadString('assets/locales/${locale.languageCode}.json');
     Map<String, dynamic> jsonMap = json.decode(jsonString);
 
     _localizedStrings = jsonMap.map((key, value) {
@@ -52,10 +55,6 @@ class _AppLocalizationsDelegate
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
-}
-
-l(key, context) {
-  return AppLocalizations.of(context).translate(key);
 }
 
 Locale? getLocale(String selectedLanguage) {

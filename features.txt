@@ -2,18 +2,28 @@ TODOs! sorted by priority: (Dont forget to change version in about)
 
 Must do / Should do / Could do:
 
-# user account v2.0
+- user account v2.0
 - center the icon to right
 - save settings locally
-# docker container
+- docker container
 - homepage search field
-# combobox for other products
-- correct datatable headers not being centered
+ combobox for other products
+- center datatable headers 
 - send notifications
 - verify commits
 - more menus
 - more content to homepage
+- slide to right left
+- edit selected button
+- select all orders button
 
+
+v0.2.0
+- CLOUD SERVER CONNECTION, thanks to aiven.io
+- system defaults as theme and language settings
+- new blue color theme with renamed colors
+- changed user account menus
+- new logo, now centered
 
 v0.1.9
 - icons on theme settings

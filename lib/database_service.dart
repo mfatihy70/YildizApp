@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:postgres/postgres.dart';
-import 'package:yildiz_app/settings/notifiers.dart';
-import 'order_class.dart';
 import 'package:provider/provider.dart';
+import 'order_class.dart';
+import 'settings/notifiers.dart';
 
 class DatabaseService {
   late Connection conn;
   bool _isConnected = false;
 
+  n(context) => Provider.of<SettingsNotifier>(context, listen: false);
+
   Future<void> connect(BuildContext context) async {
-    final host =
-        Provider.of<SettingsNotifier>(context, listen: false).ipAddress;
-    final database =
-        Provider.of<SettingsNotifier>(context, listen: false).dbName;
-    final username =
-        Provider.of<SettingsNotifier>(context, listen: false).username;
-    final password =
-        Provider.of<SettingsNotifier>(context, listen: false).password;
+    final host = n(context).host;
+    final database = n(context).dbName;
+    final username = n(context).username;
+    final password = n(context).password;
+    final port = n(context).port;
 
     try {
       conn = await Connection.open(
@@ -25,8 +24,9 @@ class DatabaseService {
           database: database,
           username: username,
           password: password,
+          port: port,
         ),
-        settings: ConnectionSettings(sslMode: SslMode.disable),
+        settings: ConnectionSettings(sslMode: SslMode.require),
       );
       _isConnected = true;
       print('Connected to database!');
@@ -58,17 +58,14 @@ class DatabaseService {
       await conn.execute('CREATE SEQUENCE IF NOT EXISTS orders_id_seq;');
       await conn.execute('''
       CREATE TABLE IF NOT EXISTS public.orders(
-          name character varying(30) COLLATE pg_catalog."default" NOT NULL,
-          address character varying(50) COLLATE pg_catalog."default" NOT NULL,
-          phone character varying(20) COLLATE pg_catalog."default" NOT NULL,
-          milk integer,
-          egg integer,
-          other character varying(50) COLLATE pg_catalog."default",
-          id integer NOT NULL DEFAULT nextval('orders_id_seq'::regclass),
-          CONSTRAINT orders_pkey PRIMARY KEY (id)
-      ) TABLESPACE pg_default;''');
-      await conn
-          .execute('ALTER TABLE IF EXISTS public.orders OWNER to postgres;');
+          name VARCHAR(30) NOT NULL,
+          address VARCHAR(50) NOT NULL,
+          phone VARCHAR(20) NOT NULL,
+          milk INTEGER,
+          egg INTEGER,
+          other VARCHAR(50),
+          id SERIAL PRIMARY KEY
+      );''');
       print('Table created successfully');
       return true;
     } catch (e) {
@@ -84,8 +81,8 @@ class DatabaseService {
       await createTable(context);
       await conn.execute('''
         INSERT INTO orders (name, address, phone, milk, egg, other) 
-        VALUES ('${order.name}', '${order.address}', '${order.phone}', 
-        ${order.milk}, ${order.egg}, '${order.other}')''');
+        VALUES ('${order.name}', '${order.address}', '${order.phone}', '${order.milk}', '${order.egg}', '${order.other}')
+      ''');
 
       print('Order sent successfully');
       return true;
@@ -98,16 +95,14 @@ class DatabaseService {
   Future<bool> deleteOrder(BuildContext context, int? orderId) async {
     await ensureConnected(context);
     try {
-      await conn.execute(
-        "DELETE FROM orders WHERE id = $orderId",
-      );
-      if (orderId == null) {
+      if (orderId != null) {
+        await conn.execute("DELETE FROM orders WHERE id = $orderId");
+      } else {
         await conn.execute(
             "DELETE FROM orders WHERE id = (SELECT MAX(id) FROM orders)");
       }
       await conn.execute(
-        "SELECT setval('orders_id_seq', COALESCE((SELECT MAX(id) FROM orders)+1, 1), false)",
-      );
+          "SELECT setval('orders_id_seq', COALESCE((SELECT MAX(id) FROM orders)+1, 1), false)");
       print("Order deleted successfully");
       return true;
     } catch (e) {
