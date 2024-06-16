@@ -4,13 +4,7 @@ Yildiz App is a Flutter application designed for managing orders using a Postgre
 
 ## Database Configuration
 
-By default, the application is configured to connect to a PostgreSQL database with the following settings:
-
-- Database Name: `YildizDB`
-- Username: `postgres`
-- Password: `admin`
-
-When sending the first order, the app automatically creates a table named `orders` with the required constraints.
+By default, the application is configured to connect to a cloud PostgreSQL database.
 
 ## Features
 
