@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yildiz_app/localization.dart';
 
 Widget databaseServerTile(context, settingsNotifier) {
-  final ipController = TextEditingController();
+  final hostController = TextEditingController();
   final dbNameController = TextEditingController();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -11,7 +11,7 @@ Widget databaseServerTile(context, settingsNotifier) {
     title: Text(l('database_connection', context)),
     trailing: Icon(Icons.storage),
     onTap: () {
-      ipController.text = settingsNotifier.ipAddress;
+      hostController.text = settingsNotifier.host;
       dbNameController.text = settingsNotifier.dbName;
       usernameController.text = settingsNotifier.username;
       passwordController.text = settingsNotifier.password;
@@ -27,9 +27,9 @@ Widget databaseServerTile(context, settingsNotifier) {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
-                      controller: ipController,
+                      controller: hostController,
                       decoration: InputDecoration(
-                        labelText: l('ip_address', context),
+                        labelText: l('host', context),
                       ),
                     ),
                   ),
@@ -74,7 +74,7 @@ Widget databaseServerTile(context, settingsNotifier) {
               TextButton(
                 child: Text(l('save', context)),
                 onPressed: () {
-                  settingsNotifier.setIpAddress(ipController.text);
+                  settingsNotifier.setIpAddress(hostController.text);
                   settingsNotifier.setDbName(dbNameController.text);
                   settingsNotifier.setUsername(usernameController.text);
                   settingsNotifier.setPassword(passwordController.text);

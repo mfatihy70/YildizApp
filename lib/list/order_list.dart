@@ -16,6 +16,7 @@ class OrderListState extends State<OrderList> {
   late Future<List<Order>> orders;
   List<int> selectedIndices = [];
   List<Order> recentlyDeletedOrders = [];
+  AsyncSnapshot<List<Order>>? currentSnapshot;
 
   @override
   void initState() {
@@ -77,14 +78,13 @@ class OrderListState extends State<OrderList> {
       appBar: AppBar(
         title: Center(child: Text(l('order_list', context))),
       ),
-      // Display the orders in a data table
       body: Column(
         children: [
           Expanded(
             child: FutureBuilder<List<Order>>(
               future: orders,
               builder: (context, snapshot) {
-                // This return gets the orders and builds a table
+                currentSnapshot = snapshot;
                 return connectionCheck(
                   selectedIndices,
                   context,
@@ -114,7 +114,6 @@ class OrderListState extends State<OrderList> {
               },
             ),
           ),
-          // Add a row with buttons for refreshing and deleting selected orders
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
@@ -129,13 +128,26 @@ class OrderListState extends State<OrderList> {
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      selectedIndices = List<int>.generate(
-                        selectedIndices.length,
-                        (index) => index,
-                      );
+                      if (currentSnapshot?.data != null) {
+                        if (selectedIndices.length ==
+                            currentSnapshot!.data!.length) {
+                          selectedIndices.clear();
+                        } else {
+                          selectedIndices = List<int>.generate(
+                            currentSnapshot!.data!.length,
+                            (index) => index,
+                          );
+                        }
+                      }
                     });
                   },
-                  child: Text('select all'),
+                  child: Text(
+                    selectedIndices.isNotEmpty &&
+                            selectedIndices.length ==
+                                (currentSnapshot?.data?.length ?? 0)
+                        ? l('deselect_all', context)
+                        : l('select_all', context),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed:

@@ -23,11 +23,13 @@ Widget connectionCheck(
     if (snapshot.hasError) {
       String errorMessage;
       if (snapshot.error.toString().contains('Failed host lookup')) {
-        errorMessage = l('connectivity_error', context)! + snapshot.error.toString();
+        errorMessage =
+            l('connectivity_error', context)! + snapshot.error.toString();
       } else if (snapshot.error
           .toString()
           .contains('The underlying socket to Postgres')) {
-        errorMessage = l('db_connection_error', context)! + snapshot.error.toString();
+        errorMessage =
+            l('db_connection_error', context)! + snapshot.error.toString();
       } else {
         errorMessage = l('generic_error', context)! + snapshot.error.toString();
       }
@@ -92,7 +94,105 @@ Widget buildOrderDataTable(
             onSelectedIndexChange(index - 1);
           },
           onLongPress: () {
-            onSelectedIndexChange(index - 1);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                String name = order.name;
+                String address = order.address;
+                String phoneNum = order.phone;
+                String milk = order.milk.toString();
+                String egg = order.egg.toString();
+                String other = order.other;
+                return AlertDialog(
+                  title: Text('Edit Item'),
+                  content: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextField(
+                            controller: TextEditingController(text: name),
+                            onChanged: (value) {
+                              name = value;
+                            },
+                            decoration: InputDecoration(
+                                hintText: "Enter new name here"),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextField(
+                            controller: TextEditingController(text: address),
+                            onChanged: (value) {
+                              address = value;
+                            },
+                            decoration: InputDecoration(
+                                hintText: "Enter new address here"),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextField(
+                            controller: TextEditingController(text: phoneNum),
+                            onChanged: (value) {
+                              phoneNum = value;
+                            },
+                            decoration: InputDecoration(
+                                hintText: "Enter new phone number here"),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextField(
+                            onChanged: (value) {
+                              milk = value;
+                            },
+                            decoration: InputDecoration(
+                                hintText: milk),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextField(
+                            onChanged: (value) {
+                              egg = value;
+                            },
+                            decoration: InputDecoration(
+                                hintText: egg),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextField(
+                            onChanged: (value) {
+                              other = value;
+                            },
+                            decoration: InputDecoration(
+                                hintText: other),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        // Perform the edit operation here
+                        // Use the name, address, phoneNum, milk, egg, and other variables
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Save'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Cancel'),
+                    ),
+                  ],
+                );
+              },
+            );
           },
           cells: [
             DataCell(Text(index.toString())),

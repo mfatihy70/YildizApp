@@ -6,15 +6,22 @@ TODOs! sorted by priority: (Dont forget to change version in about)
 - homepage search field
 - slide to right left
 - edit selected button
-- select all orders button
 - center datatable headers 
 - combobox for other products
 - send notifications
 - verify commits
 - more menus
 - more content to homepage
+- merge locales jsons
+
+-optimize edit_order
+
+v0.2.2
+- fixed changed variable name ip_address
+- functionality to selectall button
 
 v0.2.1
+- added select all button, missing functionality
 - added variables.env
 - changed window settings from window_size to window_manager
 
