@@ -26,8 +26,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
 
   FlutterWindow window(project);
   int screenWidth = GetSystemMetrics(SM_CXSCREEN);
-  int screenHeight = GetSystemMetrics(SM_CYSCREEN);
-  Win32Window::Point origin(static_cast<int>(screenWidth / 3), static_cast<int>(screenHeight / 100));
+  Win32Window::Point origin(static_cast<int>(screenWidth / 3.5), 20);
   Win32Window::Size size(450, 800);
   if (!window.Create(L"Yildiz App", origin, size)) {
     return EXIT_FAILURE;

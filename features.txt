@@ -1,22 +1,22 @@
 TODOs! sorted by priority: (Dont forget to change version in about)
 
-Must do / Should do / Could do:
-
-- user account v2.0
-- center the icon to right
+- user account 
 - save settings locally
 - docker container
 - homepage search field
- combobox for other products
+- slide to right left
+- edit selected button
+- select all orders button
 - center datatable headers 
+- combobox for other products
 - send notifications
 - verify commits
 - more menus
 - more content to homepage
-- slide to right left
-- edit selected button
-- select all orders button
 
+v0.2.1
+- added variables.env
+- changed window settings from window_size to window_manager
 
 v0.2.0
 - CLOUD SERVER CONNECTION, thanks to aiven.io

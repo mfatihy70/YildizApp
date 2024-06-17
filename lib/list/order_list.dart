@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:yildiz_app/order_class.dart';
 import 'package:yildiz_app/database_service.dart';
 import 'package:yildiz_app/localization.dart';
-import 'package:yildiz_app/form/form_functions.dart' show deleteSelectedSnackbar;
+import 'package:yildiz_app/form/form_functions.dart'
+    show deleteSelectedSnackbar;
 import 'list_functions.dart';
 
 class OrderList extends StatefulWidget {
@@ -124,6 +125,17 @@ class OrderListState extends State<OrderList> {
                   mini: true,
                   shape: CircleBorder(),
                   child: const Icon(Icons.refresh),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      selectedIndices = List<int>.generate(
+                        selectedIndices.length,
+                        (index) => index,
+                      );
+                    });
+                  },
+                  child: Text('select all'),
                 ),
                 ElevatedButton(
                   onPressed:

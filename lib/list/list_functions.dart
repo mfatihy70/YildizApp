@@ -23,13 +23,13 @@ Widget connectionCheck(
     if (snapshot.hasError) {
       String errorMessage;
       if (snapshot.error.toString().contains('Failed host lookup')) {
-        errorMessage = l('connectivity_error', context)! + snapshot.error;
+        errorMessage = l('connectivity_error', context)! + snapshot.error.toString();
       } else if (snapshot.error
           .toString()
           .contains('The underlying socket to Postgres')) {
-        errorMessage = l('db_connection_error', context)! + snapshot.error;
+        errorMessage = l('db_connection_error', context)! + snapshot.error.toString();
       } else {
-        errorMessage = l('generic_error', context)! + snapshot.error;
+        errorMessage = l('generic_error', context)! + snapshot.error.toString();
       }
       return Center(
         child: Text(

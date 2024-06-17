@@ -1,14 +1,16 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 class SettingsNotifier extends ChangeNotifier {
   bool darkTheme;
   String selectedLanguage;
-  String host = 'pg-70-yildiz-70.j.aivencloud.com';
-  String dbName = 'defaultdb';
-  String username = 'avnadmin';
-  String password = 'AVNS_Ugw_H3CJTWPK_GDzSck';
-  int port = 15044;
+  String host = dotenv.env['DB_HOST'] ?? 'localhost';
+  String dbName = dotenv.env['DB_NAME'] ?? 'YildizDB';
+  String username = dotenv.env['DB_USERNAME'] ?? 'postgres';
+  String password = dotenv.env['DB_PASSWORD'] ?? 'admin';
+  int port = int.parse(dotenv.env['DB_PORT'] ?? '5432');
 
   SettingsNotifier({
     required this.darkTheme,
@@ -27,7 +29,7 @@ class SettingsNotifier extends ChangeNotifier {
         defaultLanguage = 'Deutsch';
       case 'tr':
         defaultLanguage = 'Türkçe';
-      default :
+      default:
         defaultLanguage = 'English';
     }
 
