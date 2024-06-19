@@ -74,6 +74,7 @@ flutter:
     - assets/images/
     - assets/flags/
     - assets/locales/
+    - assets/variables.env
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

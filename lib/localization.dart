@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-l(key, context) {
+l(String key, BuildContext context) {
   return AppLocalizations.of(context).translate(key);
+}
+
+t(String key, BuildContext context) {
+  return Text(AppLocalizations.of(context).translate(key));
 }
 
 class AppLocalizations {
@@ -18,27 +22,38 @@ class AppLocalizations {
   static const LocalizationsDelegate<AppLocalizations> delegate =
       _AppLocalizationsDelegate();
 
-  late Map<String, String> _localizedStrings;
+  late Map<String, List<String>> _localizedStrings;
 
   Future<bool> load() async {
-    String jsonString = await rootBundle
-        .loadString('assets/locales/${locale.languageCode}.json');
+    String jsonString = await rootBundle.loadString('assets/locales/translations.json');
     Map<String, dynamic> jsonMap = json.decode(jsonString);
 
     _localizedStrings = jsonMap.map((key, value) {
-      return MapEntry(key, value.toString());
+      return MapEntry(key, List<String>.from(value));
     });
 
     return true;
   }
 
   String translate(String key) {
-    return _localizedStrings[key] ?? '';
+    List<String>? translations = _localizedStrings[key];
+    if (translations == null) {
+      return '';
+    }
+    switch (locale.languageCode) {
+      case 'en':
+        return translations[0];
+      case 'de':
+        return translations[1];
+      case 'tr':
+        return translations[2];
+      default:
+        return '';
+    }
   }
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override

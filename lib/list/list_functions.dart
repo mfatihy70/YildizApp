@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:yildiz_app/form/form_functions.dart';
 import 'package:yildiz_app/order_class.dart';
 import 'package:yildiz_app/localization.dart';
+import 'format_phone.dart';
+import 'edit_item.dart';
 
 // Check the connection state and return the appropriate widget
 Widget connectionCheck(
   List<int> selectedIndices,
-  BuildContext context,
   AsyncSnapshot<List<Order>> snapshot,
   ValueChanged<int> onSelectedIndexChange,
   ValueChanged<bool> onToggleSelectAll,
+  Function refresh,
+  BuildContext context,
 ) {
   if (snapshot.connectionState == ConnectionState.waiting) {
     return Column(
@@ -16,7 +20,7 @@ Widget connectionCheck(
       children: [
         Center(child: CircularProgressIndicator()),
         SizedBox(height: 16.0),
-        Center(child: Text(l('loading_orders', context)!)),
+        Center(child: t('loading_orders', context)!),
       ],
     );
   } else if (snapshot.connectionState == ConnectionState.done) {
@@ -40,13 +44,14 @@ Widget connectionCheck(
         ),
       );
     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-      return Center(child: Text(l('no_orders_found', context)!));
+      return Center(child: t('no_orders_found', context)!);
     } else {
       return buildOrderDataTable(
         snapshot.data!,
         selectedIndices,
         onSelectedIndexChange,
         onToggleSelectAll,
+        refresh,
         context,
       );
     }
@@ -61,6 +66,7 @@ Widget buildOrderDataTable(
   List<int> selectedIndices,
   ValueChanged<int> onSelectedIndexChange,
   ValueChanged<bool> onToggleSelectAll,
+  Function refresh,
   BuildContext context,
 ) {
   return InteractiveViewer(
@@ -70,12 +76,12 @@ Widget buildOrderDataTable(
       headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
       columns: [
         DataColumn(label: Text('#')),
-        DataColumn(label: Text(l('name', context))),
-        DataColumn(label: Text(l('address', context))),
-        DataColumn(label: Text(l('phone', context))),
-        DataColumn(label: Text(l('milk', context))),
-        DataColumn(label: Text(l('egg', context))),
-        DataColumn(label: Text(l('others', context))),
+        DataColumn(label: t('name', context)),
+        DataColumn(label: t('address', context)),
+        DataColumn(label: t('phone', context)),
+        DataColumn(label: t('milk', context)),
+        DataColumn(label: t('egg', context)),
+        DataColumn(label: t('others', context)),
       ],
       showCheckboxColumn: false,
       rows: orders.asMap().entries.map((entry) {
@@ -93,107 +99,7 @@ Widget buildOrderDataTable(
           onSelectChanged: (val) {
             onSelectedIndexChange(index - 1);
           },
-          onLongPress: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                String name = order.name;
-                String address = order.address;
-                String phoneNum = order.phone;
-                String milk = order.milk.toString();
-                String egg = order.egg.toString();
-                String other = order.other;
-                return AlertDialog(
-                  title: Text('Edit Item'),
-                  content: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            controller: TextEditingController(text: name),
-                            onChanged: (value) {
-                              name = value;
-                            },
-                            decoration: InputDecoration(
-                                hintText: "Enter new name here"),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            controller: TextEditingController(text: address),
-                            onChanged: (value) {
-                              address = value;
-                            },
-                            decoration: InputDecoration(
-                                hintText: "Enter new address here"),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            controller: TextEditingController(text: phoneNum),
-                            onChanged: (value) {
-                              phoneNum = value;
-                            },
-                            decoration: InputDecoration(
-                                hintText: "Enter new phone number here"),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            onChanged: (value) {
-                              milk = value;
-                            },
-                            decoration: InputDecoration(
-                                hintText: milk),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            onChanged: (value) {
-                              egg = value;
-                            },
-                            decoration: InputDecoration(
-                                hintText: egg),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            onChanged: (value) {
-                              other = value;
-                            },
-                            decoration: InputDecoration(
-                                hintText: other),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        // Perform the edit operation here
-                        // Use the name, address, phoneNum, milk, egg, and other variables
-                        Navigator.of(context).pop();
-                      },
-                      child: Text('Save'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text('Cancel'),
-                    ),
-                  ],
-                );
-              },
-            );
-          },
+          onLongPress: () => editItem(order, dbService, refresh, context),
           cells: [
             DataCell(Text(index.toString())),
             DataCell(Text(order.name)),
@@ -208,53 +114,4 @@ Widget buildOrderDataTable(
       }).toList(),
     ),
   );
-}
-
-String formatPhoneNumber(String phone) {
-  phone = phone.replaceAll(' ', ''); // Remove any existing spaces
-  final originalPhone = phone;
-
-  // Handle phone numbers starting with +43 and having 9 or 10 digits after the prefix
-
-  // Handle phone numbers starting with 0 and having 10 or 11 digits after the prefix
-  if (phone.startsWith('0')) {
-    if (phone.length == 11) {
-      return '${phone.substring(1, 4)} ${phone.substring(4, 7)} ${phone.substring(7)}'; // 680 144 1344
-    }
-    if (phone.length == 12) {
-      return '${phone.substring(1, 4)} ${phone.substring(4, 7)} ${phone.substring(7, 10)} ${phone.substring(10)}'; // 680 144 134 56
-    }
-  }
-
-  // +43 and other country codes
-  if (phone.startsWith('+')) {
-    if (phone.startsWith('+43')) {
-      if (phone.length == 12) {
-        return '${phone.substring(4, 7)} ${phone.substring(7)}'; // 680 144 1344
-      }
-      if (phone.length == 13) {
-        return '${phone.substring(4, 7)} ${phone.substring(7, 10)} ${phone.substring(10)}'; // 680 144 134 56
-      }
-    } else {
-      if (phone.length == 13) {
-        return '${phone.substring(0, 3)} ${phone.substring(3, 6)} ${phone.substring(6, 9)} ${phone.substring(9)}'; // +90 555 123 123 23
-      }
-      if (phone.length == 14) {
-        return '${phone.substring(0, 3)} ${phone.substring(3, 6)} ${phone.substring(6, 9)} ${phone.substring(9)}'; // +90 555 123 123 23
-      }
-    }
-  }
-
-  // 10 digits
-  if (phone.length == 10) {
-    return '${phone.substring(0, 3)} ${phone.substring(3, 6)} ${phone.substring(6)}'; // 555 123 1234
-  }
-
-  // 11 digits
-  if (phone.length == 11) {
-    return '${phone.substring(0, 3)} ${phone.substring(3, 6)} ${phone.substring(6, 9)} ${phone.substring(9)}'; // 555 123 123 23
-  }
-
-  // If none of the conditions match, return the original phone number
-  return originalPhone;
 }

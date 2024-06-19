@@ -4,17 +4,21 @@ TODOs! sorted by priority: (Dont forget to change version in about)
 - save settings locally
 - docker container
 - homepage search field
-- slide to right left
-- edit selected button
 - center datatable headers 
 - combobox for other products
 - send notifications
 - verify commits
 - more menus
 - more content to homepage
-- merge locales jsons
+- disable swipe on order list
+- fix bug caused by external textfields
 
--optimize edit_order
+v0.2.3
+- disable context warning on analysis_options
+- edit order works with validation
+- created edit diaolog with changes made to order_form
+- added page swipe, todo: disable swipe on order_list datatable
+- merged translations into a single json, made required changes
 
 v0.2.2
 - fixed changed variable name ip_address

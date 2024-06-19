@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:yildiz_app/localization.dart';
+import 'package:yildiz_app/localization.dart' show l, t;
 import 'package:yildiz_app/order_class.dart';
 import 'package:yildiz_app/database_service.dart';
 import 'form_functions.dart';
 import 'validation.dart';
+//import 'textfields.dart';
 
 class OrderForm extends StatefulWidget {
   @override
@@ -11,14 +12,14 @@ class OrderForm extends StatefulWidget {
 }
 
 class OrderFormState extends State<OrderForm> {
-  final nameController = TextEditingController();
-  final addressController = TextEditingController();
-  final phoneController = TextEditingController();
-  final milkController = TextEditingController();
-  final eggController = TextEditingController();
-  final otherController = TextEditingController();
+  final nameC = TextEditingController();
+  final addressC = TextEditingController();
+  final phoneC = TextEditingController();
+  final milkC = TextEditingController();
+  final eggC = TextEditingController();
+  final otherC = TextEditingController();
 
-  final _formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   final dbService = DatabaseService();
 
@@ -30,83 +31,78 @@ class OrderFormState extends State<OrderForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text(l('order_form', context))),
+        title: Center(child: t('order_form', context)),
       ),
       body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+        key: formKey,
+        child:
+            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          customTextField(
+            controller: nameC,
+            labelText: l('name', context),
+            keyboardType: TextInputType.text,
+            validator: (value) {
+              return validateName(context, value);
+            },
+          ),
+          customTextField(
+            controller: addressC,
+            labelText: l('address', context),
+            keyboardType: TextInputType.text,
+            validator: (value) {
+              return validateAddress(context, value);
+            },
+          ),
+          customTextField(
+            controller: phoneC,
+            labelText: l('phone_number', context),
+            keyboardType: TextInputType.phone,
+            validator: (value) {
+              return validatePhoneNumber(context, value);
+            },
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              customTextField(
-                controller: nameController,
-                labelText: l('name', context),
-                keyboardType: TextInputType.text,
-                validator: (value) {
-                  return validateName(context, value);
-                },
+              Expanded(
+                child: customTextField(
+                  controller: milkC,
+                  labelText: l('milk_in_liters', context),
+                  keyboardType: TextInputType.number,
+                  validator: (String? value) {
+                    return milkError;
+                  },
+                ),
               ),
-              customTextField(
-                controller: addressController,
-                labelText: l('address', context),
-                keyboardType: TextInputType.text,
-                validator: (value) {
-                  return validateAddress(context, value);
-                },
-              ),
-              customTextField(
-                controller: phoneController,
-                labelText: l('phone_number', context),
-                keyboardType: TextInputType.phone,
-                validator: (value) {
-                  return validatePhoneNumber(context, value);
-                }
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: customTextField(
-                      controller: milkController,
-                      labelText: l('milk_in_liters', context),
-                      keyboardType: TextInputType.number,
-                      validator: (String? value) {
-                        return milkError;
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: customTextField(
-                      controller: eggController,
-                      labelText: l('egg_in_plates', context),
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        return eggError;
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              customTextField(
-                controller: otherController,
-                labelText: l('other', context),
-                keyboardType: TextInputType.text,
-                validator: (value) {
-                  return otherError;
-                },
-              ),
-              SizedBox(height: 20.0),
-              Container(
-                alignment: Alignment.center,
-                child: FilledButton(
-                  onPressed: _submitForm,
-                  child: Text(l("send_order", context)),
+              Expanded(
+                child: customTextField(
+                  controller: eggC,
+                  labelText: l('egg_in_plates', context),
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    return eggError;
+                  },
                 ),
               ),
             ],
           ),
-        ),
+          customTextField(
+            controller: otherC,
+            labelText: l('other', context),
+            keyboardType: TextInputType.text,
+            validator: (value) {
+              return otherError;
+            },
+          ),
+          SizedBox(height: 20.0),
+          Container(
+            alignment: Alignment.center,
+            child: FilledButton(
+              onPressed: _submitForm,
+              child: Text(l("send_order", context)),
+            ),
+          ),
+        ]),
       ),
     );
   }
@@ -120,9 +116,9 @@ class OrderFormState extends State<OrderForm> {
 
     setState(() {
       validateMilkEggOther(
-        milkController,
-        eggController,
-        otherController,
+        milkC,
+        eggC,
+        otherC,
         (message) => milkError = message,
         (message) => eggError = message,
         (message) => otherError = message,
@@ -130,20 +126,21 @@ class OrderFormState extends State<OrderForm> {
       );
     });
 
-    if (_formKey.currentState?.validate() ?? false) {
+    if (formKey.currentState?.validate() ?? false) {
       if (milkError == null && eggError == null && otherError == null) {
         Order order = createOrder(
-          nameController,
-          addressController,
-          phoneController,
-          milkController,
-          eggController,
-          otherController,
+          nameC,
+          addressC,
+          phoneC,
+          milkC,
+          eggC,
+          otherC,
         );
 
         // ignore: use_build_context_synchronously
-        handleSendOrder(context, order,
-            (order) async => await dbService.deleteOrder(context, order.id));
+        handleSendOrder(context, order, (order) async {
+          await dbService.deleteOrder(context, order.id);
+        });
       }
     }
   }

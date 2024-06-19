@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:yildiz_app/localization.dart';
 
 Widget databaseServerTile(context, settingsNotifier) {
-  final hostController = TextEditingController();
-  final dbNameController = TextEditingController();
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+  final hostC = TextEditingController();
+  final dbNameC = TextEditingController();
+  final usernameC = TextEditingController();
+  final passwordC = TextEditingController();
 
   return ListTile(
     title: Text(l('database_connection', context)),
     trailing: Icon(Icons.storage),
     onTap: () {
-      hostController.text = settingsNotifier.host;
-      dbNameController.text = settingsNotifier.dbName;
-      usernameController.text = settingsNotifier.username;
-      passwordController.text = settingsNotifier.password;
+      hostC.text = settingsNotifier.host;
+      dbNameC.text = settingsNotifier.dbName;
+      usernameC.text = settingsNotifier.username;
+      passwordC.text = settingsNotifier.password;
 
       showDialog(
         context: context,
@@ -27,7 +27,7 @@ Widget databaseServerTile(context, settingsNotifier) {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
-                      controller: hostController,
+                      controller: hostC,
                       decoration: InputDecoration(
                         labelText: l('host', context),
                       ),
@@ -36,7 +36,7 @@ Widget databaseServerTile(context, settingsNotifier) {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
-                      controller: dbNameController,
+                      controller: dbNameC,
                       decoration: InputDecoration(
                         labelText: l('database_name', context),
                       ),
@@ -45,7 +45,7 @@ Widget databaseServerTile(context, settingsNotifier) {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
-                      controller: usernameController,
+                      controller: usernameC,
                       decoration: InputDecoration(
                         labelText: l('username', context),
                       ),
@@ -54,7 +54,7 @@ Widget databaseServerTile(context, settingsNotifier) {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
-                      controller: passwordController,
+                      controller: passwordC,
                       decoration: InputDecoration(
                         labelText: l('password', context),
                       ),
@@ -74,10 +74,10 @@ Widget databaseServerTile(context, settingsNotifier) {
               TextButton(
                 child: Text(l('save', context)),
                 onPressed: () {
-                  settingsNotifier.setIpAddress(hostController.text);
-                  settingsNotifier.setDbName(dbNameController.text);
-                  settingsNotifier.setUsername(usernameController.text);
-                  settingsNotifier.setPassword(passwordController.text);
+                  settingsNotifier.setIpAddress(hostC.text);
+                  settingsNotifier.setDbName(dbNameC.text);
+                  settingsNotifier.setUsername(usernameC.text);
+                  settingsNotifier.setPassword(passwordC.text);
                   Navigator.pop(context);
                 },
               ),

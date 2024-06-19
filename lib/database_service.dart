@@ -52,19 +52,33 @@ class DatabaseService {
     }
   }
 
+  Future<Order?> getOrderById(BuildContext context, int id) async {
+    await ensureConnected(context);
+    try {
+      final result = await conn.execute('SELECT * FROM orders WHERE id = $id');
+      if (result.isNotEmpty) {
+        return Order.fromMap(result.first.toColumnMap());
+      } else {
+        return null;
+      }
+    } catch (e) {
+      throw Exception('Failed to fetch order: $e');
+    }
+  }
+
   Future<bool> createTable(BuildContext context) async {
     await ensureConnected(context);
     try {
       await conn.execute('CREATE SEQUENCE IF NOT EXISTS orders_id_seq;');
       await conn.execute('''
       CREATE TABLE IF NOT EXISTS public.orders(
+          id SERIAL PRIMARY KEY
           name VARCHAR(30) NOT NULL,
           address VARCHAR(50) NOT NULL,
           phone VARCHAR(20) NOT NULL,
           milk INTEGER,
           egg INTEGER,
           other VARCHAR(50),
-          id SERIAL PRIMARY KEY
       );''');
       print('Table created successfully');
       return true;
@@ -107,6 +121,23 @@ class DatabaseService {
       return true;
     } catch (e) {
       print('Failed to delete order: $e');
+      return false;
+    }
+  }
+
+  Future<bool> updateOrder(
+      BuildContext context, Order oldOrder, Order newOrder) async {
+    await ensureConnected(context);
+    try {
+      await conn.execute('''
+      UPDATE orders
+      SET name = '${newOrder.name}', address = '${newOrder.address}', phone = '${newOrder.phone}', milk = ${newOrder.milk}, egg = ${newOrder.egg}, other = '${newOrder.other}'
+      WHERE id = ${oldOrder.id}
+    ''');
+      print('Order updated successfully');
+      return true;
+    } catch (e) {
+      print('Failed to update order: $e');
       return false;
     }
   }

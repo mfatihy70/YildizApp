@@ -7,19 +7,19 @@ DatabaseService dbService = DatabaseService();
 
 // Create an order object from the text field controllers
 Order createOrder(
-    TextEditingController nameController,
-    TextEditingController addressController,
-    TextEditingController phoneController,
-    TextEditingController milkController,
-    TextEditingController eggController,
-    TextEditingController otherController) {
+    TextEditingController nameC,
+    TextEditingController addressC,
+    TextEditingController phoneC,
+    TextEditingController milkC,
+    TextEditingController eggC,
+    TextEditingController otherC) {
   return Order(
-    name: nameController.text,
-    address: addressController.text,
-    phone: phoneController.text,
-    milk: int.tryParse(milkController.text) ?? 0,
-    egg: int.tryParse(eggController.text) ?? 0,
-    other: otherController.text,
+    name: nameC.text,
+    address: addressC.text,
+    phone: phoneC.text,
+    milk: int.tryParse(milkC.text) ?? 0,
+    egg: int.tryParse(eggC.text) ?? 0,
+    other: otherC.text,
   );
 }
 
@@ -126,7 +126,7 @@ Widget customTextField({
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           labelText: labelText,
-          errorMaxLines: 3,
+          errorMaxLines: 5,
         ),
         validator: validator),
   );

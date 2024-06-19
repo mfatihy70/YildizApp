@@ -12,6 +12,7 @@ class NavigationBarApp extends StatefulWidget {
 
 class NavigationBarAppState extends State<NavigationBarApp> {
   int currentPageIndex = 0;
+  final _pageController = PageController();
 
   //App pages to navigate
   final pages = <Widget>[
@@ -29,6 +30,7 @@ class NavigationBarAppState extends State<NavigationBarApp> {
           setState(() {
             currentPageIndex = index;
           });
+          _pageController.animateToPage(index, duration: Duration(milliseconds: 200), curve: Curves.easeIn);
         },
         selectedIndex: currentPageIndex,
         destinations: <NavigationDestination>[
@@ -50,7 +52,15 @@ class NavigationBarAppState extends State<NavigationBarApp> {
           ),
         ],
       ),
-      body: pages[currentPageIndex],
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        children: pages,
+      ),
     );
   }
 }

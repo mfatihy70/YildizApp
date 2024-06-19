@@ -1,0 +1,527 @@
+{
+    "order_success": [
+        "Order sent successfully!",
+        "Bestellung erfolgreich gesendet!",
+        "Sipariş başarıyla gönderildi!"
+    ],
+    "order_fail": [
+        "Failed to send order.",
+        "Bestellung konnte nicht gesendet werden.",
+        "Sipariş gönderilemedi."
+    ],
+    "connection_error": [
+        "Connection Error",
+        "Verbindungsfehler",
+        "Bağlantı Hatası"
+    ],
+    "database_connection_fail": [
+        "Failed to connect to the database: ",
+        "Keine Verbindung zur Datenbank hergestellt: ",
+        "Veritabanına bağlanılamadı: "
+    ],
+    "undo": [
+        "Undo",
+        "Rückgängig",
+        "Geri Al"
+    ],
+    "close": [
+        "Close",
+        "Schließen",
+        "Kapat"
+    ],
+    "enter_text": [
+        "Please enter some text",
+        "Bitte geben Sie einen Text ein",
+        "Lütfen bir metin girin"
+    ],
+    "order_form": [
+        "Order Form",
+        "Bestellformular",
+        "Sipariş Formu"
+    ],
+    "phone_number": [
+        "Phone Number",
+        "Telefonnummer",
+        "Telefon Numarası"
+    ],
+    "milk_in_liters": [
+        "Milk in Liters",
+        "Milch in Litern",
+        "Süt (litre)"
+    ],
+    "egg_in_plates": [
+        "Egg in Plates",
+        "Eier in Kartons",
+        "Yumurta (karton)"
+    ],
+    "other": [
+        "Other",
+        "Andere",
+        "Diğer"
+    ],
+    "send_order": [
+        "Send Order",
+        "Bestellung senden",
+        "Siparişi Gönder"
+    ],
+    "enter_name": [
+        "Please enter a name",
+        "Bitte geben Sie einen Namen ein",
+        "Lütfen bir isim girin"
+    ],
+    "name_min_length": [
+        "Name must be at least 3 characters long",
+        "Der Name muss mindestens 3 Zeichen lang sein",
+        "İsim en az 3 karakter olmalıdır"
+    ],
+    "name_max_length": [
+        "Name must be at most 50 characters long",
+        "Der Name darf höchstens 50 Zeichen lang sein",
+        "İsim en fazla 50 karakter olmalıdır"
+    ],
+    "enter_address": [
+        "Please enter an address",
+        "Bitte geben Sie eine Adresse ein",
+        "Lütfen bir adres girin"
+    ],
+    "address_min_length": [
+        "Address must be at least 5 characters long",
+        "Die Adresse muss mindestens 5 Zeichen lang sein",
+        "Adres en az 5 karakter olmalıdır"
+    ],
+    "address_max_length": [
+        "Address must be at most 50 characters long",
+        "Die Adresse darf höchstens 50 Zeichen lang sein",
+        "Adres en fazla 50 karakter olmalıdır"
+    ],
+    "enter_phone_number": [
+        "Please enter a phone number",
+        "Bitte geben Sie eine Telefonnummer ein",
+        "Lütfen bir telefon numarası girin"
+    ],
+    "valid_phone_number": [
+        "Please enter a valid phone number",
+        "Bitte geben Sie eine gültige Telefonnummer ein",
+        "Lütfen geçerli bir telefon numarası girin"
+    ],
+    "phone_min_length": [
+        "Phone number must be at least 10 digits long",
+        "Die Telefonnummer muss mindestens 10 Ziffern lang sein",
+        "Telefon numarası en az 10 haneli olmalıdır"
+    ],
+    "phone_max_length": [
+        "Phone number must be at most 15 digits long",
+        "Die Telefonnummer darf höchstens 15 Ziffern lang sein",
+        "Telefon numarası en fazla 15 haneli olmalıdır"
+    ],
+    "enter_number": [
+        "Please enter a number",
+        "Bitte geben Sie eine Zahl ein",
+        "Lütfen bir sayı girin"
+    ],
+    "valid_number": [
+        "Please enter a valid number",
+        "Bitte geben Sie eine gültige Zahl ein",
+        "Lütfen geçerli bir sayı girin"
+    ],
+    "milk_max": [
+        "Milk orders must be at most 50 liters",
+        "Milchbestellungen dürfen höchstens 50 Liter betragen",
+        "Süt siparişleri en fazla 50 litre olmalıdır"
+    ],
+    "milk_min": [
+        "Please enter a number greater than 5",
+        "Bitte geben Sie eine Zahl größer als 5 ein",
+        "Lütfen 5'ten az olmayan bir sayı girin"
+    ],
+    "milk_divisible": [
+        "Please enter a number divisible by 5",
+        "Bitte geben Sie eine Zahl ein, die durch 5 teilbar ist",
+        "Lütfen 5'e bölünebilen bir sayı girin"
+    ],
+    "egg_max": [
+        "Egg orders must be at most 50 cartons",
+        "Eierbestellungen dürfen höchstens 50 Kartons betragen",
+        "Yumurta siparişleri en fazla 50 tabak olmalıdır"
+    ],
+    "other_max_length": [
+        "Other must be at most 50 characters long",
+        "Andere dürfen höchstens 50 Zeichen lang sein",
+        "Diğer en fazla 50 karakter olmalıdır"
+    ],
+    "give_order": [
+        "Please place an order",
+        "Bitte geben Sie eine Bestellung auf",
+        "Lütfen bir sipariş verin"
+    ],
+    "loading_orders": [
+        "Loading orders...",
+        "Bestellungen werden geladen...",
+        "Siparişler yükleniyor..."
+    ],
+    "connectivity_error": [
+        "Unable to connect to the database. Please check your internet connection or database settings.",
+        "Keine Verbindung zur Datenbank. Bitte überprüfen Sie Ihre Internetverbindung oder Datenbankeinstellungen.",
+        "Veritabanına bağlanılamıyor. Lütfen internet bağlantınızı veya veritabanı ayarlarınızı kontrol edin."
+    ],
+    "db_connection_error": [
+        "Unable to connect to the database with the provided information.\nPlease verify your database connection settings and try again.",
+        "Keine Verbindung zur Datenbank mit den angegebenen Informationen hergestellt.\nBitte überprüfen Sie Ihre Datenbankverbindungseinstellungen und versuchen Sie es erneut.",
+        "Verilen bilgilerle veritabanına bağlanılamıyor.\nLütfen veritabanı bağlantı ayarlarınızı doğrulayın ve tekrar deneyin."
+    ],
+    "generic_error": [
+        "Error: ",
+        "Fehler: ",
+        "Hata: "
+    ],
+    "no_orders_found": [
+        "No orders found",
+        "Keine Bestellungen gefunden",
+        "Hiç sipariş bulunamadı"
+    ],
+    "name": [
+        "Name",
+        "Name",
+        "İsim"
+    ],
+    "address": [
+        "Address",
+        "Adresse",
+        "Adres"
+    ],
+    "phone": [
+        "Phone number",
+        "Telefonnummer",
+        "Telefon numarası"
+    ],
+    "milk": [
+        "Milk",
+        "Milch",
+        "Süt"
+    ],
+    "egg": [
+        "Egg",
+        "Eier",
+        "Yumurta"
+    ],
+    "others": [
+        "Others",
+        "Andere",
+        "Diğer"
+    ],
+    "order_list": [
+        "Order List",
+        "Bestellliste",
+        "Sipariş Listesi"
+    ],
+    "selected_orders_deleted": [
+        "Selected orders deleted.",
+        "Ausgewählte Bestellungen wurden gelöscht.",
+        "Seçilen siparişler silindi."
+    ],
+    "failed_to_delete_orders": [
+        "Failed to delete selected orders.",
+        "Ausgewählte Bestellungen konnten nicht gelöscht werden.",
+        "Seçilen siparişler silinemedi."
+    ],
+    "delete_selected": [
+        "Delete Selected",
+        "Ausgewählte löschen",
+        "Seçilenleri Sil"
+    ],
+    "select_all": [
+        "Select All",
+        "Alle auswählen",
+        "Hepsini Seç"
+    ],
+    "deselect_all": [
+        "Deselect All",
+        "Alle abwählen",
+        "Seçimi Kaldır"
+    ],
+    "home_page": [
+        "Home Page",
+        "Startseite",
+        "Ana Sayfa"
+    ],
+    "milk_title": [
+        "Milk",
+        "Milch",
+        "Süt"
+    ],
+    "milk_description": [
+        "Fresh and creamy milk from local farms.",
+        "Frische und cremige Milch von lokalen Bauernhöfen.",
+        "Yerel çiftliklerden taze ve kremsi süt."
+    ],
+    "egg_title": [
+        "Egg",
+        "Eier",
+        "Yumurta"
+    ],
+    "egg_description": [
+        "Healthy and nutritious eggs from farm chickens.",
+        "Gesunde und nahrhafte Eier von Bauernhof-Hühnern.",
+        "Çiftlik tavuklarından sağlıklı ve besleyici yumurtalar."
+    ],
+    "nuts_title": [
+        "Nuts",
+        "Nüsse",
+        "Kuruyemiş"
+    ],
+    "nuts_description": [
+        "Fresh and nutritious nuts.",
+        "Frische und nahrhafte Nüsse.",
+        "Taze ve besleyici kuruyemişler."
+    ],
+    "honey_title": [
+        "Honey",
+        "Honig",
+        "Bal"
+    ],
+    "honey_description": [
+        "Sweet and golden honey directly from the bee hive.",
+        "Süßer und goldener Honig direkt aus dem Bienenstock.",
+        "Doğrudan arı kovanından tatlı ve altın bal."
+    ],
+    "yogurt_title": [
+        "Yogurt",
+        "Joghurt",
+        "Yoğurt"
+    ],
+    "yogurt_description": [
+        "Homemade creamy and delicious yogurt from fresh milk.",
+        "Hausgemachter, cremiger und köstlicher Joghurt aus frischer Milch.",
+        "Taze sütten ev yapımı kremamsı ve lezzetli yoğurt."
+    ],
+    "cheese_title": [
+        "Cheese",
+        "Käse",
+        "Peynir"
+    ],
+    "cheese_description": [
+        "Delicious and exquisite homemade cheese.",
+        "Leckerer und köstlicher hausgemachter Käse.",
+        "Lezzetli ve enfes ev yapımı peynir"
+    ],
+    "home": [
+        "Home",
+        "Startseite",
+        "Ana Sayfa"
+    ],
+    "settings": [
+        "Settings",
+        "Einstellungen",
+        "Ayarlar"
+    ],
+    "about_author": [
+        "Author",
+        "Autor",
+        "Yazar"
+    ],
+    "about_version": [
+        "Version",
+        "Version",
+        "Sürüm"
+    ],
+    "about_website": [
+        "Website",
+        "Webseite",
+        "Web Sitesi"
+    ],
+    "about_contact": [
+        "Contact",
+        "Kontakt",
+        "İletişim"
+    ],
+    "general": [
+        "General",
+        "Allgemein",
+        "Genel"
+    ],
+    "notifications": [
+        "Notifications",
+        "Benachrichtigungen",
+        "Bildirimler"
+    ],
+    "notificationss": [
+        "Notifications",
+        "Benachrich-\ntigungen",
+        "Bildirimler"
+    ],
+    "notification": [
+        "Notification",
+        "Benachrichtigung",
+        "Bildirim"
+    ],
+    "allow_notifications": [
+        "Allow notifications",
+        "Benachrichtigungen erlauben",
+        "Bildirimlere izin ver"
+    ],
+    "notifications_sound": [
+        "Notification sound",
+        "Benachrichtigungston",
+        "Bildirim sesi"
+    ],
+    "play_sound_notifications": [
+        "Play notification sound",
+        "Benachrichtigungston abspielen",
+        "Bildirim sesi çal"
+    ],
+    "sound_volume": [
+        "Sound volume",
+        "Lautstärke",
+        "Ses seviyesi"
+    ],
+    "language": [
+        "Language",
+        "Sprache",
+        "Dil"
+    ],
+    "select_language": [
+        "Select Language",
+        "Sprache auswählen",
+        "Dil Seçin"
+    ],
+    "database_connection": [
+        "Database Connection",
+        "Datenbankverbindung",
+        "Veritabanı Bağlantısı"
+    ],
+    "edit_database_connection": [
+        "Edit Database Connection",
+        "Datenbankverbindung bearbeiten",
+        "Veritabanı Bağlantısını Düzenle"
+    ],
+    "host": [
+        "Host Address",
+        "Hostadresse",
+        "Sunucu Adresi"
+    ],
+    "database_name": [
+        "Database Name",
+        "Datenbankname",
+        "Veritabanı Adı"
+    ],
+    "username": [
+        "Username",
+        "Benutzername",
+        "Kullanıcı Adı"
+    ],
+    "password": [
+        "Password",
+        "Passwort",
+        "Şifre"
+    ],
+    "cancel": [
+        "Cancel",
+        "Abbrechen",
+        "İptal"
+    ],
+    "save": [
+        "Save",
+        "Speichern",
+        "Kaydet"
+    ],
+    "app_theme": [
+        "App Theme",
+        "App-Design",
+        "Uygulama Teması"
+    ],
+    "select_theme": [
+        "Select Theme",
+        "Design auswählen",
+        "Temayı Seç"
+    ],
+    "dark_theme": [
+        "Dark Mode",
+        "Dunkelmodus",
+        "Koyu Mod"
+    ],
+    "light_theme": [
+        "Light Mode",
+        "Hellmodus",
+        "Açık Mod"
+    ],
+    "account": [
+        "Account",
+        "Konto",
+        "Hesap"
+    ],
+    "about": [
+        "About",
+        "Über",
+        "Hakkında"
+    ],
+    "settingsof": [
+        "Settings",
+        "Einstellungen",
+        "Ayarlar"
+    ],
+    "connected_to_database": [
+        "Connected to the database!",
+        "Mit der Datenbank verbunden!",
+        "Veritabanına bağlandı!"
+    ],
+    "failed_to_connect_database": [
+        "Failed to connect to the database: ",
+        "Keine Verbindung zur Datenbank hergestellt: ",
+        "Veritabanına bağlanılamadı: "
+    ],
+    "failed_to_fetch_orders": [
+        "Failed to fetch orders: ",
+        "Bestellungen konnten nicht abgerufen werden: ",
+        "Siparişler alınamadı: "
+    ],
+    "table_created_successfully": [
+        "Table created successfully",
+        "Tabelle erfolgreich erstellt",
+        "Tablo başarıyla oluşturuldu"
+    ],
+    "failed_to_create_table": [
+        "Failed to create table: ",
+        "Tabelle konnte nicht erstellt werden: ",
+        "Tablo oluşturulamadı: "
+    ],
+    "order_sent_successfully": [
+        "Order sent successfully",
+        "Bestellung erfolgreich gesendet",
+        "Sipariş başarıyla gönderildi"
+    ],
+    "failed_to_send_order": [
+        "Failed to send order: ",
+        "Bestellung konnte nicht gesendet werden: ",
+        "Sipariş gönderilemedi: "
+    ],
+    "order_deleted_successfully": [
+        "Order deleted successfully",
+        "Bestellung erfolgreich gelöscht",
+        "Sipariş başarıyla silindi"
+    ],
+    "failed_to_delete_order": [
+        "Failed to delete order: ",
+        "Bestellung konnte nicht gelöscht werden: ",
+        "Sipariş silinemedi: "
+    ],
+    "connection_closed": [
+        "Connection closed",
+        "Verbindung geschlossen",
+        "Bağlantı kapandı"
+    ],
+    "edit_item": [
+        "Edit Item",
+        "Element bearbeiten",
+        "Öğeyi Düzenle"
+    ],
+    "edit_success": [
+        "Edit successful",
+        "Bearbeitung erfolgreich",
+        "Düzenleme başarılı"
+    ],
+    "edit_fail": [
+        "Failed to edit item",
+        "Bearbeitung fehjgeschlagen",
+        "Öğe düzenlenemedi"
+    ]
+}

@@ -12,7 +12,7 @@ class OrderList extends StatefulWidget {
 }
 
 class OrderListState extends State<OrderList> {
-  final DatabaseService dbService = DatabaseService();
+  final dbService = DatabaseService();
   late Future<List<Order>> orders;
   List<int> selectedIndices = [];
   List<Order> recentlyDeletedOrders = [];
@@ -87,7 +87,6 @@ class OrderListState extends State<OrderList> {
                 currentSnapshot = snapshot;
                 return connectionCheck(
                   selectedIndices,
-                  context,
                   snapshot,
                   (index) {
                     setState(() {
@@ -110,6 +109,8 @@ class OrderListState extends State<OrderList> {
                       }
                     });
                   },
+                  refreshOrders,
+                  context,
                 );
               },
             ),
