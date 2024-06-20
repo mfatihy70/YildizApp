@@ -1,19 +1,19 @@
 # Yildiz App
 
-Yildiz App is a Flutter application designed for managing orders using a PostgreSQL Database.
+Yildiz App is a Flutter application designed for managing orders.
 
 ## Database Configuration
 
-By default, the application is configured to connect to a cloud PostgreSQL database.
+By default, the application is configured to connect to Aiven Cloud PostgreSQL database.
 
 ## Features
 
 The Yildiz App comes with a variety of features:
 
-- **Product Home Page**: Features a modern-looking hero view component.
-- **Order Form Page**: Allows users to send an order to the database after validation.
-- **Order List Page**: Fetches the orders from the database, handles possible errors, and displays them in a table.
-- **Settings Page**: Provides standard settings options such as app theme, language, notifications, privacy, and account management.
+- **Product Home**: Features a modern-looking hero view component.
+- **Order Form**: Allows users to send an order to the database after validation.
+- **Order List**: Fetches the orders from the database, handles possible errors, and displays them in a table.
+- **Settings**: Provides standard settings options such as app theme, language, notifications, privacy, and account management.
 
 ## Getting Started
 1. Clone the repository:
