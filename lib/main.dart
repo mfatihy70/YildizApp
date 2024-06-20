@@ -12,9 +12,7 @@ import 'dart:io' show Platform;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await dotenv.load(fileName: "assets/variables.env", mergeWith: {
-    'TEST_VAR': '5',
-  });
+  await dotenv.load(fileName: "assets/variables.env");
 
   // Set window size and title, ensuring widget initialization for Windows
   if (Platform.isWindows) {

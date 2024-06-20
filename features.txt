@@ -1,8 +1,10 @@
 TODOs! sorted by priority: (Dont forget to change version in about)
+# Architectural changes: riverpod, mvvm, tests, container, deployment
+# Halt implementing new features until architectural change takes place
+# Multiple git branches
 
 - user account 
 - save settings locally
-- docker container
 - homepage search field
 - center datatable headers 
 - combobox for other products
@@ -13,8 +15,14 @@ TODOs! sorted by priority: (Dont forget to change version in about)
 - disable swipe on order list
 - fix bug caused by external textfields
 
+v0.2.4
+- small changes and code clean up
+- fixed edit item issues, undo edit also works
+- added ssl mode switch to database conection
+- added port number to database connection
+
 v0.2.3
-- disable context warning on analysis_options
+- disabled context warning on analysis_options
 - edit order works with validation
 - created edit diaolog with changes made to order_form
 - added page swipe, todo: disable swipe on order_list datatable

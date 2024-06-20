@@ -1,32 +1,37 @@
 import 'package:flutter/material.dart';
-//import 'package:yildiz_app/form/textfields.dart';
 import 'package:yildiz_app/localization.dart' show l, t;
 import 'package:yildiz_app/form/form_functions.dart';
 import 'package:yildiz_app/order_class.dart';
 import 'package:yildiz_app/form/validation.dart';
 
-void editItem(order, dbService, refresh, context) {
+void editItem(Order order, dbService, refresh, BuildContext context) {
+  final nameC = TextEditingController(text: order.name);
+  final addressC = TextEditingController(text: order.address);
+  final phoneC = TextEditingController(text: order.phone);
+  final milkC = TextEditingController(
+      text: (order.milk == 0 || order.milk == null) ? '' : order.milk.toString());
+  final eggC = TextEditingController(
+      text: (order.egg == 0 || order.egg == null) ? '' : order.egg.toString());
+  final otherC = TextEditingController(text: order.other);
+  final formKey = GlobalKey<FormState>();
+  String? milkError;
+  String? eggError;
+  String? otherError;
+
+  // Clone the original order
+  Order originalOrder = Order(
+    id: order.id,
+    name: order.name,
+    address: order.address,
+    phone: order.phone,
+    milk: order.milk,
+    egg: order.egg,
+    other: order.other,
+  );
+
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      String name = order.name;
-      String address = order.address;
-      String phoneNum = order.phone;
-      String milk = order.milk.toString();
-      String egg = order.egg.toString();
-      String other = order.other;
-      final nameC = TextEditingController(text: name);
-      final addressC = TextEditingController(text: address);
-      final phoneC = TextEditingController(text: phoneNum);
-      final milkC = TextEditingController(text: milk);
-      final eggC = TextEditingController(text: egg);
-      final otherC = TextEditingController(text: other);
-      String? milkError;
-      String? eggError;
-      String? otherError;
-
-      final formKey = GlobalKey<FormState>();
-
       return AlertDialog(
         title: t('edit_item', context),
         content: SizedBox(
@@ -129,11 +134,12 @@ void editItem(order, dbService, refresh, context) {
                     otherError == null) {
                   // Create an updated order object
                   Order newOrder = Order(
+                    id: order.id,
                     name: nameC.text,
                     address: addressC.text,
                     phone: phoneC.text,
-                    milk: int.tryParse(milkC.text) ?? order.milk,
-                    egg: int.tryParse(eggC.text) ?? order.egg,
+                    milk: int.tryParse(milkC.text),
+                    egg: int.tryParse(eggC.text),
                     other: otherC.text,
                   );
 
@@ -142,16 +148,18 @@ void editItem(order, dbService, refresh, context) {
                       await dbService.updateOrder(context, order, newOrder);
 
                   if (context.mounted) {
-                    showSnackBar(
-                      context,
+                    showSnackBarWithUndo(
                       updateSuccess,
                       l('edit_success', context),
                       l('edit_fail', context),
-                      //() => dbService.updateOrder(context, newOrder, order),
+                      () async {
+                        await dbService.updateOrder(context, newOrder, originalOrder);
+                        refresh();
+                      },
+                      context,
                     );
                   }
                   refresh();
-                  // ignore: use_build_context_synchronously
                   Navigator.of(context).pop();
                 }
               }

@@ -25,15 +25,15 @@ Order createOrder(
 
 // Handle sending an order to the database while showing a snackbar
 Future<void> handleSendOrder(
-    BuildContext context, Order order, Function(Order) handleUndoOrder) async {
+    Order order, Function(Order) handleUndoOrder, context) async {
   bool success = await dbService.sendOrder(context, order);
   if (context.mounted) {
     showSnackBarWithUndo(
-      context,
       success,
       l('order_success', context),
       l('order_fail', context),
       () => handleUndoOrder(order),
+      context,
     );
   }
 }
@@ -44,14 +44,14 @@ Future<bool> checkDatabaseConnection(BuildContext context) async {
     return true;
   } catch (e) {
     // ignore: use_build_context_synchronously
-    showConnectionErrorDialog(context, e.toString());
+    showConnectionErrorDialog(e.toString(), context);
     return false;
   }
 }
 
 // Show snackbar after deleting an order
-void deleteSelectedSnackbar(BuildContext context, bool success,
-    String successMessage, String errorMessage, VoidCallback onUndo) {
+void deleteSelectedSnackbar(bool success, String successMessage,
+    String errorMessage, VoidCallback onUndo, context) {
   final snackBar = SnackBar(
     content: Text(success ? successMessage : errorMessage),
     action: SnackBarAction(
@@ -62,7 +62,7 @@ void deleteSelectedSnackbar(BuildContext context, bool success,
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
 
-void showConnectionErrorDialog(BuildContext context, String message) {
+void showConnectionErrorDialog(String message, context) {
   if (ModalRoute.of(context)?.isCurrent ?? false) {
     showDialog(
       context: context,
@@ -95,20 +95,23 @@ void showSnackBar(BuildContext context, bool success, String successMessage,
 }
 
 // Show a snackbar with a message and an undo action
-void showSnackBarWithUndo(BuildContext context, bool success,
-    String successMessage, String failureMessage, VoidCallback undoCallback) {
+void showSnackBarWithUndo(bool success, String successMessage,
+    String failureMessage, Future<void> Function() undoCallback, context) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(success ? successMessage : failureMessage),
       action: success
           ? SnackBarAction(
               label: l('undo', context),
-              onPressed: undoCallback,
+              onPressed: () async {
+                await undoCallback();
+              },
             )
           : null,
     ),
   );
 }
+
 
 // Custom text field widget
 Widget customTextField({

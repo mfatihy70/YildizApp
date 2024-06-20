@@ -3,8 +3,8 @@ class Order {
   final String name;
   final String address;
   final String phone;
-  final int milk;
-  final int egg;
+  final int? milk;
+  final int? egg;
   final String other;
 
   Order({

@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-
 class SettingsNotifier extends ChangeNotifier {
   bool darkTheme;
   String selectedLanguage;
@@ -11,6 +10,7 @@ class SettingsNotifier extends ChangeNotifier {
   String username = dotenv.env['DB_USERNAME'] ?? 'postgres';
   String password = dotenv.env['DB_PASSWORD'] ?? 'admin';
   int port = int.parse(dotenv.env['DB_PORT'] ?? '5432');
+  bool sslMode = dotenv.env['DB_SSL_MODE'] == 'true' ? true : false;
 
   SettingsNotifier({
     required this.darkTheme,
@@ -54,6 +54,11 @@ class SettingsNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setPort(int port) {
+    this.port = port;
+    notifyListeners();
+  }
+
   void setDbName(String dbName) {
     this.dbName = dbName;
     notifyListeners();
@@ -66,6 +71,11 @@ class SettingsNotifier extends ChangeNotifier {
 
   void setPassword(String password) {
     this.password = password;
+    notifyListeners();
+  }
+
+  void setSslMode(bool sslMode) {
+    this.sslMode = sslMode;
     notifyListeners();
   }
 }

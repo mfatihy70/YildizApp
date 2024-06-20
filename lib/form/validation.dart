@@ -95,7 +95,11 @@ void validateMilkEggOther(
       eggController.text.isEmpty &&
       otherController.text.isEmpty;
 
-  if (allFieldsEmpty) {
+  bool areMilkEggZero = milkController.text == '0' &&
+      eggController.text == '0' &&
+      otherController.text.isEmpty;
+
+  if (allFieldsEmpty || areMilkEggZero) {
     setMilkError(l('give_order', context));
     setEggError(l('give_order', context));
     setOtherError(l('give_order', context));

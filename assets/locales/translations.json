@@ -523,5 +523,15 @@
         "Failed to edit item",
         "Bearbeitung fehjgeschlagen",
         "Öğe düzenlenemedi"
+    ],
+    "port": [
+        "Port",
+        "Port",
+        "Port"
+    ],
+    "sslmode": [
+        "SSL Mode",
+        "SSL Modus",
+        "SSL Modu"
     ]
 }

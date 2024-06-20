@@ -54,11 +54,11 @@ class OrderListState extends State<OrderList> {
 
     if (mounted) {
       deleteSelectedSnackbar(
-        context,
         true,
         l('selected_orders_deleted', context),
         l('failed_to_delete_orders', context),
         undoDelete,
+        context,
       );
     }
   }

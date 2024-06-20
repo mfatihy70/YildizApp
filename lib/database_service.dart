@@ -16,6 +16,7 @@ class DatabaseService {
     final username = n(context).username;
     final password = n(context).password;
     final port = n(context).port;
+    final sslMode = n(context).sslMode;
 
     try {
       conn = await Connection.open(
@@ -26,7 +27,8 @@ class DatabaseService {
           password: password,
           port: port,
         ),
-        settings: ConnectionSettings(sslMode: SslMode.require),
+        settings: ConnectionSettings(
+            sslMode: sslMode ? SslMode.require : SslMode.disable),
       );
       _isConnected = true;
       print('Connected to database!');

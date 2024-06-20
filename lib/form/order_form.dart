@@ -138,9 +138,9 @@ class OrderFormState extends State<OrderForm> {
         );
 
         // ignore: use_build_context_synchronously
-        handleSendOrder(context, order, (order) async {
+        handleSendOrder(order, (order) async {
           await dbService.deleteOrder(context, order.id);
-        });
+        }, context);
       }
     }
   }

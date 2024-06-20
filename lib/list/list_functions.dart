@@ -105,9 +105,14 @@ Widget buildOrderDataTable(
             DataCell(Text(order.name)),
             DataCell(Text(order.address)),
             DataCell(Text(formatPhoneNumber(order.phone))),
-            DataCell(
-                Center(child: Text(order.milk == 0 ? '' : '${order.milk}'))),
-            DataCell(Center(child: Text(order.egg == 0 ? '' : '${order.egg}'))),
+            DataCell(Center(
+                child: Text((order.milk == 0 || order.milk == null)
+                    ? ''
+                    : '${order.milk}'))),
+            DataCell(Center(
+                child: Text((order.egg == 0 || order.egg == null)
+                    ? ''
+                    : '${order.egg}'))),
             DataCell(Center(child: Text(order.other))),
           ],
         );
