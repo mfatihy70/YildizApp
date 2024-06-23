@@ -41,7 +41,7 @@ Contributions are welcome! Just create a PR or write to me.
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
 
 
-![home](https://github.com/mfatihy70/YildizApp/assets/60326832/0581f5bc-915b-479a-bb44-14a8e2f24b2e)
-![orderform](https://github.com/mfatihy70/YildizApp/assets/60326832/3bf73fdc-07d8-43ba-b3a4-80809fd0f0e7)
-![orderlist](https://github.com/mfatihy70/YildizApp/assets/60326832/795f52d6-9155-4435-bd3c-1bd3e8ba7654)
-![settings](https://github.com/mfatihy70/YildizApp/assets/60326832/a98a9c60-1219-43ca-837c-a6ab92522cbb)
+<img src="https://github.com/mfatihy70/YildizApp/assets/60326832/235948cb-480c-4339-bef5-832edbe5f629" alt="Screenshot 1" width="400"/>
+<img src="https://github.com/mfatihy70/YildizApp/assets/60326832/85417c39-d24c-4641-9a68-8ed1a3c4d21c" alt="Screenshot 2" width="400"/>
+<img src="https://github.com/mfatihy70/YildizApp/assets/60326832/40dbd580-6a26-40c4-acdf-c2e899b4b6fb" alt="Screenshot 3" width="400"/>
+<img src="https://github.com/mfatihy70/YildizApp/assets/60326832/83e55e53-ec99-48f6-82f5-a838cee1ffdd" alt="Screenshot 4" width="400"/>
