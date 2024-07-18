@@ -108,11 +108,11 @@ ThemeData customLight = ThemeData.light().copyWith(
       foregroundColor: b,
     ),
     navigationBarTheme: NavigationBarThemeData(
-      indicatorColor: blue,
+      indicatorColor: blue2,
       backgroundColor: w,
     ),
     navigationRailTheme: NavigationRailThemeData(
-      indicatorColor: blue,
+      indicatorColor: blue2,
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
       labelType: NavigationRailLabelType.selected,
       selectedIconTheme: IconThemeData(color: b),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yildiz_app/settings/notifiers.dart';
-import 'package:yildiz_app/theme/color_scheme.dart';
-import 'package:yildiz_app/navigation/navbar.dart';
-import 'package:yildiz_app/localization.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '/controllers/settings/notifiers.dart';
+import '/theme/color_scheme.dart';
+import '/views/navigation/navbar.dart';
+import '/localization/localization.dart';
 
 import 'dart:io' show Platform;
 
@@ -21,7 +21,7 @@ void main() async {
       windowButtonVisibility: true,
       skipTaskbar: false,
       title: 'Yildiz App',
-      minimumSize: Size(300, 600),
+      minimumSize: Size(350, 650),
     );
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();
