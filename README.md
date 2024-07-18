@@ -1,3 +1,5 @@
+<img src="https://github.com/user-attachments/assets/9bdf58b9-ec07-4191-8353-db5fea74d4f5" width="250">  
+
 # Yildiz App
 
 Yildiz App is a Flutter application designed for managing orders.
@@ -10,7 +12,7 @@ By default, the application is configured to connect to Aiven Cloud PostgreSQL d
 
 The Yildiz App comes with a variety of features:
 
-- **Product Home**: Features a modern-looking hero view component.
+- **Home Page**: Features a modern-looking home page with hero view components.
 - **Order Form**: Allows users to send an order to the database after validation.
 - **Order List**: Fetches the orders from the database, handles possible errors, and displays them in a table.
 - **Settings**: Provides standard settings options such as app theme, language, notifications, privacy, and account management.
