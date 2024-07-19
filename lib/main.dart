@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '/controllers/settings/notifiers.dart';
-import '/theme/color_scheme.dart';
+import 'controllers/settings/notifications_helper.dart';
+import 'theme/themes.dart';
 import '/views/navigation/navbar.dart';
 import '/localization/localization.dart';
 
@@ -27,6 +28,8 @@ void main() async {
       await windowManager.show();
       await windowManager.focus();
     });
+
+    await NotificationHelper.initialize();
   }
 
   runApp(

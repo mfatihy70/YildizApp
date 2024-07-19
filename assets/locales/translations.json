@@ -290,8 +290,8 @@
         "Yoğurt"
     ],
     "yogurt_description": [
-        "Homemade creamy and delicious yogurt from fresh milk.",
-        "Hausgemachter, cremiger und köstlicher Joghurt aus frischer Milch.",
+        "Homemade and delicious yogurt from fresh milk.",
+        "Hausgemachter und köstlicher Joghurt aus frischer Milch.",
         "Taze sütten ev yapımı kremamsı ve lezzetli yoğurt."
     ],
     "cheese_title": [
@@ -533,5 +533,35 @@
         "SSL Mode",
         "SSL Modus",
         "SSL Modu"
+    ],
+    "notifications_enabled": [
+        "Notifications are enabled",
+        "Benachrichtigungen sind aktiviert",
+        "Bildirimler açık"
+    ],
+    "notifications_disabled": [
+        "Notifications are disabled",
+        "Benachrichtigungen sind deaktiviert",
+        "Bildirimler kapalı"
+    ],
+    "sound_notifications_enabled": [
+        "Sound notifications are enabled",
+        "Benachrichtigungstöne sind aktiviert",
+        "Bildirim sesi açık"
+    ],
+    "sound_notifications_disabled": [
+        "Sound notifications are disabled",
+        "Benachrichtigungstöne sind deaktiviert",
+        "Bildirim sesi kapalı"
+    ],
+    "notification_settings": [
+        "Notification Settings",
+        "Benachrichtigungseinstellungen",
+        "Bildirim Ayarları"
+    ],
+    "search_hint": [
+        "Search products",
+        "Produkte suchen",
+        "Ürünleri ara"
     ]
 }

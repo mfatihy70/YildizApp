@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '/localization/localization.dart';
+import '../../../controllers/settings/notifications_helper.dart';
 
 class NotificationSettings extends StatefulWidget {
   @override
@@ -12,6 +13,38 @@ class NotificationSettingsState extends State<NotificationSettings> {
   bool playSound = false;
   double soundValue = 50;
 
+  @override
+  void initState() {
+    super.initState();
+    _initializeNotifications();
+    _checkNotificationPermission();
+  }
+
+  Future<void> _initializeNotifications() async {
+    await NotificationHelper.initialize();
+  }
+
+  Future<void> _checkNotificationPermission() async {
+    final status = await NotificationHelper.areNotificationsEnabled();
+    setState(() {
+      allowNotifications = status;
+    });
+  }
+
+  Future<void> _requestNotificationPermission() async {
+    final status = await NotificationHelper.requestNotificationPermission();
+    setState(() {
+      allowNotifications = status;
+    });
+
+    if (status) {
+      _sendNotification(l('notification_settings', context), l('notifications_enabled', context));
+    }
+  }
+
+  void _sendNotification(String title, String body) {
+    NotificationHelper.showNotification(title, body);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +54,15 @@ class NotificationSettingsState extends State<NotificationSettings> {
           title: Text(l('allow_notifications', context)),
           trailing: Switch(
             value: allowNotifications,
-            onChanged: (value) {
-              setState(() {
-                allowNotifications = value;
-              });
+            onChanged: (value) async {
+              if (value) {
+                await _requestNotificationPermission();
+              } else {
+                setState(() {
+                  allowNotifications = false;
+                });
+                _sendNotification(l('notification_settings', context), l('notifications_disabled', context));
+              }
             },
           ),
         ),
@@ -32,11 +70,18 @@ class NotificationSettingsState extends State<NotificationSettings> {
           title: Text(l('play_sound_notifications', context)),
           trailing: Switch(
             value: playSound,
-            onChanged: (value) {
-              setState(() {
-                playSound = value;
-              });
-            },
+            onChanged: allowNotifications
+                ? (value) {
+                    setState(() {
+                      playSound = value;
+                    });
+                    if (value) {
+                      _sendNotification(l('notification_settings', context), l('sound_notifications_enabled', context));
+                    } else {
+                      _sendNotification(l('notification_settings', context), l('sound_notifications_disabled', context));
+                    }
+                  }
+                : null,
           ),
         ),
         Padding(
