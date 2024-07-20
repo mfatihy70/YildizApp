@@ -1,19 +1,38 @@
-TODOs! sorted by priority: (Dont forget to change version in about)
-# Architectural changes: riverpod, mvvm, tests, container, deployment
-# Halt implementing new features until architectural change takes place
-# Multiple git branches
+# Architectural changes: 
+    riverpod, mvvm, tests, container, deployment
+# Halt implementing new features
+# Barrel file for imports
+# part / part of
++ riverpod
++ serverpod / supabase
++ routing
+Dont forget to change version in about
 
-- user account 
+TODOs! sorted by priority:
+- user account
 - save settings locally
 - homepage search field
-- center datatable headers 
+- center datatable headers
 - combobox for other products
 - send notifications
 - verify commits
 - more menus
 - more content to homepage
-- disable swipe on order list
+- sql id not resetting
+- directly send message
 - fix bug caused by external textfields
+- persistent state
+
+v0.2.5
+- features.txt is now CHANGELOG.md
+- file architecture change into mvc
+- extracted and optimized showsnackbar
+- file order_class renamed to order
+- code cleanup
+- create dbs instance directly on database_service
+- disabled swipe on order_list page
+- nav bar color change for light theme
+- changed homepage title to yildiz 
 
 v0.2.4
 - small changes and code clean up
@@ -112,3 +131,6 @@ v0.1.1:
 v0.0.2:
 - set custom color scheme
 - show snackbar when none of the fields milk, egg and other are filled
+
+v0.0.1:
+- writing and reading orders from db works

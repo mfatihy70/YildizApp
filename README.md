@@ -1,4 +1,4 @@
-<img src="https://github.com/user-attachments/assets/9bdf58b9-ec07-4191-8353-db5fea74d4f5" width="250">  
+<img src="https://github.com/user-attachments/assets/5b0bd0c5-f63e-44eb-af77-4fb9766a491a" width="250">  
 
 # Yildiz App
 
@@ -6,7 +6,21 @@ Yildiz App is a Flutter application designed for managing orders.
 
 ## Database Configuration
 
-By default, the application is configured to connect to Aiven Cloud PostgreSQL database.
+For the application to connect to the Aiven Cloud PostgreSQL database, ensure you have a `variables.env` file under the `assets` folder with the following entries:
+Please write the values with your actual database configuration details.
+
+- `DB_HOST=`
+- `DB_NAME=`
+- `DB_USERNAME=`
+- `DB_PASSWORD=`
+- `DB_PORT=`
+- `DB_SSL_MODE=true`
+
+
+If you wish to use another PostgreSQL server, just input the requiered information in the app settings under database connection.
+
+The databse table will be created when the first order is sent.
+
 
 ## Features
 
@@ -43,7 +57,7 @@ Contributions are welcome! Just create a PR or write to me.
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
 
 
-<img src="https://github.com/mfatihy70/YildizApp/assets/60326832/235948cb-480c-4339-bef5-832edbe5f629" alt="Screenshot 1" width="400"/>
-<img src="https://github.com/mfatihy70/YildizApp/assets/60326832/85417c39-d24c-4641-9a68-8ed1a3c4d21c" alt="Screenshot 2" width="400"/>
-<img src="https://github.com/mfatihy70/YildizApp/assets/60326832/40dbd580-6a26-40c4-acdf-c2e899b4b6fb" alt="Screenshot 3" width="400"/>
-<img src="https://github.com/mfatihy70/YildizApp/assets/60326832/83e55e53-ec99-48f6-82f5-a838cee1ffdd" alt="Screenshot 4" width="400"/>
+<img src="https://github.com/user-attachments/assets/32dde3d1-9bd1-47e2-b901-aba7603a0292" width="400" alt="v026 Home">
+<img src="https://github.com/user-attachments/assets/a15c435d-837f-4d05-826f-08ddc9a104c1" width="400" alt="v026 Form">
+<img src="https://github.com/user-attachments/assets/c1a5ff08-5453-4bbd-833d-ae1b32a35a2f" width="400" alt="v026 List">
+<img src="https://github.com/user-attachments/assets/fc175cac-3efb-4e25-b496-f865d2a21b5b" width="400" alt="v026 Settings">
