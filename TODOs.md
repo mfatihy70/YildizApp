@@ -4,10 +4,11 @@
 1. Persistent settings.
 2. Implement user account functionality.
 3. Tables for products, users.
-4. Center datatable headers.
-5. Introduce a combobox for selecting other products.
-6. Add more menus.
-7. Enrich the homepage with more content.
+4. Add more menus.
+
+## Bugs
+1. Windows build shows .dlls not found errors
+2. Snackbar issue on edit_order
 
 ## Architectural Changes
 - Implement `riverpod` for state management.

@@ -60,7 +60,6 @@ class DatabaseService {
   Future<bool> createTable(BuildContext context) async {
     await ensureConnected(context);
     try {
-      //await conn.execute('CREATE SEQUENCE IF NOT EXISTS orders_id_seq;');
       await conn.execute('''
         CREATE TABLE IF NOT EXISTS public.orders(
             id SERIAL PRIMARY KEY,
@@ -115,8 +114,6 @@ class DatabaseService {
             "DELETE FROM orders WHERE id = (SELECT MAX(id) FROM orders)");
         print("Deleted the last order");
       }
-      // await conn.execute(
-      //     "SELECT setval('orders_id_seq', COALESCE((SELECT MAX(id) FROM orders)+1, 1), false)");
       print("Order deleted successfully");
       return true;
     } catch (e) {
@@ -126,7 +123,7 @@ class DatabaseService {
   }
 
   Future<bool> updateOrder(
-      BuildContext context, Order oldOrder, Order newOrder) async {
+      BuildContext context, Order oldOrder, Order? newOrder) async {
     await ensureConnected(context);
     try {
       await conn.execute(Sql.named('''
@@ -135,12 +132,12 @@ class DatabaseService {
         WHERE id = @id
       '''), parameters: {
         'id': oldOrder.id,
-        'name': newOrder.name,
-        'address': newOrder.address,
-        'phone': newOrder.phone,
-        'milk': newOrder.milk,
-        'egg': newOrder.egg,
-        'other': newOrder.other,
+        'name': newOrder?.name,
+        'address': newOrder?.address,
+        'phone': newOrder?.phone,
+        'milk': newOrder?.milk,
+        'egg': newOrder?.egg,
+        'other': newOrder?.other,
       });
       print('Order updated successfully');
       return true;

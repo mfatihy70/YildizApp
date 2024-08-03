@@ -221,18 +221,18 @@ packages:
     dependency: "direct main"
     description:
       name: drift
-      sha256: "771b88c19c0b73fd5cc1368ab68f709bb0e8ad56d76c2568457d5d2a2096e701"
+      sha256: "4e0ffee40d23f0b809e6cff1ad202886f51d629649073ed42d9cd1d194ea943e"
       url: "https://pub.dev"
     source: hosted
-    version: "2.19.1"
+    version: "2.19.1+1"
   drift_dev:
     dependency: "direct dev"
     description:
       name: drift_dev
-      sha256: "349b5d51d19117806a29a57af947d4da1d7f024f79dc0f4a0996852577f92e3b"
+      sha256: ac7647c6cedca99724ca300cff9181f6dd799428f8ed71f94159ed0528eaec26
       url: "https://pub.dev"
     source: hosted
-    version: "2.19.0"
+    version: "2.19.1"
   drift_postgres:
     dependency: "direct main"
     description:
@@ -361,10 +361,10 @@ packages:
     dependency: transitive
     description:
       name: graphs
-      sha256: aedc5a15e78fc65a6e23bcd927f24c64dd995062bcd1ca6eda65a3cff92a4d19
+      sha256: "741bbf84165310a68ff28fe9e727332eef1407342fca52759cb21ad8177bb8d0"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   http_multi_server:
     dependency: transitive
     description:
@@ -533,14 +533,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
-  pedantic:
-    dependency: transitive
-    description:
-      name: pedantic
-      sha256: "67fc27ed9639506c856c840ccce7594d0bdcd91bc8d53d6e52359449a1d50602"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.11.1"
   petitparser:
     dependency: transitive
     description:
@@ -633,10 +625,10 @@ packages:
     dependency: transitive
     description:
       name: saslprep
-      sha256: "79c9e163a82f55da542feaf0f7a59031e74493299c92008b2b404cd88d639bb4"
+      sha256: "3d421d10be9513bf4459c17c5e70e7b8bc718c9fc5ad4ba5eb4f5fd27396f740"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   screen_retriever:
     dependency: transitive
     description:
@@ -758,10 +750,10 @@ packages:
     dependency: transitive
     description:
       name: sqlparser
-      sha256: "6a94d6f36eb2f25c2768c049cac38a0b683a9a33521d87992acfd82742ce109a"
+      sha256: "3be52b4968fc2f098ba735863404756d2fe3ea0729cf006a5b5612618f74ca04"
       url: "https://pub.dev"
     source: hosted
-    version: "0.37.0"
+    version: "0.37.1"
   stack_trace:
     dependency: transitive
     description:
@@ -846,10 +838,10 @@ packages:
     dependency: transitive
     description:
       name: unorm_dart
-      sha256: "5b35bff83fce4d76467641438f9e867dc9bcfdb8c1694854f230579d68cd8f4b"
+      sha256: "23d8bf65605401a6a32cff99435fed66ef3dab3ddcad3454059165df46496a3b"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0"
+    version: "0.3.0"
   uuid:
     dependency: transitive
     description:
@@ -894,18 +886,18 @@ packages:
     dependency: transitive
     description:
       name: web_socket
-      sha256: "24301d8c293ce6fe327ffe6f59d8fd8834735f0ec36e4fd383ec7ff8a64aa078"
+      sha256: "3c12d96c0c9a4eec095246debcea7b86c0324f22df69893d538fcc6f1b8cce83"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.5"
+    version: "0.1.6"
   web_socket_channel:
     dependency: transitive
     description:
       name: web_socket_channel
-      sha256: a2d56211ee4d35d9b344d9d4ce60f362e4f5d1aafb988302906bd732bc731276
+      sha256: "9f187088ed104edd8662ca07af4b124465893caf063ba29758f97af57e61da8f"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.1"
   window_manager:
     dependency: "direct main"
     description:

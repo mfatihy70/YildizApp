@@ -4,17 +4,13 @@ import 'package:window_manager/window_manager.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '/controllers/settings/notifiers.dart';
 import 'controllers/settings/notifications_helper.dart';
-import 'theme/themes.dart';
 import '/views/navigation/navbar.dart';
 import '/localization/localization.dart';
-
 import 'dart:io' show Platform;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await dotenv.load(fileName: "assets/variables.env");
-
   // Set window size and title, ensuring widget initialization for Windows
   if (Platform.isWindows) {
     WindowOptions windowOptions = const WindowOptions(
@@ -24,6 +20,7 @@ void main() async {
       title: 'Yildiz App',
       minimumSize: Size(350, 650),
     );
+
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();
       await windowManager.focus();
@@ -49,7 +46,13 @@ class MyApp extends StatelessWidget {
       builder: (context, settingsNotifier, _) {
         Locale? locale = getLocale(settingsNotifier.selectedLanguage);
         return MaterialApp(
-          theme: settingsNotifier.darkTheme ? customDark : customLight,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.blue,
+              brightness: settingsNotifier.darkTheme ? Brightness.dark : Brightness.light,
+            ),
+            useMaterial3: true,
+          ),
           home: NavigationBarApp(),
           title: 'Yildiz App',
           locale: locale,

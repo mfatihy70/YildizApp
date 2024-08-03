@@ -509,10 +509,10 @@
         "Verbindung geschlossen",
         "Bağlantı kapandı"
     ],
-    "edit_item": [
-        "Edit Item",
-        "Element bearbeiten",
-        "Öğeyi Düzenle"
+    "edit_order": [
+        "Edit Order",
+        "Bestellung bearbeiten",
+        "Siparişi Düzenle"
     ],
     "edit_success": [
         "Edit successful",
@@ -520,9 +520,9 @@
         "Düzenleme başarılı"
     ],
     "edit_fail": [
-        "Failed to edit item",
+        "Failed to edit the order",
         "Bearbeitung fehjgeschlagen",
-        "Öğe düzenlenemedi"
+        "Sipariş düzenlenemedi"
     ],
     "port": [
         "Port",
@@ -563,5 +563,10 @@
         "Search products",
         "Produkte suchen",
         "Ürünleri ara"
+    ],
+    "copied_to_clipboard": [
+        "Copied to clipboard",
+        "In die Zwischenablage kopiert",
+        "Panoya kopyalandı"
     ]
 }

@@ -29,6 +29,22 @@ Future<void> showSnackbar(
   }
 }
 
-
-
-
+Future<void> showSnackBarWithUndo(
+  bool success,
+  String successMessage,
+  String failureMessage,
+  Future<void> Function() undoAction,
+  BuildContext context,
+) async {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(success ? successMessage : failureMessage),
+      action: success
+          ? SnackBarAction(
+              label: l('undo', context),
+              onPressed: undoAction,
+            )
+          : null,
+    ),
+  );
+}
