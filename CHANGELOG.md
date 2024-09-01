@@ -1,4 +1,30 @@
 # Changelog
+
+## [v0.2.7] - 2024-08-03
+### Changed
+- Commented `snackbar.dart` and `order_form.dart`.
+- Clicking or long pressing on about links copies to clipboard.
+- Centered the `DataTable` headers in `order_list` page
+- Renamed `db_server.dart` to `database_connection.dart`.
+- Renamed `edit_item.dart` to `edit_oder.dart` alongside the functions and locale entries.
+- `home_page.dart` has prices on the right and detail pages show up on top.
+-  `edit_item.dart` shows empty string when orders are zero.
+- Update order function changed to accept `order? ` solve error on `edit_order.dart`.
+
+### Added
+- New format rule for phone numbers with 12 digits.
+- Clear button for search field to unfocus even when the field is empty.
+
+### Removed
+- Unnecessary icons and images.
+- `theme.dart` whose content is simplified and moved to main.
+
+### Fixed
+- Pixel overflow on hero views.
+- Keyboard overflow on `edit_item.dart` dialog
+---
+<br>
+
 ## [v0.2.6] - 2024-07-19
 ### Changed
 - Formatted `CHANGELOG.md` by adding `[]` to tags and spaces between versions.

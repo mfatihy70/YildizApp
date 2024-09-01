@@ -3,7 +3,7 @@ import '/models/order.dart';
 import '/localization/localization.dart';
 import '/models/database.dart';
 import '/controllers/list/format_phone.dart';
-import 'edit_item.dart';
+import 'edit_order.dart';
 
 // Check the connection state and return the buildDataTable
 Widget checkConnection(
@@ -99,7 +99,7 @@ Widget buildDataTable(
           onSelectChanged: (val) {
             onSelectedIndexChange(index - 1);
           },
-          onLongPress: () => editItem(order, dbs, refresh, context),
+          onLongPress: () => editOrder(order, dbs, refresh, context),
           cells: [
             DataCell(Text(index.toString())),
             DataCell(Text(order.name)),

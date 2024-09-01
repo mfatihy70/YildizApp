@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yildiz_app/localization/localization.dart';
-import 'package:yildiz_app/widgets/text_field.dart';
+import 'package:yildiz_app/widgets/custom_textfield.dart';
 import '../controllers/form/validation.dart';
 
 Widget textFields(

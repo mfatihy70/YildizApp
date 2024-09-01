@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/views/settings/general/language.dart';
-import '/views/settings/general/db_server.dart';
+import '../general/database_connection.dart';
 import '/views/settings/general/theme.dart';
-import '/controllers/settings/notifiers.dart';
+import '../../../controllers/settings/settings_notifier.dart';
 import '/localization/localization.dart' show l;
 
 class GeneralSettings extends StatefulWidget {
@@ -13,12 +13,12 @@ class GeneralSettings extends StatefulWidget {
 }
 
 class GeneralSettingsState extends State<GeneralSettings> {
-
   @override
   Widget build(BuildContext context) {
     final settingsNotifier = Provider.of<SettingsNotifier>(context);
 
-    var databaseServerTile = DatabaseServerTile(settingsNotifier: settingsNotifier);
+    var databaseServerTile =
+        DatabaseConnectionTile(settingsNotifier: settingsNotifier);
 
     return ListView(
       children: <Widget>[

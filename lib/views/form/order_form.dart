@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:yildiz_app/localization/localization.dart' show l, t;
-import 'package:yildiz_app/models/order.dart';
-import 'package:yildiz_app/models/database.dart';
-import 'package:yildiz_app/widgets/text_field.dart';
-import 'package:yildiz_app/utils/snackbar.dart';
-import 'package:yildiz_app/controllers/form/validation.dart';
+import '/localization/localization.dart' show l, t;
+import '/models/order.dart';
+import '/models/database.dart';
+import '/widgets/custom_textfield.dart';
+import '/utils/snackbar.dart';
+import '/controllers/form/validation.dart';
 
 class OrderForm extends StatefulWidget {
   @override
   OrderFormState createState() => OrderFormState();
 }
 
+// This class creates a form to submit an order.
 class OrderFormState extends State<OrderForm> {
   final nameC = TextEditingController();
   final addressC = TextEditingController();
@@ -25,6 +26,7 @@ class OrderFormState extends State<OrderForm> {
   String? eggError;
   String? otherError;
 
+  // This function builds the form with text fields for user input.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,13 +107,18 @@ class OrderFormState extends State<OrderForm> {
     );
   }
 
+  // This function is responsible for submitting the form data to create a new order.
   Future<void> submitForm() async {
+    // First, check if the device is connected to the internet or the required network.
     bool isConnected = await dbs.ensureConnected(context);
 
+    // If not connected, simply return and do not proceed with form submission.
     if (!isConnected) {
       return;
     }
 
+    // Update the UI state to validate the inputs for milk, egg, and other categories.
+    // This involves setting error messages if the validation fails.
     setState(() {
       validateMilkEggOther(
         milkC,
@@ -124,8 +131,11 @@ class OrderFormState extends State<OrderForm> {
       );
     });
 
+    // Check if the form is in a valid state (all required fields are filled and valid).
     if (formKey.currentState?.validate() ?? false) {
+      // Further check if there are no error messages for milk, egg, and other inputs.
       if (milkError == null && eggError == null && otherError == null) {
+        // Create a new Order object with the form inputs.
         Order order = Order(
             name: nameC.text,
             address: addressC.text,
@@ -134,6 +144,8 @@ class OrderFormState extends State<OrderForm> {
             egg: int.tryParse(eggC.text) ?? 0,
             other: otherC.text);
 
+        // Show a snackbar with a success or failure message after attempting to send the order.
+        // This also includes an undo action to delete the order if needed.
         showSnackbar(
           context,
           action: () async {

@@ -33,12 +33,17 @@ String formatPhoneNumber(String phone) {
 
   // 10 digits
   if (phone.length == 10) {
-    return '${phone.substring(0, 3)} ${phone.substring(3, 6)} ${phone.substring(6)}'; // 555 123 1234
+    return '${phone.substring(0, 3)} ${phone.substring(3, 6)} ${phone.substring(6)}';
   }
 
   // 11 digits
   if (phone.length == 11) {
     return '${phone.substring(0, 3)} ${phone.substring(3, 6)} ${phone.substring(6, 9)} ${phone.substring(9)}'; // 555 123 123 23
+  }
+
+  // 12 digits
+  if (phone.length == 12) {
+    return '${phone.substring(0, 3)} ${phone.substring(3, 6)} ${phone.substring(6, 9)} ${phone.substring(9, 12)}'; // 555 123 123 23
   }
 
   // If none of the conditions match, return the original phone number
