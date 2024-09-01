@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:postgres/postgres.dart';
 import 'package:provider/provider.dart';
 import 'order.dart';
-import '/controllers/settings/notifiers.dart';
+import '../controllers/settings/settings_notifier.dart';
 
 var dbs = DatabaseService();
 

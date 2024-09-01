@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '/views/settings/general/language.dart';
 import '../general/database_connection.dart';
 import '/views/settings/general/theme.dart';
-import '/controllers/settings/notifiers.dart';
+import '../../../controllers/settings/settings_notifier.dart';
 import '/localization/localization.dart' show l;
 
 class GeneralSettings extends StatefulWidget {

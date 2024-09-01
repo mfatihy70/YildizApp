@@ -5,6 +5,7 @@ Widget customTextField({
   required TextEditingController controller,
   required String labelText,
   required TextInputType keyboardType,
+  bool obscure = false,
   String? Function(String?)? validator,
 }) {
   return Padding(
@@ -12,7 +13,7 @@ Widget customTextField({
     child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
-        obscureText: false,
+        obscureText: obscure,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           labelText: labelText,

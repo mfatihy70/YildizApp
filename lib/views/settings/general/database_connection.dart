@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '/localization/localization.dart';
-import '/controllers/settings/notifiers.dart';
+import '../../../controllers/settings/settings_notifier.dart';
 import '/widgets/custom_textfield.dart';
 
 class DatabaseConnectionTile extends StatefulWidget {
@@ -72,6 +72,7 @@ class DatabaseConnectionTileState extends State<DatabaseConnectionTile> {
                           controller: passwordC,
                           labelText: l('password', context),
                           keyboardType: TextInputType.text,
+                          obscure: true,
                         ),
                         SwitchListTile(
                           title: Text(l('sslmode', context)),
