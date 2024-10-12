@@ -1,60 +1,67 @@
 <img src="https://github.com/user-attachments/assets/5b0bd0c5-f63e-44eb-af77-4fb9766a491a" width="250">  
 
+
+---
+
 # Yildiz App
 
 Yildiz App is a Flutter application designed for managing orders.
 
-## Database Configuration
-
-For the application to connect to the Aiven Cloud PostgreSQL database, ensure you have a `variables.env` file under the `assets` folder with the following entries:
-Please write the values with your actual database configuration details.
-
-- `DB_HOST=`
-- `DB_NAME=`
-- `DB_USERNAME=`
-- `DB_PASSWORD=`
-- `DB_PORT=`
-- `DB_SSL_MODE=true`
-
-
-If you wish to use another PostgreSQL server, just input the requiered information in the app settings under database connection.
-
-The databse table will be created when the first order is sent.
-
-
-## Features
-
-The Yildiz App comes with a variety of features:
-
-- **Home Page**: Features a modern-looking home page with hero view components.
-- **Order Form**: Allows users to send an order to the database after validation.
-- **Order List**: Fetches the orders from the database, handles possible errors, and displays them in a table.
-- **Settings**: Provides standard settings options such as app theme, language, notifications, privacy, and account management.
-
 ## Getting Started
-1. Clone the repository:
+###  Clone the repository:
     ```
     git clone https://github.com/mfatihy70/YildizApp.git
     ```
-2. Navigate into the project directory:
+### Navigate into the project directory:
     ```
     cd YildizApp
     ```
-3. Install the dependencies:
+### Install the dependencies:
     ```
     flutter pub get
     ```
-4. Run the app:
+
+### Database Configuration
+
+Before running the app, ensure the application is connected to the Aiven Cloud PostgreSQL database. You will need to create a `variables.env` file in the `assets` folder with the following entries:
+```
+DB_HOST=
+DB_NAME=
+DB_USERNAME=
+DB_PASSWORD=
+DB_PORT=
+DB_SSL_MODE=true
+```
+
+Please replace the values with your actual database configuration details. If you'd like to use another PostgreSQL server, you can configure the connection settings within the app's database connection options.
+
+The necessary database tables will be created automatically when the first order is submitted.
+
+ ### Run the app:
     ```
     flutter run
+    ```
+
+## Features
+
+The Yildiz App includes a variety of useful features:
+
+- **Home Page**: A modern home page with hero view components.
+- **Order Form**: Validates and submits orders to the database.
+- **Order List**: Fetches orders from the database, handles potential errors, and displays them in a table format.
+- **Settings**: Includes settings for app theme, language, notifications, privacy, and account management.
 
 ## Contributing
 
-Contributions are welcome! Just create a PR or write to me.
+Contributions are welcome! Feel free to create a pull request (PR) or contact me directly.
 
 ## License
 
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
+---
+
+This structure ensures that users are aware of database configuration before attempting to run the app.
 
 
 <img src="https://github.com/user-attachments/assets/32dde3d1-9bd1-47e2-b901-aba7603a0292" width="400" alt="v026 Home">
